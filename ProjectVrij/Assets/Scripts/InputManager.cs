@@ -16,6 +16,9 @@ public class InputManager : MonoBehaviour
 	[SerializeField] private Vector3 drag;
     [SerializeField] private float dashDelay = 1f;
 
+	public float CurrentDashDelay { get { return currentDashDelay; } }
+	public float DashDelay { get { return dashDelay; } }
+
 	private int currentJumpAmount = 1;
     private float currentDashDelay;
 	private CharacterController charController;
