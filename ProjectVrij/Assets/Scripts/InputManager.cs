@@ -4,57 +4,66 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
-	public float Speed = 5f;
-	public float JumpHeight = 2f;
-	public float Gravity = -9.81f;
-	public float GroundDistance = 0.2f;
-	public float DashDistance = 5f;
-	public LayerMask Ground;
-	public Vector3 Drag;
+	[SerializeField] private float moveSpeed = 5f;
+	[SerializeField] private float jumpHeight = 2f;
+	[SerializeField] private float gravity = -9.81f;
+	[SerializeField] private float groundDistance = 0.2f;
+	[SerializeField] private float dashDistance = 5f;
+	[SerializeField] private LayerMask groundLayer;
+	[SerializeField] private Vector3 drag;
+	[SerializeField] private int maxJumpAmount = 1;
 
-	private CharacterController _controller;
-	private Vector3 _velocity;
-	private bool _isGrounded = true;
-	private Transform _groundChecker;
+	private int currentJumpAmount = 1;
+	private CharacterController charController;
+	private Vector3 velocity;
+	private bool isGrounded = true;
+	private Transform groundChecker;
 
 
 	void Start()
 	{
-		_controller = GetComponent<CharacterController>();
-		_groundChecker = transform.GetChild(0);
+		charController = GetComponent<CharacterController>();
+		groundChecker = transform.GetChild(0);
 	}
 
 	void Update()
 	{
-		_isGrounded = Physics.CheckSphere(_groundChecker.position, GroundDistance, Ground, QueryTriggerInteraction.Ignore);
-		if (_isGrounded && _velocity.y < 0)
-			_velocity.y = 0f;
+		isGrounded = Physics.CheckSphere(groundChecker.position, groundDistance, groundLayer, QueryTriggerInteraction.Ignore);
 
-		Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-		_controller.Move(move * Time.deltaTime * Speed);
-
-		if (move != Vector3.zero)
+		//Check Grounded
+		if (isGrounded && velocity.y < 0)
 		{
-			transform.forward = move;
+			currentJumpAmount = maxJumpAmount;
+			velocity.y = 0f;
 		}
 
-		if (Input.GetKeyDown(KeyCode.Space) && _isGrounded)
+		Vector3 _move = new Vector3(Input.GetAxis("Horizontal"), 0, 0);
+		charController.Move(_move * Time.deltaTime * moveSpeed);
+
+		if (_move != Vector3.zero)
 		{
-			_velocity.y += Mathf.Sqrt(JumpHeight * -2f * Gravity);
+			transform.forward = _move;
 		}
-			
+
+		//Jump With DoubleJump
+		if (Input.GetKeyDown(KeyCode.Space) && currentJumpAmount > 0)
+		{
+			velocity.y += Mathf.Sqrt(jumpHeight * -2f * gravity);
+			currentJumpAmount--;
+		}
+		
+		//Dash
 		if (Input.GetKeyDown(KeyCode.LeftShift))
 		{
-			Debug.Log(KeyCode.LeftShift);
-			_velocity += Vector3.Scale(transform.forward, DashDistance * new Vector3((Mathf.Log(1f / (Time.deltaTime * Drag.x + 1)) / -Time.deltaTime), 0, (Mathf.Log(1f / (Time.deltaTime * Drag.z + 1)) / -Time.deltaTime)));
+			velocity += Vector3.Scale(transform.forward, dashDistance * new Vector3((Mathf.Log(1f / (Time.deltaTime * drag.x + 1)) / -Time.deltaTime), 0, (Mathf.Log(1f / (Time.deltaTime * drag.z + 1)) / -Time.deltaTime)));
 		}
 
-		_velocity.y += Gravity * Time.deltaTime;
+		velocity.y += gravity * Time.deltaTime;
 
-		_velocity.x /= 1 + Drag.x * Time.deltaTime;
-		_velocity.y /= 1 + Drag.y * Time.deltaTime;
-		_velocity.z /= 1 + Drag.z * Time.deltaTime;
+		velocity.x /= 1 + drag.x * Time.deltaTime;
+		velocity.y /= 1 + drag.y * Time.deltaTime;
+		velocity.z /= 1 + drag.z * Time.deltaTime;
 
-		_controller.Move(_velocity * Time.deltaTime);
+		charController.Move(velocity * Time.deltaTime);
 	}
 }

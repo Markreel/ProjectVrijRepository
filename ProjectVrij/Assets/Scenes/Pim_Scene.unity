@@ -466,15 +466,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d8fce8ea2c3c3b4d94740b9f0288cc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 15
-  JumpHeight: 5
-  Gravity: -29.81
-  GroundDistance: 0.1
-  DashDistance: 5
-  Ground:
+  moveSpeed: 15
+  jumpHeight: 4
+  gravity: -29.81
+  groundDistance: 0.1
+  dashDistance: 5
+  groundLayer:
     serializedVersion: 2
     m_Bits: 512
-  Drag: {x: 2, y: 0, z: 2}
+  drag: {x: 3, y: 0, z: 3}
+  maxJumpAmount: 2
 --- !u!1 &1136116348
 GameObject:
   m_ObjectHideFlags: 0
