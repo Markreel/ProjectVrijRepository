@@ -8,21 +8,18 @@ public class UIManager : MonoBehaviour
 	[SerializeField] private InputManager inputManager;
 	[SerializeField] private Image dashImage;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
 		inputManager = FindObjectOfType<InputManager>();   
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
 		DashCooldownImage();
-
 	}
 
 	private void DashCooldownImage()
 	{
-		dashImage.fillAmount = 1 / inputManager.DashDelay * inputManager.CurrentDashDelay;
+		dashImage.fillAmount = 1 - (1 / inputManager.DashDelay * inputManager.CurrentDashDelay);
 	}
 }
