@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
+using System;
 
 public class InputManager : MonoBehaviour
 {
+	public static Action<int> DashAttackEvent;
+
     [Header("Settings: ")]
 	[SerializeField] private float moveSpeed = 5f;
 	[SerializeField] private float jumpHeight = 2f;
@@ -9,10 +12,12 @@ public class InputManager : MonoBehaviour
 	[SerializeField] private float gravity = -9.81f;
 	[SerializeField] private float groundDistance = 0.2f;
 	[SerializeField] private LayerMask groundLayer;
-    [Space]
+	[Space]
+	[SerializeField] private int dashDamage = 10;
 	[SerializeField] private float dashDistance = 5f;
 	[SerializeField] private Vector3 drag;
     [SerializeField] private float dashDelay = 1f;
+	[SerializeField] private LayerMask attackMask;
 
 	public float CurrentDashDelay { get { return currentDashDelay; } }
 	public float DashDelay { get { return dashDelay; } }
@@ -24,6 +29,9 @@ public class InputManager : MonoBehaviour
 	private bool isGrounded = true;
 	private Transform groundChecker;
 
+	private Vector3 dashDistanceses;
+
+	private RaycastHit hit;
 
 	private void Start()
 	{
@@ -37,7 +45,7 @@ public class InputManager : MonoBehaviour
         HandleMovement();
 	}
 
-    private void HandleMovement()
+	private void HandleMovement()
     {
         isGrounded = Physics.CheckSphere(groundChecker.position, groundDistance, groundLayer, QueryTriggerInteraction.Ignore);
 
@@ -80,11 +88,29 @@ public class InputManager : MonoBehaviour
     /// </summary>
     private void Dash()
     {
-        velocity += Vector3.Scale(transform.forward, dashDistance * new Vector3((Mathf.Log(1f / (Time.deltaTime * drag.x + 1)) / -Time.deltaTime), 0, 0));
-        currentDashDelay = dashDelay;
-    }
+		Ray _ray;
+		RaycastHit[] _hits = Physics.RaycastAll(transform.position, transform.forward, dashDistance, attackMask);
 
-    private void CoolDownDash()
+		if(_hits != null)
+		{
+			foreach (var _hit in _hits)
+			{
+
+				print(_hit.collider.name);
+			}
+		}
+
+		velocity += Vector3.Scale(transform.forward, dashDistance * new Vector3((Mathf.Log(1f / (Time.deltaTime * drag.x + 1)) / -Time.deltaTime), 0, 0));
+        currentDashDelay = dashDelay;
+
+		if(DashAttackEvent != null)
+		{
+			DashAttackEvent(dashDamage);
+		}
+
+	}
+
+	private void CoolDownDash()
     {
         if (currentDashDelay > 0)
             currentDashDelay -= Time.deltaTime;
