@@ -16,16 +16,19 @@ public class InputManager : MonoBehaviour
 	[SerializeField] private Vector3 drag;
     [SerializeField] private float dashDelay = 1f;
 
+    [Header("References: ")]
+    [SerializeField] private MovementTrack currentMovementTrack;
+
 	public float CurrentDashDelay { get { return currentDashDelay; } }
 	public float DashDelay { get { return dashDelay; } }
 
 	private int currentJumpAmount = 1;
     private float currentDashDelay;
-	private CharacterController charController;
 	private Vector3 velocity;
 	private bool isGrounded = true;
 	private Transform groundChecker;
 
+	private CharacterController charController;
 
 	private void Start()
 	{
@@ -50,7 +53,7 @@ public class InputManager : MonoBehaviour
         charController.Move(_move * Time.deltaTime * moveSpeed);
 
         if (_move != Vector3.zero)
-            transform.forward = _move;
+            transform.forward = _move;// + currentMovementTrack.CurrentPoint.forward;
 
         //Jump With DoubleJump
         if (Input.GetKeyDown(KeyCode.Space) && currentJumpAmount > 0)
