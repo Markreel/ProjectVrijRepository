@@ -5,42 +5,47 @@ using UnityEngine;
 public class InputManager : MonoBehaviour
 {
     [Header("Settings: ")]
-	[SerializeField] private float moveSpeed = 5f;
-	[SerializeField] private float jumpHeight = 2f;
-	[SerializeField] private int maxJumpAmount = 1;
-	[SerializeField] private float gravity = -9.81f;
-	[SerializeField] private float groundDistance = 0.2f;
-	[SerializeField] private LayerMask groundLayer;
+    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float jumpHeight = 2f;
+    [SerializeField] private int maxJumpAmount = 1;
+    [SerializeField] private float gravity = -9.81f;
+    [SerializeField] private float groundDistance = 0.2f;
+    [SerializeField] private LayerMask groundLayer;
     [Space]
-	[SerializeField] private float dashDistance = 5f;
-	[SerializeField] private Vector3 drag;
+    [SerializeField] private float dashDistance = 5f;
+    [SerializeField] private Vector3 drag;
     [SerializeField] private float dashDelay = 1f;
 
     [Header("References: ")]
+    [SerializeField] private GameObject movementCam;
     [SerializeField] private MovementTrack currentMovementTrack;
 
-	public float CurrentDashDelay { get { return currentDashDelay; } }
-	public float DashDelay { get { return dashDelay; } }
+    public float CurrentDashDelay { get { return currentDashDelay; } }
+    public float DashDelay { get { return dashDelay; } }
 
-	private int currentJumpAmount = 1;
+    private int currentJumpAmount = 1;
     private float currentDashDelay;
-	private Vector3 velocity;
-	private bool isGrounded = true;
-	private Transform groundChecker;
+    private Vector3 velocity;
+    private bool isGrounded = true;
+    private Transform groundChecker;
 
-	private CharacterController charController;
+    private bool isTurned = false;
 
-	private void Start()
-	{
-		charController = GetComponent<CharacterController>();
-		groundChecker = transform.GetChild(0);
+    private CharacterController charController;
+
+    private void Start()
+    {
+        charController = GetComponent<CharacterController>();
+        groundChecker = transform.GetChild(0);
         currentDashDelay = 0;
     }
 
     private void Update()
-	{
+    {
         HandleMovement();
-	}
+        float _turnRot = isTurned ? -90 : 90;
+        transform.eulerAngles = new Vector3(0, movementCam.transform.eulerAngles.y + _turnRot, 0);
+    }
 
     private void HandleMovement()
     {
@@ -49,11 +54,21 @@ public class InputManager : MonoBehaviour
         CheckIfGrounded();
         CoolDownDash();
 
-        Vector3 _move = new Vector3(Input.GetAxis("Horizontal"), 0, 0);
-        charController.Move(_move * Time.deltaTime * moveSpeed);
-
+        Vector3 _move = new Vector3(0,0,Input.GetAxis("Horizontal"));
+        //_move = transform.forward + _move;
+        //DE SPELER ROTEERT NU GOED MAAR BEWEEGT NOG STEEDS NIET LOKAAL!!!
         if (_move != Vector3.zero)
-            transform.forward = _move;// + currentMovementTrack.CurrentPoint.forward;
+        {
+            if (_move.z > 0)
+                isTurned = false;
+            else
+                isTurned = true;
+
+            Debug.Log(transform.forward);
+            transform.localPosition +=  transform.forward * Time.deltaTime * moveSpeed;
+            //charController.Move((_move + transform.forward) * Time.deltaTime * moveSpeed);
+            //transform.localEulerAngles = _move.z > 0 ? Vector3.zero : -Vector3.up * 180; //transform.forward = _move;// + new Vector3(movementCam.transform.eulerAngles.y, 0,0);// + currentMovementTrack.CurrentPoint.forward;
+        }
 
         //Jump With DoubleJump
         if (Input.GetKeyDown(KeyCode.Space) && currentJumpAmount > 0)
@@ -67,8 +82,11 @@ public class InputManager : MonoBehaviour
 
         velocity.x /= 1 + drag.x * Time.deltaTime;
         velocity.y /= 1 + drag.y * Time.deltaTime;
+        //Vraag aan pim hoe dit scipt origineel in elkaar zat (met z as)
 
-        charController.Move(velocity * Time.deltaTime);
+        //Debug.Log(velocity);
+
+        //charController.Move(velocity * Time.deltaTime);
     }
 
     /// <summary>
