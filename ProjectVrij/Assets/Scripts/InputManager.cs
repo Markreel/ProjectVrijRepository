@@ -26,8 +26,6 @@ public class InputManager : MonoBehaviour
     [SerializeField] private GameObject rotationCam;
     [SerializeField] private GameObject movementCam;
 
-    [SerializeField] private MovementTrack currentMovementTrack;
-
     public float CurrentDashDelay { get { return currentDashDelay; } }
     public float DashDelay { get { return dashDelay; } }
 
