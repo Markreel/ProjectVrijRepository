@@ -2,19 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Cinemachine;
 
 public class EnemyParent : MonoBehaviour
 {
 	public static Action<float> EnemyDamageEvent;
 
+    [Header("Settings: ")]
 	[SerializeField] private float maxHealth = 100f;
 	[SerializeField] private float movementSpeed = 4f;
 	[SerializeField] private float damage = 5f;
 
 	[SerializeField] private float playerSpottedRange = 10f;
 	[SerializeField] private float attackRange = 3f;
-	[SerializeField] private GameObject player;
 	[SerializeField] private float attackCooldownTimer = 3f;
+
+    [Header("References: ")]
+	[SerializeField] private InputManager player;
+    [SerializeField] private GameObject movementCamPrefab; 
+    private GameObject movementCam;
 
 	private float rotationSpeed = 10f;
 	private float tempMoveSpeed;
@@ -24,8 +30,19 @@ public class EnemyParent : MonoBehaviour
 
 	public virtual void Awake()
 	{
-		ResetHealth();
+        InitializeMovementCam();
+        ResetHealth();
 	}
+
+    private void InitializeMovementCam()
+    {
+        movementCam = Instantiate(movementCamPrefab);
+
+        CinemachineVirtualCamera _vCam = movementCam.GetComponent<CinemachineVirtualCamera>();
+
+        _vCam.Follow = transform;
+       // movementCam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>().track
+    }
 
 	private void ResetHealth()
 	{
@@ -38,6 +55,8 @@ public class EnemyParent : MonoBehaviour
 
 		if (player != null)
 		{
+            //if(player.CurrentPos < )
+
 			if (Vector3.Distance(player.transform.position, transform.position) <= playerSpottedRange && Vector3.Distance(player.transform.position, transform.position) > attackRange)
 			{
 				tempMoveSpeed = movementSpeed;

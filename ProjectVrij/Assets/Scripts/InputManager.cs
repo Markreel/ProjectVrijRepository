@@ -28,6 +28,7 @@ public class InputManager : MonoBehaviour
 
     [SerializeField] private MovementTrack currentMovementTrack;
 
+    public float CurrentPos { get { return movementCam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>().m_PathPosition; } }
     public float CurrentDashDelay { get { return currentDashDelay; } }
     public float DashDelay { get { return dashDelay; } }
 
