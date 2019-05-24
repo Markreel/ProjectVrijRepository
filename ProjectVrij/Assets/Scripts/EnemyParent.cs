@@ -59,13 +59,18 @@ public class EnemyParent : MonoBehaviour
 			}
 		}
 
-		//TakeDamage();
 		DeathState();
 	}
 
-	public virtual void TakeDamage()
+	public virtual void TakeDamage(float damage)
 	{
-		currentHealth -= 4f; //PlayerDamage
+		currentHealth -= damage; 
+	}
+
+	public virtual void Patrol()
+	{
+		
+
 	}
 
 	public virtual void DoAttack()
@@ -95,6 +100,16 @@ public class EnemyParent : MonoBehaviour
 		{
 			Destroy(this.gameObject);
 		}
+	}
+
+	private void OnEnable()
+	{
+		InputManager.DashAttackEvent += TakeDamage;
+	}
+
+	private void OnDisable()
+	{
+		InputManager.DashAttackEvent -= TakeDamage;
 	}
 
 }

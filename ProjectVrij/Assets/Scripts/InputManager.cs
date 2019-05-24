@@ -1,10 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
 public class InputManager : MonoBehaviour
 {
+    public static Action<float> DashAttackEvent;
+
     [Header("Settings: ")]
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float jumpHeight = 2f;
@@ -13,9 +16,11 @@ public class InputManager : MonoBehaviour
     [SerializeField] private float groundDistance = 0.2f;
     [SerializeField] private LayerMask groundLayer;
     [Space]
+    [SerializeField] private int dashDamage = 10;
     [SerializeField] private float dashDistance = 5f;
     [SerializeField] private Vector3 drag;
     [SerializeField] private float dashDelay = 1f;
+    [SerializeField] private LayerMask attackMask;
 
     [Header("References: ")]
     [SerializeField] private GameObject rotationCam;
@@ -34,11 +39,8 @@ public class InputManager : MonoBehaviour
 
     private bool isTurned = false;
 
-    private CharacterController charController;
-
     private void Start()
     {
-        charController = GetComponent<CharacterController>();
         groundChecker = transform.GetChild(0);
         currentDashDelay = 0;
     }
@@ -93,6 +95,9 @@ public class InputManager : MonoBehaviour
         transform.position = new Vector3(movementCam.transform.position.x, transform.position.y + velocity.y, movementCam.transform.position.z);// * Time.deltaTime;
     }
 
+    /// <summary>
+    /// Moves the player across the dolly track according to the given horizontal input
+    /// </summary>
     private void Walk()
     {
         //CinemachineTrackedDolly _dolly = movementCam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>();
@@ -119,9 +124,22 @@ public class InputManager : MonoBehaviour
     /// </summary>
     private void Dash()
     {
+        RaycastHit[] _hits = Physics.RaycastAll(transform.position, transform.forward, dashDistance, attackMask);
+
+        if(_hits != null)
+        {
+            foreach (var _hit in _hits)
+            {
+                print(_hit.collider.name);
+            }
+        }
+
         float _value = dashDistance * Mathf.Log(1f / (Time.deltaTime * drag.x + 1)) / -Time.deltaTime;
         velocity.x += isTurned ? -_value : _value; // Vector3.Scale(transform.forward, dashDistance * new Vector3((), 0, 0));
         currentDashDelay = dashDelay;
+
+        if(DashAttackEvent != null)
+            DashAttackEvent(1);
     }
 
     private void CoolDownDash()
