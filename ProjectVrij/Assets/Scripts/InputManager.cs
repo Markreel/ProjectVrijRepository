@@ -3,7 +3,7 @@ using System;
 
 public class InputManager : MonoBehaviour
 {
-	public static Action<int> DashAttackEvent;
+	public static Action<float> DashAttackEvent;
 
     [Header("Settings: ")]
 	[SerializeField] private float moveSpeed = 5f;

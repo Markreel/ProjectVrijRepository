@@ -62,9 +62,15 @@ public class EnemyParent : MonoBehaviour
 		DeathState();
 	}
 
-	public virtual void TakeDamage(int damage)
+	public virtual void TakeDamage(float damage)
 	{
 		currentHealth -= damage; 
+	}
+
+	public virtual void Patrol()
+	{
+		
+
 	}
 
 	public virtual void DoAttack()
