@@ -25,8 +25,10 @@ public class InputManager : MonoBehaviour
     [Header("References: ")]
     [SerializeField] private GameObject rotationCam;
     [SerializeField] private GameObject movementCam;
+	[SerializeField] private Animator anim;
 
-    public float CurrentDashDelay { get { return currentDashDelay; } }
+
+	public float CurrentDashDelay { get { return currentDashDelay; } }
     public float DashDelay { get { return dashDelay; } }
 
     private int currentJumpAmount = 1;
@@ -41,6 +43,7 @@ public class InputManager : MonoBehaviour
     {
         groundChecker = transform.GetChild(0);
         currentDashDelay = 0;
+		anim = GetComponent<Animator>();
     }
 
     private void Update()
@@ -71,12 +74,15 @@ public class InputManager : MonoBehaviour
         {
             isTurned = _hor > 0 ? false : true;
             Walk();
+			Debug.Log(velocity);
         }
         else
             velocity.x = 0;
+			anim.SetBool("isRunning", false);
 
-        //Jump With DoubleJump
-        if (Input.GetKeyDown(KeyCode.Space) && currentJumpAmount > 0)
+
+		//Jump With DoubleJump
+		if (Input.GetKeyDown(KeyCode.Space) && currentJumpAmount > 0)
             Jump();
 
         //Dash
@@ -103,15 +109,18 @@ public class InputManager : MonoBehaviour
         //float _camPos = _dolly.m_PathPosition;
 
         velocity.x = (isTurned ? -Time.deltaTime : Time.deltaTime) * moveSpeed;
-        //_dolly.m_PathPosition = _camPos;
 
-        //transform.position = new Vector3(movementCam.transform.position.x, transform.position.y, movementCam.transform.position.z);
-    }
+		anim.SetBool("isRunning", true);
 
-    /// <summary>
-    /// Launches the player upwards according to the amount of jumps available.
-    /// </summary>
-    private void Jump()
+		//_dolly.m_PathPosition = _camPos;
+
+		//transform.position = new Vector3(movementCam.transform.position.x, transform.position.y, movementCam.transform.position.z);
+	}
+
+	/// <summary>
+	/// Launches the player upwards according to the amount of jumps available.
+	/// </summary>
+	private void Jump()
     {
         velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         currentJumpAmount--;
