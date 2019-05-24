@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class InputManager : MonoBehaviour
 {
@@ -17,7 +18,9 @@ public class InputManager : MonoBehaviour
     [SerializeField] private float dashDelay = 1f;
 
     [Header("References: ")]
+    [SerializeField] private GameObject rotationCam;
     [SerializeField] private GameObject movementCam;
+
     [SerializeField] private MovementTrack currentMovementTrack;
 
     public float CurrentDashDelay { get { return currentDashDelay; } }
@@ -25,7 +28,7 @@ public class InputManager : MonoBehaviour
 
     private int currentJumpAmount = 1;
     private float currentDashDelay;
-    private Vector3 velocity;
+    private Vector2 velocity;
     private bool isGrounded = true;
     private Transform groundChecker;
 
@@ -43,32 +46,34 @@ public class InputManager : MonoBehaviour
     private void Update()
     {
         HandleMovement();
+        HandleRotation();
+    }
+
+    private void HandleRotation()
+    {
         float _turnRot = isTurned ? -90 : 90;
-        transform.eulerAngles = new Vector3(0, movementCam.transform.eulerAngles.y + _turnRot, 0);
+        transform.eulerAngles = new Vector3(0, rotationCam.transform.eulerAngles.y + _turnRot, 0);
     }
 
     private void HandleMovement()
     {
+        CinemachineTrackedDolly _dolly = movementCam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>();
+        float _pathLenght = _dolly.m_Path.PathLength;
+        float _hor = Input.GetAxis("Horizontal");
         isGrounded = Physics.CheckSphere(groundChecker.position, groundDistance, groundLayer, QueryTriggerInteraction.Ignore);
 
-        CheckIfGrounded();
         CoolDownDash();
 
-        Vector3 _move = new Vector3(0,0,Input.GetAxis("Horizontal"));
-        //_move = transform.forward + _move;
-        //DE SPELER ROTEERT NU GOED MAAR BEWEEGT NOG STEEDS NIET LOKAAL!!!
-        if (_move != Vector3.zero)
-        {
-            if (_move.z > 0)
-                isTurned = false;
-            else
-                isTurned = true;
+        //Turn left or right
 
-            Debug.Log(transform.forward);
-            transform.localPosition +=  transform.forward * Time.deltaTime * moveSpeed;
-            //charController.Move((_move + transform.forward) * Time.deltaTime * moveSpeed);
-            //transform.localEulerAngles = _move.z > 0 ? Vector3.zero : -Vector3.up * 180; //transform.forward = _move;// + new Vector3(movementCam.transform.eulerAngles.y, 0,0);// + currentMovementTrack.CurrentPoint.forward;
+        //Walk
+        if (_hor != 0)
+        {
+            isTurned = _hor > 0 ? false : true;
+            Walk();
         }
+        else
+            velocity.x = 0;
 
         //Jump With DoubleJump
         if (Input.GetKeyDown(KeyCode.Space) && currentJumpAmount > 0)
@@ -78,15 +83,26 @@ public class InputManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift) && currentDashDelay <= 0)
             Dash();
 
+        //Apply velocity
         velocity.y += gravity * Time.deltaTime;
 
-        velocity.x /= 1 + drag.x * Time.deltaTime;
         velocity.y /= 1 + drag.y * Time.deltaTime;
-        //Vraag aan pim hoe dit scipt origineel in elkaar zat (met z as)
+        CheckIfGrounded();
 
-        //Debug.Log(velocity);
+        _dolly.m_PathPosition = Mathf.Clamp(_dolly.m_PathPosition + velocity.x, 0, _pathLenght);
+        transform.position = new Vector3(movementCam.transform.position.x, transform.position.y + velocity.y, movementCam.transform.position.z);// * Time.deltaTime;
+    }
 
-        //charController.Move(velocity * Time.deltaTime);
+    private void Walk()
+    {
+        //CinemachineTrackedDolly _dolly = movementCam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>();
+        //float _pathLenght = _dolly.m_Path.PathLength;
+        //float _camPos = _dolly.m_PathPosition;
+
+        velocity.x = (isTurned ? -Time.deltaTime : Time.deltaTime) * moveSpeed;
+        //_dolly.m_PathPosition = _camPos;
+
+        //transform.position = new Vector3(movementCam.transform.position.x, transform.position.y, movementCam.transform.position.z);
     }
 
     /// <summary>
@@ -103,7 +119,8 @@ public class InputManager : MonoBehaviour
     /// </summary>
     private void Dash()
     {
-        velocity += Vector3.Scale(transform.forward, dashDistance * new Vector3((Mathf.Log(1f / (Time.deltaTime * drag.x + 1)) / -Time.deltaTime), 0, 0));
+        float _value = dashDistance * Mathf.Log(1f / (Time.deltaTime * drag.x + 1)) / -Time.deltaTime;
+        velocity.x += isTurned ? -_value : _value; // Vector3.Scale(transform.forward, dashDistance * new Vector3((), 0, 0));
         currentDashDelay = dashDelay;
     }
 
