@@ -67,7 +67,8 @@ public class InputManager : MonoBehaviour
 
         CoolDownDash();
 
-        //Turn left or right
+        //MAAK EEN SYSTEEM WAARBIJ DE SPELER MAAR KAN BEWEGEN BINNEN EEN BEPAALD GEBIED (BIJVOORBEELD TUSSEN PUNT 1 EN 4 OP DE DOLLYTRACK) EN DAT DE SPELER PAS DOORKAN
+        //NADAT ALLES ENEMIES DOOD ZIJN (OOK HANDIG VOOR GEBIED VOOR EEN BOSS FIGHT)
 
         //Walk
         if (_hor != 0)
