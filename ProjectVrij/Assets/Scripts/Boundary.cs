@@ -6,6 +6,6 @@ using Cinemachine;
 [System.Serializable]
 public class Boundary
 {
-    public CinemachineVirtualCamera PointA;
-    public CinemachineVirtualCamera PointB;
+    public CinemachineTrackedDolly PointA;
+    public CinemachineTrackedDolly PointB;
 }
