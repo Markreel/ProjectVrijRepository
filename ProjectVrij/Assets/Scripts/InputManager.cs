@@ -67,18 +67,20 @@ public class InputManager : MonoBehaviour
 
         CoolDownDash();
 
-        //Turn left or right
+		//Turn left or right
 
-        //Walk
-        if (_hor != 0)
-        {
-            isTurned = _hor > 0 ? false : true;
-            Walk();
-			Debug.Log(velocity);
-        }
-        else
+		//Walk
+		if (_hor != 0)
+		{
+			isTurned = _hor > 0 ? false : true;
+			Walk();
+			anim.SetBool("isRunning", true);
+		}
+		else
+		{
             velocity.x = 0;
 			anim.SetBool("isRunning", false);
+		}
 
 
 		//Jump With DoubleJump
@@ -110,7 +112,6 @@ public class InputManager : MonoBehaviour
 
         velocity.x = (isTurned ? -Time.deltaTime : Time.deltaTime) * moveSpeed;
 
-		anim.SetBool("isRunning", true);
 
 		//_dolly.m_PathPosition = _camPos;
 
