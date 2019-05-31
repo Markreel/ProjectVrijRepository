@@ -28,7 +28,7 @@ public class EnemyParent : MonoBehaviour
     private bool canAttack;
     private float currentHealth;
 
-    private float distanceBetweenPlayer { get { return Mathf.Abs(player.CurrentPos - movementCam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>().m_PathPosition); }  }
+    private float distanceBetweenPlayer { get { return Mathf.Abs(player.CurrentPos - movementCam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>().m_PathPosition); } }
     private bool isTurned { get { return player.CurrentPos < movementCam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>().m_PathPosition ? true : false; } }
 
 
@@ -56,18 +56,22 @@ public class EnemyParent : MonoBehaviour
 
     public virtual void Update()
     {
-        CinemachineTrackedDolly _dolly = movementCam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>();
-        float _pathLenght = _dolly.m_Path.PathLength;
-        float _step = movementSpeed * Time.deltaTime; // calculate distance to move
-
         if (player != null)
         {
             if (distanceBetweenPlayer <= playerSpottedRange && distanceBetweenPlayer > attackRange)
             {
-                tempMoveSpeed = (isTurned ? -Time.deltaTime : Time.deltaTime) * movementSpeed;
-                _dolly.m_PathPosition = Mathf.Clamp(_dolly.m_PathPosition + tempMoveSpeed, 0, _pathLenght);
+                LookAtPlayer();
+                MoveTowardsPlayer();
+            }
 
-                transform.position = new Vector3(movementCam.transform.position.x, transform.position.y, movementCam.transform.position.z);
+            else if (distanceBetweenPlayer <= attackRange)
+            {
+                LookAtPlayer();
+
+                tempMoveSpeed = 0f;
+                //play attack state
+                Debug.Log("ATTACK");
+                DoAttack();
             }
 
             //if (Vector3.Distance(player.transform.position, transform.position) <= playerSpottedRange && Vector3.Distance(player.transform.position, transform.position) > attackRange)
@@ -91,7 +95,25 @@ public class EnemyParent : MonoBehaviour
             //}
         }
 
-        DeathState();
+        CheckDeathState();
+    }
+
+    void MoveTowardsPlayer()
+    {
+        CinemachineTrackedDolly _dolly = movementCam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>();
+        float _pathLenght = _dolly.m_Path.PathLength;
+        float _step = movementSpeed * Time.deltaTime; // calculate distance to move
+
+        tempMoveSpeed = (isTurned ? -Time.deltaTime : Time.deltaTime) * movementSpeed;
+        _dolly.m_PathPosition = Mathf.Clamp(_dolly.m_PathPosition + tempMoveSpeed, 0, _pathLenght);
+
+        transform.position = new Vector3(movementCam.transform.position.x, transform.position.y, movementCam.transform.position.z);
+    }
+
+    void LookAtPlayer()
+    {
+        Vector3 _normalizedPlayerPos = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(_normalizedPlayerPos - transform.position), rotationSpeed * Time.deltaTime);
     }
 
     public virtual void TakeDamage(float damage)
@@ -126,7 +148,7 @@ public class EnemyParent : MonoBehaviour
         }
     }
 
-    public virtual void DeathState()
+    public virtual void CheckDeathState()
     {
         if (currentHealth <= 0)
         {
