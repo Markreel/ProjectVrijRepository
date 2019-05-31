@@ -84,12 +84,6 @@ public class InputManager : MonoBehaviour
 		{
 			velocity.x = 0;
 		}
-
-		if (Input.GetKeyUp(KeyCode.D))
-		{
-            velocity.x = 0;
-			//anim.SetBool("isRunning", false);
-		}
 		
 
 		//Jump With DoubleJump
@@ -99,10 +93,6 @@ public class InputManager : MonoBehaviour
 		//Dash
 		if (Input.GetKeyDown(KeyCode.LeftShift) && currentDashDelay <= 0)
 			Dash();
-		else
-		{
-			anim.SetBool("isDashing", false);
-		}
 
         //Apply velocity
         velocity.y += gravity * Time.deltaTime;
@@ -136,6 +126,7 @@ public class InputManager : MonoBehaviour
 	/// </summary>
 	private void Jump()
     {
+		anim.SetBool("isGrounded", false);
         velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         currentJumpAmount--;
     }
@@ -161,7 +152,7 @@ public class InputManager : MonoBehaviour
         velocity.x += isTurned ? -_value : _value; // Vector3.Scale(transform.forward, dashDistance * new Vector3((), 0, 0));
         currentDashDelay = dashDelay;
 
-		anim.SetBool("isDashing", true);
+		//anim.SetBool("isDashing", true);
 
         if(DashAttackEvent != null)
             DashAttackEvent(1);
@@ -191,6 +182,7 @@ public class InputManager : MonoBehaviour
         {
             velocity.y = 0f;
             currentJumpAmount = maxJumpAmount;
-        }
-    }
+			anim.SetBool("isGrounded", true);
+		}
+	}
 }

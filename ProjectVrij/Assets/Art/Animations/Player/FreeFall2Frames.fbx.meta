@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d004ecd027b347847991ffff86ac6b31
+guid: e3f849ab7cd22f742942089cc2c8edbe
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -57,9 +57,9 @@ ModelImporter:
     100102: CharacterSkeleton
     100104: ChickieFinal2:pasted__pSphere2
     100106: clavicle_jnt
-    100108: head_jnt
-    100110: hip_jnt
-    100112: //RootNode
+    100108: //RootNode
+    100110: head_jnt
+    100112: hip_jnt
     100114: L_ankle_jnt
     100116: L_Clavicle_jnt
     100118: L_elbow_jnt
@@ -141,9 +141,9 @@ ModelImporter:
     400102: CharacterSkeleton
     400104: ChickieFinal2:pasted__pSphere2
     400106: clavicle_jnt
-    400108: head_jnt
-    400110: hip_jnt
-    400112: //RootNode
+    400108: //RootNode
+    400110: head_jnt
+    400112: hip_jnt
     400114: L_ankle_jnt
     400116: L_Clavicle_jnt
     400118: L_elbow_jnt
@@ -173,7 +173,7 @@ ModelImporter:
     400166: top_spine_jnt
     2100000: lambert1
     4300000: ChickieFinal2:pasted__pSphere2
-    7400000: Jump Start
+    7400000: FreeFall2Frames
     9500000: //RootNode
     13700000: ChickieFinal2:pasted__pSphere2
   externalObjects: {}
@@ -205,10 +205,10 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Jump Start
+      name: FreeFall2Frames
       takeName: Take 001
-      firstFrame: 1
-      lastFrame: 12
+      firstFrame: 14
+      lastFrame: 26
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -256,7 +256,7 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 0.01
+    previousCalculatedGlobalScale: 1
     hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
