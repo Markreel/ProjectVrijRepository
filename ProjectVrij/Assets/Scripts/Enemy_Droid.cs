@@ -9,10 +9,10 @@
 	//	base.Update();
 	//}
 
-	public override void TakeDamage()
-	{
-		base.TakeDamage();
-	}
+	//public override void TakeDamage(int damage)
+	//{
+	//	base.TakeDamage();
+	//}
 
 	public override void DoAttack()
 	{
