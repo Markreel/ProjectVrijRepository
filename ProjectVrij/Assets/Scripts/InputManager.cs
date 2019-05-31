@@ -37,11 +37,14 @@ public class InputManager : MonoBehaviour
     private Vector2 velocity;
     private bool isGrounded = true;
     private Transform groundChecker;
-
+	private Animator anim;
     private bool isTurned = false;
+	private float horizontal = 0f;
+
 
     private void Start()
     {
+		anim = GetComponent<Animator>();
         groundChecker = transform.GetChild(0);
         currentDashDelay = 0;
     }
@@ -62,7 +65,7 @@ public class InputManager : MonoBehaviour
     {
         CinemachineTrackedDolly _dolly = movementCam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>();
         float _pathLenght = _dolly.m_Path.PathLength;
-        float _hor = Input.GetAxis("Horizontal");
+		horizontal = Input.GetAxis("Horizontal");
         isGrounded = Physics.CheckSphere(groundChecker.position, groundDistance, groundLayer, QueryTriggerInteraction.Ignore);
 
         CoolDownDash();
@@ -71,13 +74,16 @@ public class InputManager : MonoBehaviour
         //NADAT ALLES ENEMIES DOOD ZIJN (OOK HANDIG VOOR GEBIED VOOR EEN BOSS FIGHT)
 
         //Walk
-        if (_hor != 0)
+        if (horizontal != 0)
         {
-            isTurned = _hor > 0 ? false : true;
+            isTurned = horizontal > 0 ? false : true;
             Walk();
         }
         else
+		{
             velocity.x = 0;
+			anim.SetBool("isRunning", false);
+		}
 
         //Jump With DoubleJump
         if (Input.GetKeyDown(KeyCode.Space) && currentJumpAmount > 0)
@@ -107,15 +113,17 @@ public class InputManager : MonoBehaviour
         //float _camPos = _dolly.m_PathPosition;
 
         velocity.x = (isTurned ? -Time.deltaTime : Time.deltaTime) * moveSpeed;
-        //_dolly.m_PathPosition = _camPos;
+		anim.SetBool("isRunning", true);
 
-        //transform.position = new Vector3(movementCam.transform.position.x, transform.position.y, movementCam.transform.position.z);
-    }
+		//_dolly.m_PathPosition = _camPos;
 
-    /// <summary>
-    /// Launches the player upwards according to the amount of jumps available.
-    /// </summary>
-    private void Jump()
+		//transform.position = new Vector3(movementCam.transform.position.x, transform.position.y, movementCam.transform.position.z);
+	}
+
+	/// <summary>
+	/// Launches the player upwards according to the amount of jumps available.
+	/// </summary>
+	private void Jump()
     {
         velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         currentJumpAmount--;
