@@ -65,7 +65,7 @@ public class InputManager : MonoBehaviour
     {
         CinemachineTrackedDolly _dolly = movementCam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>();
         float _pathLenght = _dolly.m_Path.PathLength;
-		horizontal = Input.GetAxis("Horizontal");
+		horizontal = Input.GetAxisRaw("Horizontal");
         isGrounded = Physics.CheckSphere(groundChecker.position, groundDistance, groundLayer, QueryTriggerInteraction.Ignore);
 
         CoolDownDash();
