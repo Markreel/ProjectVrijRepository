@@ -10,6 +10,8 @@ public class SpawnPoint : MonoBehaviour
     [SerializeField] private bool useOffset = true;
     [SerializeField] private Vector2 offset;
 
+    public List<GameObject> ActiveEnemyList = new List<GameObject>();
+
     public SpawnManager.EnemyTypes TypeOfEnemy { get { return typeOfEnemy; } }
     public int Amount { get { return amount; } }
     public int BoundaryIndex { get { return boundaryIndex; } }

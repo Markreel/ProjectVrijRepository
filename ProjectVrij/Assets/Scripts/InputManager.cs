@@ -71,8 +71,10 @@ public class InputManager : MonoBehaviour
 
         CoolDownDash();
 
+
         //MAAK EEN SYSTEEM WAARBIJ DE SPELER MAAR KAN BEWEGEN BINNEN EEN BEPAALD GEBIED (BIJVOORBEELD TUSSEN PUNT 1 EN 4 OP DE DOLLYTRACK) EN DAT DE SPELER PAS DOORKAN
         //NADAT ALLES ENEMIES DOOD ZIJN (OOK HANDIG VOOR GEBIED VOOR EEN BOSS FIGHT)
+
 
         //Walk
         if (horizontal != 0)
@@ -85,6 +87,7 @@ public class InputManager : MonoBehaviour
 			velocity.x = 0;
 		}
 		
+        Debug.DrawRay(transform.position, transform.forward);
 
 		//Jump With DoubleJump
 		if (Input.GetKeyDown(KeyCode.Space) && currentJumpAmount > 0)
@@ -101,7 +104,10 @@ public class InputManager : MonoBehaviour
         CheckIfGrounded();
 
         _dolly.m_PathPosition = Mathf.Clamp(_dolly.m_PathPosition + velocity.x, 0, _pathLenght);
+        _dolly.m_PathPosition = BoundaryManager.Instance.ClampDistance(_dolly.m_PathPosition);
         transform.position = new Vector3(movementCam.transform.position.x, transform.position.y + velocity.y, movementCam.transform.position.z);// * Time.deltaTime;
+
+        BoundaryManager.Instance.CheckIfWithinBoundary(_dolly.m_PathPosition);
     }
 
     /// <summary>
@@ -115,7 +121,7 @@ public class InputManager : MonoBehaviour
 
         velocity.x = (isTurned ? -Time.deltaTime : Time.deltaTime) * moveSpeed;
 		//anim.SetBool("isRunning", true);
-		anim.SetFloat("Movement", horizontal);
+		//anim.SetFloat("Movement", horizontal);  
 		//_dolly.m_PathPosition = _camPos;
 
 		//transform.position = new Vector3(movementCam.transform.position.x, transform.position.y, movementCam.transform.position.z);
@@ -126,7 +132,7 @@ public class InputManager : MonoBehaviour
 	/// </summary>
 	private void Jump()
     {
-		anim.SetBool("isGrounded", false);
+		//anim.SetBool("isGrounded", false);
         velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         currentJumpAmount--;
     }
@@ -142,6 +148,11 @@ public class InputManager : MonoBehaviour
         {
             foreach (var _hit in _hits)
             {
+                EnemyParent _enemy = _hit.transform.GetComponent<EnemyParent>();
+
+                if (_enemy != null)
+                    _enemy.TakeDamage(dashDamage);
+
                 print(_hit.collider.name);
             }
         }
@@ -182,7 +193,7 @@ public class InputManager : MonoBehaviour
         {
             velocity.y = 0f;
             currentJumpAmount = maxJumpAmount;
-			anim.SetBool("isGrounded", true);
+			//anim.SetBool("isGrounded", true);
 		}
 	}
 }

@@ -28,17 +28,17 @@ public class EnemyParent : MonoBehaviour
     private bool canAttack;
     private float currentHealth;
 
+    public InputManager Player { set { player = value; } }
     private float distanceBetweenPlayer { get { return Mathf.Abs(player.CurrentPos - movementCam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>().m_PathPosition); } }
     private bool isTurned { get { return player.CurrentPos < movementCam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>().m_PathPosition ? true : false; } }
 
 
     public virtual void Awake()
     {
-        InitializeMovementCam();
         ResetHealth();
     }
 
-    private void InitializeMovementCam()
+    public void InitializeMovementCam(float _pathPosition)
     {
         movementCam = Instantiate(movementCamPrefab);
 
@@ -46,6 +46,8 @@ public class EnemyParent : MonoBehaviour
 
         _vCam.Follow = transform;
         _vCam.GetCinemachineComponent<CinemachineTrackedDolly>().m_Path = GameObject.Find("DollyTrack1").GetComponent<CinemachinePathBase>();
+        _vCam.GetCinemachineComponent<CinemachineTrackedDolly>().m_PositionUnits = CinemachinePathBase.PositionUnits.Distance;
+        _vCam.GetCinemachineComponent<CinemachineTrackedDolly>().m_PathPosition = _pathPosition;
         // movementCam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>().track
     }
 
@@ -70,7 +72,7 @@ public class EnemyParent : MonoBehaviour
 
                 tempMoveSpeed = 0f;
                 //play attack state
-                Debug.Log("ATTACK");
+                //Debug.Log("ATTACK");
                 DoAttack();
             }
 
@@ -152,6 +154,7 @@ public class EnemyParent : MonoBehaviour
     {
         if (currentHealth <= 0)
         {
+            SpawnManager.Instance.RemoveEnemy(gameObject);
             Destroy(this.gameObject);
         }
     }

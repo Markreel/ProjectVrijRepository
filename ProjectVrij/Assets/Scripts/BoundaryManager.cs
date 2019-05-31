@@ -42,4 +42,23 @@ public class BoundaryManager : MonoBehaviour
         else
             return _distance;
     }
+
+    public void LiftBoundary()
+    {
+        boundaryIsActive = false;
+        boundaries[currentBoundaryIndex].Completed = true;
+    }
+
+    public void CheckIfWithinBoundary(float _curDis)
+    {
+        foreach (var _boundary in boundaries)
+        {
+            if (_curDis > _boundary.PointA.m_PathPosition && _curDis < _boundary.PointB.m_PathPosition && !_boundary.Completed)
+            {
+                boundaryIsActive = true;
+                currentBoundaryIndex = boundaries.IndexOf(_boundary);
+                SpawnManager.Instance.CheckEnemyAmount();
+            }
+        }
+    }
 }

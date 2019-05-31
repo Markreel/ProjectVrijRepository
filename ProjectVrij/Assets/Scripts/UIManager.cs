@@ -8,7 +8,7 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-		inputManager = FindObjectOfType<InputManager>();   
+		inputManager = FindObjectOfType<InputManager>();
     }
 
     private void Update()
