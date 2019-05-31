@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: fc4acf037514d4748beee469fab30b31
+guid: c67a21fa382e358478b2aeaf33b5c46a
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -57,9 +57,9 @@ ModelImporter:
     100102: CharacterModel
     100104: CharacterSkeleton
     100106: clavicle_jnt
-    100108: head_jnt
-    100110: hip_jnt
-    100112: //RootNode
+    100108: //RootNode
+    100110: head_jnt
+    100112: hip_jnt
     100114: L_ankle_jnt
     100116: L_Clavicle_jnt
     100118: L_elbow_jnt
@@ -141,9 +141,9 @@ ModelImporter:
     400102: CharacterModel
     400104: CharacterSkeleton
     400106: clavicle_jnt
-    400108: head_jnt
-    400110: hip_jnt
-    400112: //RootNode
+    400108: //RootNode
+    400110: head_jnt
+    400112: hip_jnt
     400114: L_ankle_jnt
     400116: L_Clavicle_jnt
     400118: L_elbow_jnt
@@ -173,7 +173,7 @@ ModelImporter:
     400166: top_spine_jnt
     2100000: lambert1
     4300000: CharacterModel
-    7400000: IdleTest
+    7400000: Dash
     9500000: //RootNode
     13700000: CharacterModel
   externalObjects: {}
@@ -205,17 +205,17 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: IdleTest
+      name: Dash
       takeName: Take 001
       firstFrame: 1
-      lastFrame: 48
+      lastFrame: 12
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0

@@ -8,6 +8,8 @@ public class InputManager : MonoBehaviour
 {
     public static Action<float> DashAttackEvent;
 
+	public Animator anim;
+
     [Header("Settings: ")]
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float jumpHeight = 2f;
@@ -37,13 +39,13 @@ public class InputManager : MonoBehaviour
     private Vector2 velocity;
     private bool isGrounded = true;
     private Transform groundChecker;
-	private Animator anim;
+	//private Animator anim;
     private bool isTurned = false;
 	private float horizontal = 0f;
 
     private void Start()
     {
-		anim = GetComponentInChildren<Animator>();
+		//anim = GetComponentInChildren<Animator>();
         groundChecker = transform.GetChild(0);
         currentDashDelay = 0;
     }
@@ -64,7 +66,7 @@ public class InputManager : MonoBehaviour
     {
         CinemachineTrackedDolly _dolly = movementCam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>();
         float _pathLenght = _dolly.m_Path.PathLength;
-		horizontal = Input.GetAxisRaw("Horizontal");
+		horizontal = Input.GetAxis("Horizontal");
         isGrounded = Physics.CheckSphere(groundChecker.position, groundDistance, groundLayer, QueryTriggerInteraction.Ignore);
 
         CoolDownDash();
@@ -78,19 +80,29 @@ public class InputManager : MonoBehaviour
             isTurned = horizontal > 0 ? false : true;
             Walk();
         }
-        else
+		else
 		{
-            velocity.x = 0;
-			anim.SetBool("isRunning", false);
+			velocity.x = 0;
 		}
 
-        //Jump With DoubleJump
-        if (Input.GetKeyDown(KeyCode.Space) && currentJumpAmount > 0)
+		if (Input.GetKeyUp(KeyCode.D))
+		{
+            velocity.x = 0;
+			//anim.SetBool("isRunning", false);
+		}
+		
+
+		//Jump With DoubleJump
+		if (Input.GetKeyDown(KeyCode.Space) && currentJumpAmount > 0)
             Jump();
 
-        //Dash
-        if (Input.GetKeyDown(KeyCode.LeftShift) && currentDashDelay <= 0)
-            Dash();
+		//Dash
+		if (Input.GetKeyDown(KeyCode.LeftShift) && currentDashDelay <= 0)
+			Dash();
+		else
+		{
+			anim.SetBool("isDashing", false);
+		}
 
         //Apply velocity
         velocity.y += gravity * Time.deltaTime;
@@ -112,8 +124,8 @@ public class InputManager : MonoBehaviour
         //float _camPos = _dolly.m_PathPosition;
 
         velocity.x = (isTurned ? -Time.deltaTime : Time.deltaTime) * moveSpeed;
-		anim.SetBool("isRunning", true);
-
+		//anim.SetBool("isRunning", true);
+		anim.SetFloat("Movement", horizontal);
 		//_dolly.m_PathPosition = _camPos;
 
 		//transform.position = new Vector3(movementCam.transform.position.x, transform.position.y, movementCam.transform.position.z);
@@ -143,9 +155,13 @@ public class InputManager : MonoBehaviour
             }
         }
 
+		velocity.x = 0;
+
         float _value = dashDistance * Mathf.Log(1f / (Time.deltaTime * drag.x + 1)) / -Time.deltaTime;
         velocity.x += isTurned ? -_value : _value; // Vector3.Scale(transform.forward, dashDistance * new Vector3((), 0, 0));
         currentDashDelay = dashDelay;
+
+		anim.SetBool("isDashing", true);
 
         if(DashAttackEvent != null)
             DashAttackEvent(1);
@@ -154,7 +170,14 @@ public class InputManager : MonoBehaviour
     private void CoolDownDash()
     {
         if (currentDashDelay > 0)
+		{
+			if(currentDashDelay > dashDelay -1)
+			{
+				velocity.x = 0;
+			}
             currentDashDelay -= Time.deltaTime;
+		}
+			
         else
             currentDashDelay = 0;
     }
