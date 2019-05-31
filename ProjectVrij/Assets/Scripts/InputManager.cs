@@ -25,10 +25,11 @@ public class InputManager : MonoBehaviour
     [Header("References: ")]
     [SerializeField] private GameObject rotationCam;
     [SerializeField] private GameObject movementCam;
-	[SerializeField] private Animator anim;
 
+    [SerializeField] private MovementTrack currentMovementTrack;
 
-	public float CurrentDashDelay { get { return currentDashDelay; } }
+    public float CurrentPos { get { return movementCam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>().m_PathPosition; } }
+    public float CurrentDashDelay { get { return currentDashDelay; } }
     public float DashDelay { get { return dashDelay; } }
 
     private int currentJumpAmount = 1;
@@ -43,7 +44,6 @@ public class InputManager : MonoBehaviour
     {
         groundChecker = transform.GetChild(0);
         currentDashDelay = 0;
-		anim = GetComponent<Animator>();
     }
 
     private void Update()
@@ -67,24 +67,20 @@ public class InputManager : MonoBehaviour
 
         CoolDownDash();
 
-		//Turn left or right
+        //MAAK EEN SYSTEEM WAARBIJ DE SPELER MAAR KAN BEWEGEN BINNEN EEN BEPAALD GEBIED (BIJVOORBEELD TUSSEN PUNT 1 EN 4 OP DE DOLLYTRACK) EN DAT DE SPELER PAS DOORKAN
+        //NADAT ALLES ENEMIES DOOD ZIJN (OOK HANDIG VOOR GEBIED VOOR EEN BOSS FIGHT)
 
-		//Walk
-		if (_hor != 0)
-		{
-			isTurned = _hor > 0 ? false : true;
-			Walk();
-			anim.SetBool("isRunning", true);
-		}
-		else
-		{
+        //Walk
+        if (_hor != 0)
+        {
+            isTurned = _hor > 0 ? false : true;
+            Walk();
+        }
+        else
             velocity.x = 0;
-			anim.SetBool("isRunning", false);
-		}
 
-
-		//Jump With DoubleJump
-		if (Input.GetKeyDown(KeyCode.Space) && currentJumpAmount > 0)
+        //Jump With DoubleJump
+        if (Input.GetKeyDown(KeyCode.Space) && currentJumpAmount > 0)
             Jump();
 
         //Dash
@@ -111,17 +107,15 @@ public class InputManager : MonoBehaviour
         //float _camPos = _dolly.m_PathPosition;
 
         velocity.x = (isTurned ? -Time.deltaTime : Time.deltaTime) * moveSpeed;
+        //_dolly.m_PathPosition = _camPos;
 
+        //transform.position = new Vector3(movementCam.transform.position.x, transform.position.y, movementCam.transform.position.z);
+    }
 
-		//_dolly.m_PathPosition = _camPos;
-
-		//transform.position = new Vector3(movementCam.transform.position.x, transform.position.y, movementCam.transform.position.z);
-	}
-
-	/// <summary>
-	/// Launches the player upwards according to the amount of jumps available.
-	/// </summary>
-	private void Jump()
+    /// <summary>
+    /// Launches the player upwards according to the amount of jumps available.
+    /// </summary>
+    private void Jump()
     {
         velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         currentJumpAmount--;
