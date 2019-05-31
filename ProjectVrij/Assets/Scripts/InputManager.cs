@@ -41,10 +41,9 @@ public class InputManager : MonoBehaviour
     private bool isTurned = false;
 	private float horizontal = 0f;
 
-
     private void Start()
     {
-		anim = GetComponent<Animator>();
+		anim = GetComponentInChildren<Animator>();
         groundChecker = transform.GetChild(0);
         currentDashDelay = 0;
     }
