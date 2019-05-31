@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a13fefdb7678af343bb3d6cc14f0d3e5
+guid: 9ff66005fd1fb544890a1a2860b21a11
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -30,62 +30,63 @@ ModelImporter:
     100048: Character1_Ctrl_LeftWristEffector
     100050: Character1_Ctrl_Neck
     100052: Character1_Ctrl_Neck1
-    100054: Character1_Ctrl_Reference
-    100056: Character1_Ctrl_RightAnkleEffector
-    100058: Character1_Ctrl_RightArm
-    100060: Character1_Ctrl_RightElbowEffector
-    100062: Character1_Ctrl_RightFoot
-    100064: Character1_Ctrl_RightFootIndex1
-    100066: Character1_Ctrl_RightFootIndex2
-    100068: Character1_Ctrl_RightFootIndexEffector
-    100070: Character1_Ctrl_RightForeArm
-    100072: Character1_Ctrl_RightHand
-    100074: Character1_Ctrl_RightHandMiddle1
-    100076: Character1_Ctrl_RightHandMiddleEffector
-    100078: Character1_Ctrl_RightHipEffector
-    100080: Character1_Ctrl_RightInFootIndex
-    100082: Character1_Ctrl_RightKneeEffector
-    100084: Character1_Ctrl_RightLeg
-    100086: Character1_Ctrl_RightShoulder
-    100088: Character1_Ctrl_RightShoulderEffector
-    100090: Character1_Ctrl_RightUpLeg
-    100092: Character1_Ctrl_RightWristEffector
-    100094: Character1_Ctrl_Spine
-    100096: Character1_Ctrl_Spine1
-    100098: Character1_Ctrl_Spine2
-    100100: Character1_Ctrl_Spine3
-    100102: chickV2_one_object_:group10_pasted__group1_pasted__pasted__pCube2
-    100104: clavicle_jnt
-    100106: head_jnt
-    100108: hip_jnt
-    100110: L_ankle_jnt
-    100112: L_Clavicle_jnt
-    100114: L_elbow_jnt
-    100116: L_foot_jnt
-    100118: L_hand_jnt
-    100120: L_heel_jnt
-    100122: L_knee_jnt
-    100124: L_shoulder_jnt
-    100126: L_toe_jnt
-    100128: L_upper_leg_jnt
-    100130: L_wrist_jnt
-    100132: neck_jnt
-    100134: R_ankle_jnt
-    100136: R_Clavicle_jnt
-    100138: R_elbow_jnt
-    100140: R_foot_jnt
-    100142: R_hand_jnt
-    100144: R_heel_jnt
-    100146: R_knee_jnt
-    100148: R_shoulder_jnt
-    100150: R_toe_jnt
-    100152: R_upper_leg_jnt
-    100154: R_wrist_jnt
-    100156: //RootNode
-    100158: spine_1_jnt
-    100160: spine_2_jnt
-    100162: Top_head_jnt
-    100164: top_spine_jnt
+    100054: Character1_Ctrl_RightAnkleEffector
+    100056: Character1_Ctrl_RightArm
+    100058: Character1_Ctrl_RightElbowEffector
+    100060: Character1_Ctrl_RightFoot
+    100062: Character1_Ctrl_RightFootIndex1
+    100064: Character1_Ctrl_RightFootIndex2
+    100066: Character1_Ctrl_RightFootIndexEffector
+    100068: Character1_Ctrl_RightForeArm
+    100070: Character1_Ctrl_RightHand
+    100072: Character1_Ctrl_RightHandMiddle1
+    100074: Character1_Ctrl_RightHandMiddleEffector
+    100076: Character1_Ctrl_RightHipEffector
+    100078: Character1_Ctrl_RightInFootIndex
+    100080: Character1_Ctrl_RightKneeEffector
+    100082: Character1_Ctrl_RightLeg
+    100084: Character1_Ctrl_RightShoulder
+    100086: Character1_Ctrl_RightShoulderEffector
+    100088: Character1_Ctrl_RightUpLeg
+    100090: Character1_Ctrl_RightWristEffector
+    100092: Character1_Ctrl_Spine
+    100094: Character1_Ctrl_Spine1
+    100096: Character1_Ctrl_Spine2
+    100098: Character1_Ctrl_Spine3
+    100100: CharacterController
+    100102: CharacterSkeleton
+    100104: ChickieFinal2:pasted__pSphere2
+    100106: clavicle_jnt
+    100108: //RootNode
+    100110: head_jnt
+    100112: hip_jnt
+    100114: L_ankle_jnt
+    100116: L_Clavicle_jnt
+    100118: L_elbow_jnt
+    100120: L_foot_jnt
+    100122: L_hand_jnt
+    100124: L_heel_jnt
+    100126: L_knee_jnt
+    100128: L_shoulder_jnt
+    100130: L_toe_jnt
+    100132: L_upper_leg_jnt
+    100134: L_wrist_jnt
+    100136: neck_jnt
+    100138: R_ankle_jnt
+    100140: R_Clavicle_jnt
+    100142: R_elbow_jnt
+    100144: R_foot_jnt
+    100146: R_hand_jnt
+    100148: R_heel_jnt
+    100150: R_knee_jnt
+    100152: R_shoulder_jnt
+    100154: R_toe_jnt
+    100156: R_upper_leg_jnt
+    100158: R_wrist_jnt
+    100160: spine_1_jnt
+    100162: spine_2_jnt
+    100164: Top_head_jnt
+    100166: top_spine_jnt
     400000: Character1_Ctrl_ChestEndEffector
     400002: Character1_Ctrl_ChestOriginEffector
     400004: Character1_Ctrl_Head
@@ -113,67 +114,68 @@ ModelImporter:
     400048: Character1_Ctrl_LeftWristEffector
     400050: Character1_Ctrl_Neck
     400052: Character1_Ctrl_Neck1
-    400054: Character1_Ctrl_Reference
-    400056: Character1_Ctrl_RightAnkleEffector
-    400058: Character1_Ctrl_RightArm
-    400060: Character1_Ctrl_RightElbowEffector
-    400062: Character1_Ctrl_RightFoot
-    400064: Character1_Ctrl_RightFootIndex1
-    400066: Character1_Ctrl_RightFootIndex2
-    400068: Character1_Ctrl_RightFootIndexEffector
-    400070: Character1_Ctrl_RightForeArm
-    400072: Character1_Ctrl_RightHand
-    400074: Character1_Ctrl_RightHandMiddle1
-    400076: Character1_Ctrl_RightHandMiddleEffector
-    400078: Character1_Ctrl_RightHipEffector
-    400080: Character1_Ctrl_RightInFootIndex
-    400082: Character1_Ctrl_RightKneeEffector
-    400084: Character1_Ctrl_RightLeg
-    400086: Character1_Ctrl_RightShoulder
-    400088: Character1_Ctrl_RightShoulderEffector
-    400090: Character1_Ctrl_RightUpLeg
-    400092: Character1_Ctrl_RightWristEffector
-    400094: Character1_Ctrl_Spine
-    400096: Character1_Ctrl_Spine1
-    400098: Character1_Ctrl_Spine2
-    400100: Character1_Ctrl_Spine3
-    400102: chickV2_one_object_:group10_pasted__group1_pasted__pasted__pCube2
-    400104: clavicle_jnt
-    400106: head_jnt
-    400108: hip_jnt
-    400110: L_ankle_jnt
-    400112: L_Clavicle_jnt
-    400114: L_elbow_jnt
-    400116: L_foot_jnt
-    400118: L_hand_jnt
-    400120: L_heel_jnt
-    400122: L_knee_jnt
-    400124: L_shoulder_jnt
-    400126: L_toe_jnt
-    400128: L_upper_leg_jnt
-    400130: L_wrist_jnt
-    400132: neck_jnt
-    400134: R_ankle_jnt
-    400136: R_Clavicle_jnt
-    400138: R_elbow_jnt
-    400140: R_foot_jnt
-    400142: R_hand_jnt
-    400144: R_heel_jnt
-    400146: R_knee_jnt
-    400148: R_shoulder_jnt
-    400150: R_toe_jnt
-    400152: R_upper_leg_jnt
-    400154: R_wrist_jnt
-    400156: //RootNode
-    400158: spine_1_jnt
-    400160: spine_2_jnt
-    400162: Top_head_jnt
-    400164: top_spine_jnt
+    400054: Character1_Ctrl_RightAnkleEffector
+    400056: Character1_Ctrl_RightArm
+    400058: Character1_Ctrl_RightElbowEffector
+    400060: Character1_Ctrl_RightFoot
+    400062: Character1_Ctrl_RightFootIndex1
+    400064: Character1_Ctrl_RightFootIndex2
+    400066: Character1_Ctrl_RightFootIndexEffector
+    400068: Character1_Ctrl_RightForeArm
+    400070: Character1_Ctrl_RightHand
+    400072: Character1_Ctrl_RightHandMiddle1
+    400074: Character1_Ctrl_RightHandMiddleEffector
+    400076: Character1_Ctrl_RightHipEffector
+    400078: Character1_Ctrl_RightInFootIndex
+    400080: Character1_Ctrl_RightKneeEffector
+    400082: Character1_Ctrl_RightLeg
+    400084: Character1_Ctrl_RightShoulder
+    400086: Character1_Ctrl_RightShoulderEffector
+    400088: Character1_Ctrl_RightUpLeg
+    400090: Character1_Ctrl_RightWristEffector
+    400092: Character1_Ctrl_Spine
+    400094: Character1_Ctrl_Spine1
+    400096: Character1_Ctrl_Spine2
+    400098: Character1_Ctrl_Spine3
+    400100: CharacterController
+    400102: CharacterSkeleton
+    400104: ChickieFinal2:pasted__pSphere2
+    400106: clavicle_jnt
+    400108: //RootNode
+    400110: head_jnt
+    400112: hip_jnt
+    400114: L_ankle_jnt
+    400116: L_Clavicle_jnt
+    400118: L_elbow_jnt
+    400120: L_foot_jnt
+    400122: L_hand_jnt
+    400124: L_heel_jnt
+    400126: L_knee_jnt
+    400128: L_shoulder_jnt
+    400130: L_toe_jnt
+    400132: L_upper_leg_jnt
+    400134: L_wrist_jnt
+    400136: neck_jnt
+    400138: R_ankle_jnt
+    400140: R_Clavicle_jnt
+    400142: R_elbow_jnt
+    400144: R_foot_jnt
+    400146: R_hand_jnt
+    400148: R_heel_jnt
+    400150: R_knee_jnt
+    400152: R_shoulder_jnt
+    400154: R_toe_jnt
+    400156: R_upper_leg_jnt
+    400158: R_wrist_jnt
+    400160: spine_1_jnt
+    400162: spine_2_jnt
+    400164: Top_head_jnt
+    400166: top_spine_jnt
     2100000: lambert1
-    4300000: chickV2_one_object_:group10_pasted__group1_pasted__pasted__pCube2
-    7400000: Running Smooth
+    4300000: ChickieFinal2:pasted__pSphere2
+    7400000: FreeFall1Frame
     9500000: //RootNode
-    13700000: chickV2_one_object_:group10_pasted__group1_pasted__pasted__pCube2
+    13700000: ChickieFinal2:pasted__pSphere2
   externalObjects: {}
   materials:
     importMaterials: 0
@@ -203,10 +205,10 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Running Smooth
+      name: FreeFall1Frame
       takeName: Take 001
-      firstFrame: 1
-      lastFrame: 20
+      firstFrame: 13
+      lastFrame: 37
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
