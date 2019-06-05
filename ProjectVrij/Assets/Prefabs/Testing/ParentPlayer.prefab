@@ -739,6 +739,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 3312603709070461217}
   - {fileID: 3312603709384826006}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -755,6 +756,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d8fce8ea2c3c3b4d94740b9f0288cc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 0}
   moveSpeed: 15
   jumpHeight: 0.05
   maxJumpAmount: 2
@@ -867,9 +869,8 @@ Transform:
   - {fileID: 3312603710048668738}
   - {fileID: 3312603708146686163}
   - {fileID: 3312603709768867222}
-  - {fileID: 3312603709070461217}
   m_Father: {fileID: 3312603708473866107}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &3312603708515431647
 Animator:
@@ -1488,11 +1489,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3312603709070461222}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalPosition: {x: 0, y: 0.8, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 3312603709384826006}
-  m_RootOrder: 3
+  m_Father: {fileID: 3312603708473866107}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3312603709101594002
 GameObject:

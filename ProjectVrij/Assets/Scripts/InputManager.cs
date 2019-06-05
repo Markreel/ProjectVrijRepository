@@ -8,7 +8,6 @@ public class InputManager : MonoBehaviour
 {
     public static Action<float> DashAttackEvent;
 
-	public Animator anim;
 
     [Header("Settings: ")]
     [SerializeField] private float moveSpeed = 5f;
@@ -17,38 +16,41 @@ public class InputManager : MonoBehaviour
     [SerializeField] private float gravity = -9.81f;
     [SerializeField] private float groundDistance = 0.2f;
     [SerializeField] private LayerMask groundLayer;
-    [Space]
+    [SerializeField] private LayerMask attackMask;
+	[Space]
     [SerializeField] private int dashDamage = 10;
     [SerializeField] private float dashDistance = 5f;
     [SerializeField] private Vector3 drag;
     [SerializeField] private float dashDelay = 1f;
-    [SerializeField] private LayerMask attackMask;
 
     [Header("References: ")]
     [SerializeField] private GameObject rotationCam;
     [SerializeField] private GameObject movementCam;
-
     [SerializeField] private MovementTrack currentMovementTrack;
 
     public float CurrentPos { get { return movementCam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>().m_PathPosition; } }
     public float CurrentDashDelay { get { return currentDashDelay; } }
     public float DashDelay { get { return dashDelay; } }
 
+	private Animator anim;
     private int currentJumpAmount = 1;
     private float currentDashDelay;
     private Vector2 velocity;
     private bool isGrounded = true;
     private Transform groundChecker;
-	//private Animator anim;
     private bool isTurned = false;
 	private float horizontal = 0f;
 
+
+
+	static int jumpState = Animator.StringToHash("Base Layer.Jump");
+
     private void Start()
     {
-		//anim = GetComponentInChildren<Animator>();
+		anim = GetComponentInChildren<Animator>();
         groundChecker = transform.GetChild(0);
         currentDashDelay = 0;
-    }
+	}
 
     private void Update()
     {
@@ -62,14 +64,17 @@ public class InputManager : MonoBehaviour
         transform.eulerAngles = new Vector3(0, rotationCam.transform.eulerAngles.y + _turnRot, 0);
     }
 
-    private void HandleMovement()
+	private void HandleMovement()
     {
-        CinemachineTrackedDolly _dolly = movementCam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>();
+		CinemachineTrackedDolly _dolly = movementCam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>();
         float _pathLenght = _dolly.m_Path.PathLength;
 		horizontal = Input.GetAxis("Horizontal");
-        isGrounded = Physics.CheckSphere(groundChecker.position, groundDistance, groundLayer, QueryTriggerInteraction.Ignore);
 
-        CoolDownDash();
+		isGrounded = Physics.CheckSphere(groundChecker.position, groundDistance, groundLayer, QueryTriggerInteraction.Ignore);
+
+		anim.SetBool("isGrounded", isGrounded);
+
+		CoolDownDash();
 
         //MAAK EEN SYSTEEM WAARBIJ DE SPELER MAAR KAN BEWEGEN BINNEN EEN BEPAALD GEBIED (BIJVOORBEELD TUSSEN PUNT 1 EN 4 OP DE DOLLYTRACK) EN DAT DE SPELER PAS DOORKAN
         //NADAT ALLES ENEMIES DOOD ZIJN (OOK HANDIG VOOR GEBIED VOOR EEN BOSS FIGHT)
@@ -85,7 +90,6 @@ public class InputManager : MonoBehaviour
 			velocity.x = 0;
 		}
 		
-
 		//Jump With DoubleJump
 		if (Input.GetKeyDown(KeyCode.Space) && currentJumpAmount > 0)
             Jump();
@@ -98,9 +102,10 @@ public class InputManager : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
 
         velocity.y /= 1 + drag.y * Time.deltaTime;
-        CheckIfGrounded();
+		CheckIfGrounded();
 
-        _dolly.m_PathPosition = Mathf.Clamp(_dolly.m_PathPosition + velocity.x, 0, _pathLenght);
+
+		_dolly.m_PathPosition = Mathf.Clamp(_dolly.m_PathPosition + velocity.x, 0, _pathLenght);
         transform.position = new Vector3(movementCam.transform.position.x, transform.position.y + velocity.y, movementCam.transform.position.z);// * Time.deltaTime;
     }
 
@@ -114,7 +119,6 @@ public class InputManager : MonoBehaviour
         //float _camPos = _dolly.m_PathPosition;
 
         velocity.x = (isTurned ? -Time.deltaTime : Time.deltaTime) * moveSpeed;
-		//anim.SetBool("isRunning", true);
 		anim.SetFloat("Movement", horizontal);
 		//_dolly.m_PathPosition = _camPos;
 
@@ -125,11 +129,29 @@ public class InputManager : MonoBehaviour
 	/// Launches the player upwards according to the amount of jumps available.
 	/// </summary>
 	private void Jump()
-    {
-		anim.SetBool("isGrounded", false);
-        velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-        currentJumpAmount--;
-    }
+    {	
+		if(currentJumpAmount == maxJumpAmount)
+		{
+			anim.SetTrigger("Jump");
+		}
+		velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+		isGrounded = false;
+		currentJumpAmount--;
+		
+	}
+
+	private void JumpDown()
+	{
+		AnimatorStateInfo currentState = anim.GetCurrentAnimatorStateInfo(0);
+		if(currentState.fullPathHash == jumpState)
+		{
+			if(currentState.normalizedTime > 1)
+			{
+				Vector3 _velocity = new Vector3(groundChecker.transform.position.x, 6.0f, groundChecker.transform.position.z);
+				groundChecker.transform.position = velocity;
+			}
+		}
+	}
 
     /// <summary>
     /// Launches the player sideways towards the current direction.
@@ -180,9 +202,10 @@ public class InputManager : MonoBehaviour
     {
         if (isGrounded && velocity.y < 0)
         {
-            velocity.y = 0f;
-            currentJumpAmount = maxJumpAmount;
-			anim.SetBool("isGrounded", true);
+			
+			velocity.y = 0f;
+			currentJumpAmount = maxJumpAmount;
+
 		}
 	}
 }
