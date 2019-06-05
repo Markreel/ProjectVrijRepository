@@ -8,8 +8,6 @@ public class InputManager : MonoBehaviour
 {
     public static Action<float> DashAttackEvent;
 
-	public Animator anim;
-
     [Header("Settings: ")]
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float jumpHeight = 2f;
@@ -17,23 +15,23 @@ public class InputManager : MonoBehaviour
     [SerializeField] private float gravity = -9.81f;
     [SerializeField] private float groundDistance = 0.2f;
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private LayerMask attackMask;
     [Space]
     [SerializeField] private int dashDamage = 10;
     [SerializeField] private float dashDistance = 5f;
     [SerializeField] private Vector3 drag;
     [SerializeField] private float dashDelay = 1f;
-    [SerializeField] private LayerMask attackMask;
 
     [Header("References: ")]
     [SerializeField] private GameObject rotationCam;
     [SerializeField] private GameObject movementCam;
-
     [SerializeField] private MovementTrack currentMovementTrack;
 
     public float CurrentPos { get { return movementCam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>().m_PathPosition; } }
     public float CurrentDashDelay { get { return currentDashDelay; } }
     public float DashDelay { get { return dashDelay; } }
 
+	private Animator anim;
     private int currentJumpAmount = 1;
     private float currentDashDelay;
     private Vector2 velocity;
@@ -45,7 +43,7 @@ public class InputManager : MonoBehaviour
 
     private void Start()
     {
-		//anim = GetComponentInChildren<Animator>();
+		anim = GetComponentInChildren<Animator>();
         groundChecker = transform.GetChild(0);
         currentDashDelay = 0;
     }
@@ -67,7 +65,9 @@ public class InputManager : MonoBehaviour
         CinemachineTrackedDolly _dolly = movementCam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>();
         float _pathLenght = _dolly.m_Path.PathLength;
 		horizontal = Input.GetAxis("Horizontal");
+
         isGrounded = Physics.CheckSphere(groundChecker.position, groundDistance, groundLayer, QueryTriggerInteraction.Ignore);
+        anim.SetBool("isGrounded", isGrounded);
 
         CoolDownDash();
 
@@ -116,8 +116,9 @@ public class InputManager : MonoBehaviour
         //float _camPos = _dolly.m_PathPosition;
 
         velocity.x = (isTurned ? -Time.deltaTime : Time.deltaTime) * moveSpeed;
+		anim.SetFloat("Movement", horizontal);  
+
 		//anim.SetBool("isRunning", true);
-		//anim.SetFloat("Movement", horizontal);  
 		//_dolly.m_PathPosition = _camPos;
 
 		//transform.position = new Vector3(movementCam.transform.position.x, transform.position.y, movementCam.transform.position.z);
@@ -128,8 +129,11 @@ public class InputManager : MonoBehaviour
 	/// </summary>
 	private void Jump()
     {
-		//anim.SetBool("isGrounded", false);
+        if (currentJumpAmount == maxJumpAmount)
+            anim.SetTrigger("Jump");
+
         velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+        isGrounded = false;
         currentJumpAmount--;
     }
 
@@ -148,8 +152,6 @@ public class InputManager : MonoBehaviour
 
                 if (_enemy != null)
                     _enemy.TakeDamage(dashDamage);
-
-                print(_hit.collider.name);
             }
         }
 
@@ -161,8 +163,8 @@ public class InputManager : MonoBehaviour
 
 		//anim.SetBool("isDashing", true);
 
-        if(DashAttackEvent != null)
-            DashAttackEvent(1);
+        //if(DashAttackEvent != null)
+        //    DashAttackEvent(1);
     }
 
     private void CoolDownDash()
@@ -189,7 +191,6 @@ public class InputManager : MonoBehaviour
         {
             velocity.y = 0f;
             currentJumpAmount = maxJumpAmount;
-			//anim.SetBool("isGrounded", true);
 		}
 	}
 }

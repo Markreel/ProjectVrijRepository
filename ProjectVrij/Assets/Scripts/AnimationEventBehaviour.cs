@@ -5,10 +5,10 @@ using UnityEngine.Events;
 
 public class AnimationEventBehaviour : MonoBehaviour
 {
-	public UnityEvent OnEvent;
+	public List<UnityEvent> OnEvent = new List<UnityEvent>();
 
-	public void ExecuteEvent()
+	public void ExecuteEvent(int _index)
 	{
-		OnEvent.Invoke();
+		OnEvent[_index].Invoke();
 	}
 }

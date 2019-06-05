@@ -15,17 +15,20 @@ public class EnemyParent : MonoBehaviour
 
     [SerializeField] private float playerSpottedRange = 10f;
     [SerializeField] private float attackRange = 3f;
+    [SerializeField] private bool canAttack = true;
     [SerializeField] private float attackCooldownTimer = 3f;
+    [SerializeField] private float attackDistance = 2;
+    [SerializeField] private LayerMask playerMask;
+    [SerializeField] private GameObject playerChecker;
 
     [Header("References: ")]
     [SerializeField] private InputManager player;
     [SerializeField] private GameObject movementCamPrefab;
     private GameObject movementCam;
+    private Animator anim;
 
     private float rotationSpeed = 10f;
     private float tempMoveSpeed;
-    private float attackTimer;
-    private bool canAttack;
     private float currentHealth;
 
     public InputManager Player { set { player = value; } }
@@ -36,6 +39,7 @@ public class EnemyParent : MonoBehaviour
     public virtual void Awake()
     {
         ResetHealth();
+        anim = GetComponentInChildren<Animator>();
     }
 
     public void InitializeMovementCam(float _pathPosition)
@@ -72,12 +76,22 @@ public class EnemyParent : MonoBehaviour
                 MoveTowardsPlayer();
             }
 
-            else if (distanceBetweenPlayer <= attackRange)
+            if (distanceBetweenPlayer <= attackRange)
+                LookAtPlayer();
+
+
+            if (Physics.Raycast(playerChecker.transform.position, transform.forward, attackDistance, playerMask) && canAttack)
             {
                 LookAtPlayer();
-                tempMoveSpeed = 0f;
-                DoAttack();
+                anim.SetTrigger("Attack");
+                canAttack = false;
             }
+
+            //else
+            //{
+            //    anim.SetBool("isAttacking", false);
+            //    canAttack = true;
+            //}
 
             //if (Vector3.Distance(player.transform.position, transform.position) <= playerSpottedRange && Vector3.Distance(player.transform.position, transform.position) > attackRange)
             //{
@@ -99,6 +113,8 @@ public class EnemyParent : MonoBehaviour
             //    DoAttack();
             //}
         }
+
+        Debug.DrawLine(playerChecker.transform.position, playerChecker.transform.position + transform.forward);
 
         CheckDeathState();
     }
@@ -130,24 +146,21 @@ public class EnemyParent : MonoBehaviour
 
     }
 
+    public virtual void ReactivateAttackState()
+    {
+        canAttack = true;
+    }
+
     public virtual void DoAttack()
     {
-        attackTimer += Time.deltaTime;
+        if (!Physics.Raycast(playerChecker.transform.position, transform.forward, attackDistance, playerMask))
+            return;
 
-        if (attackTimer >= attackCooldownTimer)
+        tempMoveSpeed = 0f;
+
+        if (EnemyDamageEvent != null)
         {
-            canAttack = true;
-            attackTimer = 0;
-        }
-
-        if (canAttack)
-        {
-            canAttack = false;
-
-            if (EnemyDamageEvent != null)
-            {
-                EnemyDamageEvent(damage);
-            }
+            EnemyDamageEvent(damage);
         }
     }
 
@@ -156,7 +169,7 @@ public class EnemyParent : MonoBehaviour
         if (currentHealth <= 0)
         {
             SpawnManager.Instance.RemoveEnemy(gameObject);
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
     }
 
