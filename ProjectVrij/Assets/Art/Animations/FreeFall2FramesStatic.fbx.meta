@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e3f849ab7cd22f742942089cc2c8edbe
+guid: 0ca2398f93deb234cab87a3ab53e2876
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -173,7 +173,7 @@ ModelImporter:
     400166: top_spine_jnt
     2100000: lambert1
     4300000: ChickieFinal2:pasted__pSphere2
-    7400000: FreeFall2Frames
+    7400000: FreeFall
     9500000: //RootNode
     13700000: ChickieFinal2:pasted__pSphere2
   externalObjects: {}
@@ -205,17 +205,17 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: FreeFall2Frames
+      name: FreeFall
       takeName: Take 001
-      firstFrame: 13
-      lastFrame: 14
+      firstFrame: 15
+      lastFrame: 15
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
