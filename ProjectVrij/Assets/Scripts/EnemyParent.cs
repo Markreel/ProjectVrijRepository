@@ -138,6 +138,8 @@ public class EnemyParent : MonoBehaviour
     public virtual void TakeDamage(float damage)
     {
         currentHealth -= damage;
+        InputManager.DashAttackEvent -= TakeDamage;
+        Debug.Log("DAMAGAETAKEN currenthealth: " + currentHealth);
     }
 
     public virtual void Patrol()
@@ -175,12 +177,12 @@ public class EnemyParent : MonoBehaviour
 
     private void OnEnable()
     {
-        InputManager.DashAttackEvent += TakeDamage;
+
     }
 
     private void OnDisable()
     {
-        InputManager.DashAttackEvent -= TakeDamage;
+
     }
 
 }

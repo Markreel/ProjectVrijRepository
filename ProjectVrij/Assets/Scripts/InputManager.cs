@@ -82,8 +82,6 @@ public class InputManager : MonoBehaviour
 		{
 			velocity.x = 0;
 		}
-		
-        Debug.DrawRay(transform.position, transform.forward);
 
 		//Jump With DoubleJump
 		if (Input.GetKeyDown(KeyCode.Space) && currentJumpAmount > 0)
@@ -142,16 +140,21 @@ public class InputManager : MonoBehaviour
     /// </summary>
     private void Dash()
     {
-        RaycastHit[] _hits = Physics.RaycastAll(transform.position, transform.forward, dashDistance, attackMask);
+        //float _height = GetComponent<Renderer>().bounds.center.y;
+        
+        //CHANGE SPHERECAST TO LINE IN FRONT SO YOU GET ALL ENEMIESSSS
+
+        RaycastHit[] _hits = Physics.SphereCastAll(GetComponentInChildren<Renderer>().bounds.center + transform.forward, 1, transform.forward, dashDistance, attackMask);
 
         if(_hits != null)
         {
             foreach (var _hit in _hits)
             {
-                EnemyParent _enemy = _hit.transform.GetComponent<EnemyParent>();
+                Debug.Log(_hit.transform.gameObject.name);
+                EnemyParent _enemy = _hit.transform.GetComponentInParent<EnemyParent>();
 
                 if (_enemy != null)
-                    _enemy.TakeDamage(dashDamage);
+                    DashAttackEvent += _enemy.TakeDamage;
             }
         }
 
@@ -161,10 +164,10 @@ public class InputManager : MonoBehaviour
         velocity.x += isTurned ? -_value : _value; // Vector3.Scale(transform.forward, dashDistance * new Vector3((), 0, 0));
         currentDashDelay = dashDelay;
 
-		//anim.SetBool("isDashing", true);
+        //anim.SetBool("isDashing", true);
 
-        //if(DashAttackEvent != null)
-        //    DashAttackEvent(1);
+        if (DashAttackEvent != null)
+            DashAttackEvent(dashDamage);
     }
 
     private void CoolDownDash()
@@ -193,4 +196,9 @@ public class InputManager : MonoBehaviour
             currentJumpAmount = maxJumpAmount;
 		}
 	}
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawSphere(GetComponentInChildren<Renderer>().bounds.center + transform.forward, 1);
+    }
 }
