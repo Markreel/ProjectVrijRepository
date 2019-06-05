@@ -40,7 +40,7 @@ public class EnemyParent : MonoBehaviour
 
     public void InitializeMovementCam(float _pathPosition)
     {
-        movementCam = Instantiate(movementCamPrefab, transform.parent);
+        movementCam = Instantiate(movementCamPrefab, transform);
 
         CinemachineVirtualCamera _vCam = movementCam.GetComponent<CinemachineVirtualCamera>();
 
