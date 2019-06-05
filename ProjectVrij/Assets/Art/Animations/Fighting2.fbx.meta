@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e3f849ab7cd22f742942089cc2c8edbe
+guid: 294c8e80a8b90cd498a2181651640ca2
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -173,7 +173,7 @@ ModelImporter:
     400166: top_spine_jnt
     2100000: lambert1
     4300000: ChickieFinal2:pasted__pSphere2
-    7400000: FreeFall2Frames
+    7400000: Fight2
     9500000: //RootNode
     13700000: ChickieFinal2:pasted__pSphere2
   externalObjects: {}
@@ -205,10 +205,10 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: FreeFall2Frames
+      name: Fight2
       takeName: Take 001
-      firstFrame: 13
-      lastFrame: 14
+      firstFrame: 14
+      lastFrame: 26
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -256,7 +256,7 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 1
+    previousCalculatedGlobalScale: 0.01
     hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
