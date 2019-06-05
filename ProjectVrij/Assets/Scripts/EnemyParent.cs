@@ -40,14 +40,18 @@ public class EnemyParent : MonoBehaviour
 
     public void InitializeMovementCam(float _pathPosition)
     {
-        movementCam = Instantiate(movementCamPrefab);
+        movementCam = Instantiate(movementCamPrefab, transform.parent);
 
         CinemachineVirtualCamera _vCam = movementCam.GetComponent<CinemachineVirtualCamera>();
 
-        _vCam.Follow = transform;
         _vCam.GetCinemachineComponent<CinemachineTrackedDolly>().m_Path = GameObject.Find("DollyTrack1").GetComponent<CinemachinePathBase>();
         _vCam.GetCinemachineComponent<CinemachineTrackedDolly>().m_PositionUnits = CinemachinePathBase.PositionUnits.Distance;
         _vCam.GetCinemachineComponent<CinemachineTrackedDolly>().m_PathPosition = _pathPosition;
+
+        //gameObject.transform.position = _vCam.transform.position;
+        //Debug.Log(_vCam.transform.position);
+
+        _vCam.Follow = transform;
         // movementCam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>().track
     }
 
@@ -58,6 +62,8 @@ public class EnemyParent : MonoBehaviour
 
     public virtual void Update()
     {
+        transform.position = new Vector3(movementCam.transform.position.x, transform.position.y, movementCam.transform.position.z);
+
         if (player != null)
         {
             if (distanceBetweenPlayer <= playerSpottedRange && distanceBetweenPlayer > attackRange)
@@ -69,10 +75,7 @@ public class EnemyParent : MonoBehaviour
             else if (distanceBetweenPlayer <= attackRange)
             {
                 LookAtPlayer();
-
                 tempMoveSpeed = 0f;
-                //play attack state
-                //Debug.Log("ATTACK");
                 DoAttack();
             }
 
@@ -108,8 +111,6 @@ public class EnemyParent : MonoBehaviour
 
         tempMoveSpeed = (isTurned ? -Time.deltaTime : Time.deltaTime) * movementSpeed;
         _dolly.m_PathPosition = Mathf.Clamp(_dolly.m_PathPosition + tempMoveSpeed, 0, _pathLenght);
-
-        transform.position = new Vector3(movementCam.transform.position.x, transform.position.y, movementCam.transform.position.z);
     }
 
     void LookAtPlayer()

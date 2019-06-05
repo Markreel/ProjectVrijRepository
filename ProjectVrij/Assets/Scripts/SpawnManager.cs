@@ -19,7 +19,10 @@ public class SpawnManager : MonoBehaviour
 
         PopulateSpawnPointList();
 
-        InstantiateEnemies(spawnPoints[0]);
+        foreach (var _spawnPoint in spawnPoints)
+        {
+            InstantiateEnemies(_spawnPoint);
+        }
     }
 
     void PopulateSpawnPointList()
@@ -35,10 +38,11 @@ public class SpawnManager : MonoBehaviour
     {
         for (int i = 0; i < _spawnPoint.Amount; i++)
         {
-            Vector3 _randomOffset = new Vector3(Random.Range(_spawnPoint.Offset.x, _spawnPoint.Offset.y), 0, 0);
+            float _randomOffset = Random.Range(_spawnPoint.Offset.x, _spawnPoint.Offset.y);
+            float _pathPos = _spawnPoint.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>().m_PathPosition + _randomOffset;
 
-            GameObject _obj = Instantiate(enemyPrefabs[(int)_spawnPoint.TypeOfEnemy], _spawnPoint.transform.position + _randomOffset, _spawnPoint.transform.rotation, transform);
-            _obj.GetComponent<EnemyParent>().InitializeMovementCam(_spawnPoint.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>().m_PathPosition);
+            GameObject _obj = Instantiate(enemyPrefabs[(int)_spawnPoint.TypeOfEnemy], _spawnPoint.transform.position, _spawnPoint.transform.rotation, transform);
+            _obj.GetComponent<EnemyParent>().InitializeMovementCam(_pathPos);
             _obj.GetComponent<EnemyParent>().Player = player;
 
             _spawnPoint.ActiveEnemyList.Add(_obj);

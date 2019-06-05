@@ -50,7 +50,7 @@ public class BoundaryManager : MonoBehaviour
     }
 
     public void CheckIfWithinBoundary(float _curDis)
-    {
+    {   //CHECK OF SPELER IN DING ZIT EN SPAWN DAN PAS ENEMIES
         foreach (var _boundary in boundaries)
         {
             if (_curDis > _boundary.PointA.m_PathPosition && _curDis < _boundary.PointB.m_PathPosition && !_boundary.Completed)
