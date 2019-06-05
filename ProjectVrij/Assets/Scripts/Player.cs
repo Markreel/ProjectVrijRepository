@@ -6,12 +6,14 @@ public class Player : MonoBehaviour
 {
 	[SerializeField] private float maxHealth = 100f;
 	private float currentHealth;
+	private Animator anim;
 
     // Start is called before the first frame update
     private void Awake()
     {
 		currentHealth = maxHealth;
-    }
+		anim = GetComponentInChildren<Animator>();
+	}
 
     private void Update()
     {
@@ -27,7 +29,7 @@ public class Player : MonoBehaviour
 	private void DeathState()
 	{
 		if(currentHealth <= 0f)
-		{
+		{ 
 			Destroy(this.gameObject);
 		}
 	}
