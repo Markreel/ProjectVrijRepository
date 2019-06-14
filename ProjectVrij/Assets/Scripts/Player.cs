@@ -8,29 +8,24 @@ public class Player : MonoBehaviour
 	private float currentHealth;
 	private Animator anim;
 
-    // Start is called before the first frame update
     private void Awake()
     {
 		currentHealth = maxHealth;
 		anim = GetComponentInChildren<Animator>();
 	}
 
-    private void Update()
-    {
-		DeathState();
-	}
-
 	public void TakeDamage(float damage)
 	{
 		currentHealth -= damage;
-		Debug.Log("PlayerHealth: " + currentHealth);
+		DeathState();
 	}
 
 	private void DeathState()
 	{
 		if(currentHealth <= 0f)
-		{ 
-			Destroy(this.gameObject);
+		{
+			InputManager.Instance.CurrentPlayerState = EnumStorage.PlayerState.Dead;
+			anim.SetBool("isDeath", true);
 		}
 	}
 
