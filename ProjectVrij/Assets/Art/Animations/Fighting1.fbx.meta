@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 39753403ccf9a14409ca603509892d1e
+guid: 4a5f4b6c1d2a1b94297b70704b0f4d03
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -173,7 +173,7 @@ ModelImporter:
     400166: top_spine_jnt
     2100000: lambert1
     4300000: ChickieFinal2:pasted__pSphere2
-    7400000: Fighting1
+    7400000: Fight1
     9500000: //RootNode
     13700000: ChickieFinal2:pasted__pSphere2
   externalObjects: {}
@@ -205,7 +205,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Fighting1
+      name: Fight1
       takeName: Take 001
       firstFrame: 1
       lastFrame: 24
@@ -231,7 +231,7 @@ ModelImporter:
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+      additiveReferencePoseFrame: 1
     isReadable: 1
   meshes:
     lODScreenPercentages: []
