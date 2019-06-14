@@ -2173,6 +2173,40 @@ MonoBehaviour:
         Culture=neutral, PublicKeyToken=null
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 1281809673}
+--- !u!1 &849578196 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3312603708515431634, guid: 8c1714f708163e54caa746397f5eb58e,
+    type: 3}
+  m_PrefabInstance: {fileID: 3312603708211700309}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &849578197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 849578196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6d6ba308e37c3a4f9426298dbb59b66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnEvent:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 278943023}
+        m_MethodName: ResetGoToNextAttackState
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1 &852596438
 GameObject:
   m_ObjectHideFlags: 0
@@ -5233,7 +5267,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1784648432}
-  m_LocalRotation: {x: 0.17177442, y: 0.014739563, z: -0.0025703767, w: 0.9850227}
+  m_LocalRotation: {x: 0.17177442, y: 0.014739545, z: -0.0025703742, w: 0.9850227}
   m_LocalPosition: {x: -0.4492501, y: 8.766218, z: -15.008001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -5734,7 +5768,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1980925484}
-  m_LocalRotation: {x: 0.17177442, y: 0.014739563, z: -0.0025703767, w: 0.9850227}
+  m_LocalRotation: {x: 0.17177442, y: 0.014739545, z: -0.0025703742, w: 0.9850227}
   m_LocalPosition: {x: -0.4492501, y: 8.766218, z: -15.008001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -5803,7 +5837,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1983575781}
-  m_LocalRotation: {x: 0.17177442, y: 0.014739545, z: -0.0025703742, w: 0.9850227}
+  m_LocalRotation: {x: 0.17177442, y: 0.014739563, z: -0.0025703767, w: 0.9850227}
   m_LocalPosition: {x: -0.4492501, y: 8.766218, z: -15.008001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -6428,6 +6462,11 @@ PrefabInstance:
         type: 3}
       propertyPath: dashStutterTime
       value: 0.025
+      objectReference: {fileID: 0}
+    - target: {fileID: 3312603708473866106, guid: 8c1714f708163e54caa746397f5eb58e,
+        type: 3}
+      propertyPath: attackTimer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3312603709050628540, guid: 8c1714f708163e54caa746397f5eb58e,
         type: 3}
