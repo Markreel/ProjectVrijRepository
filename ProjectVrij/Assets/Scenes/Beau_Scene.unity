@@ -493,7 +493,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &843889083
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1488,7 +1488,7 @@ PrefabInstance:
     - target: {fileID: 6818462778832081473, guid: 1c695e35b9aade84a99ebd3bb3151f97,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6818462778832081474, guid: 1c695e35b9aade84a99ebd3bb3151f97,
         type: 3}
@@ -1554,6 +1554,21 @@ PrefabInstance:
         type: 3}
       propertyPath: CollisionModule.m_EnergyLossOnCollision.scalar
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6818462779544066292, guid: 1c695e35b9aade84a99ebd3bb3151f97,
+        type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.scalar
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6818462779544066292, guid: 1c695e35b9aade84a99ebd3bb3151f97,
+        type: 3}
+      propertyPath: ShapeModule.arc.mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6818462779544066292, guid: 1c695e35b9aade84a99ebd3bb3151f97,
+        type: 3}
+      propertyPath: ShapeModule.arc.spread
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c695e35b9aade84a99ebd3bb3151f97, type: 3}
