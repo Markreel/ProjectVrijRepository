@@ -19,8 +19,8 @@
 		base.DoAttack();
 	}
 
-	public override void DeathState()
+	public override void CheckDeathState()
 	{
-		base.DeathState();
+		base.CheckDeathState();
 	}
 }
