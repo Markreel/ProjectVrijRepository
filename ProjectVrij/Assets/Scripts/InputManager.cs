@@ -16,11 +16,16 @@ public class InputManager : MonoBehaviour
     [SerializeField] private float groundDistance = 0.2f;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask attackMask;
-    [Space]
+    [SerializeField] private Vector3 drag;
+
+    [Header("DashSettings: ")]
+    [SerializeField] private float dashStutterTime = 0.05f;
     [SerializeField] private int dashDamage = 10;
     [SerializeField] private float dashDistance = 5f;
-    [SerializeField] private Vector3 drag;
     [SerializeField] private float dashDelay = 1f;
+    [SerializeField] private float dashDuration = 0.5f;
+    [SerializeField] private AnimationCurve dashCurve;
+    private bool isDashing = false;
 
     [Header("References: ")]
     [SerializeField] private GameObject rotationCam;
@@ -31,19 +36,19 @@ public class InputManager : MonoBehaviour
     public float CurrentDashDelay { get { return currentDashDelay; } }
     public float DashDelay { get { return dashDelay; } }
 
-	private Animator anim;
+    private Animator anim;
     private int currentJumpAmount = 1;
     private float currentDashDelay;
     private Vector2 velocity;
     private bool isGrounded = true;
     private Transform groundChecker;
-	//private Animator anim;
+    //private Animator anim;
     private bool isTurned = false;
-	private float horizontal = 0f;
+    private float horizontal = 0f;
 
     private void Start()
     {
-		anim = GetComponentInChildren<Animator>();
+        anim = GetComponentInChildren<Animator>();
         groundChecker = transform.GetChild(0);
         currentDashDelay = 0;
     }
@@ -64,7 +69,7 @@ public class InputManager : MonoBehaviour
     {
         CinemachineTrackedDolly _dolly = movementCam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>();
         float _pathLenght = _dolly.m_Path.PathLength;
-		horizontal = Input.GetAxis("Horizontal");
+        horizontal = Input.GetAxis("Horizontal");
 
         isGrounded = Physics.CheckSphere(groundChecker.position, groundDistance, groundLayer, QueryTriggerInteraction.Ignore);
         anim.SetBool("isGrounded", isGrounded);
@@ -78,20 +83,18 @@ public class InputManager : MonoBehaviour
             isTurned = horizontal > 0 ? false : true;
             Walk();
         }
-		else
-		{
-			velocity.x = 0;
-		}
-		
-        Debug.DrawRay(transform.position, transform.forward);
+        else
+        {
+            velocity.x = 0;
+        }
 
-		//Jump With DoubleJump
-		if (Input.GetKeyDown(KeyCode.Space) && currentJumpAmount > 0)
+        //Jump With DoubleJump
+        if (Input.GetKeyDown(KeyCode.Space) && currentJumpAmount > 0)
             Jump();
 
-		//Dash
-		if (Input.GetKeyDown(KeyCode.LeftShift) && currentDashDelay <= 0)
-			Dash();
+        //Dash
+        if (Input.GetKeyDown(KeyCode.LeftShift) && currentDashDelay <= 0)
+            Dash();
 
         //Apply velocity
         velocity.y += gravity * Time.deltaTime;
@@ -99,9 +102,25 @@ public class InputManager : MonoBehaviour
         velocity.y /= 1 + drag.y * Time.deltaTime;
         CheckIfGrounded();
 
-        _dolly.m_PathPosition = Mathf.Clamp(_dolly.m_PathPosition + velocity.x, 0, _pathLenght);
-        _dolly.m_PathPosition = BoundaryManager.Instance.ClampDistance(_dolly.m_PathPosition);
+        if (!isDashing)
+            TransformPosition(_dolly.m_PathPosition + velocity.x);
+
         transform.position = new Vector3(movementCam.transform.position.x, transform.position.y + velocity.y, movementCam.transform.position.z);// * Time.deltaTime;
+
+        //_dolly.m_PathPosition = Mathf.Clamp(_dolly.m_PathPosition + velocity.x, 0, _pathLenght);
+        //_dolly.m_PathPosition = BoundaryManager.Instance.ClampDistance(_dolly.m_PathPosition);
+        //transform.position = new Vector3(movementCam.transform.position.x, transform.position.y + velocity.y, movementCam.transform.position.z);// * Time.deltaTime;
+
+        //BoundaryManager.Instance.CheckIfWithinBoundary(_dolly.m_PathPosition);
+    }
+
+    private void TransformPosition(float _newPos)
+    {
+        CinemachineTrackedDolly _dolly = movementCam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>();
+        float _pathLenght = _dolly.m_Path.PathLength;
+
+        _dolly.m_PathPosition = Mathf.Clamp(_newPos, 0, _pathLenght);
+        _dolly.m_PathPosition = BoundaryManager.Instance.ClampDistance(_dolly.m_PathPosition); 
 
         BoundaryManager.Instance.CheckIfWithinBoundary(_dolly.m_PathPosition);
     }
@@ -116,18 +135,18 @@ public class InputManager : MonoBehaviour
         //float _camPos = _dolly.m_PathPosition;
 
         velocity.x = (isTurned ? -Time.deltaTime : Time.deltaTime) * moveSpeed;
-		anim.SetFloat("Movement", horizontal);  
+        anim.SetFloat("Movement", horizontal);
 
-		//anim.SetBool("isRunning", true);
-		//_dolly.m_PathPosition = _camPos;
+        //anim.SetBool("isRunning", true);
+        //_dolly.m_PathPosition = _camPos;
 
-		//transform.position = new Vector3(movementCam.transform.position.x, transform.position.y, movementCam.transform.position.z);
-	}
+        //transform.position = new Vector3(movementCam.transform.position.x, transform.position.y, movementCam.transform.position.z);
+    }
 
-	/// <summary>
-	/// Launches the player upwards according to the amount of jumps available.
-	/// </summary>
-	private void Jump()
+    /// <summary>
+    /// Launches the player upwards according to the amount of jumps available.
+    /// </summary>
+    private void Jump()
     {
         if (currentJumpAmount == maxJumpAmount)
             anim.SetTrigger("Jump");
@@ -142,42 +161,84 @@ public class InputManager : MonoBehaviour
     /// </summary>
     private void Dash()
     {
-        RaycastHit[] _hits = Physics.RaycastAll(transform.position, transform.forward, dashDistance, attackMask);
+        isDashing = true;
+        if (dashRoutine != null) StopCoroutine(dashRoutine);
+        dashRoutine = StartCoroutine(IDash());
+    }
 
-        if(_hits != null)
+    private Coroutine dashRoutine;
+    private IEnumerator IDash()
+    {
+        CinemachineTrackedDolly _dolly = movementCam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>();
+        float _startPos = _dolly.m_PathPosition;
+        float _pathLenght = _dolly.m_Path.PathLength;
+
+        float _lerpTime = 0;
+
+        List<EnemyParent> _enemyHitList = new List<EnemyParent>();
+
+        while (_lerpTime < 1)
         {
-            foreach (var _hit in _hits)
-            {
-                EnemyParent _enemy = _hit.transform.GetComponent<EnemyParent>();
+            Debug.Log(dashDuration);
+            _lerpTime += Time.deltaTime / dashDuration;
+            float _lerpKey = dashCurve.Evaluate(_lerpTime);
 
-                if (_enemy != null)
-                    _enemy.TakeDamage(dashDamage);
+            float _newPos = Mathf.Clamp(Mathf.Lerp(_startPos, _startPos + (isTurned ? -dashDistance : dashDistance), _lerpKey), 0, _pathLenght);
+            TransformPosition(_newPos);
+
+            //_dolly.m_PathPosition = Mathf.Clamp(Mathf.Lerp(_startPos, _startPos + (isTurned ? -dashDistance : dashDistance), _lerpKey), 0, _pathLenght);
+            //_dolly.m_PathPosition = BoundaryManager.Instance.ClampDistance(_dolly.m_PathPosition);
+
+            yield return null;
+
+            RaycastHit[] _hits = Physics.SphereCastAll(GetComponentInChildren<Renderer>().bounds.center + transform.forward / 2, 1, transform.forward, 0, attackMask);
+
+            if (_hits != null)
+            {
+                foreach (var _hit in _hits)
+                {
+                    Debug.Log(_hit.transform.gameObject.name);
+                    EnemyParent _enemy = _hit.transform.GetComponentInParent<EnemyParent>();
+
+                    if (_enemy != null && !_enemyHitList.Contains(_enemy))
+                    {
+                        _enemyHitList.Add(_enemy);
+                        DashAttackEvent += _enemy.TakeDamage;
+                        yield return new WaitForSeconds(dashStutterTime);
+                    }
+                }
             }
+
+            yield return null;
         }
 
-		velocity.x = 0;
+        //velocity.x = 0;
 
-        float _value = dashDistance * Mathf.Log(1f / (Time.deltaTime * drag.x + 1)) / -Time.deltaTime;
-        velocity.x += isTurned ? -_value : _value; // Vector3.Scale(transform.forward, dashDistance * new Vector3((), 0, 0));
+        //float _value = dashDistance * Mathf.Log(1f / (Time.deltaTime * drag.x + 1)) / -Time.deltaTime;
+        //velocity.x += isTurned ? -_value : _value; // Vector3.Scale(transform.forward, dashDistance * new Vector3((), 0, 0));
         currentDashDelay = dashDelay;
 
-		//anim.SetBool("isDashing", true);
+        isDashing = false;
 
-        //if(DashAttackEvent != null)
-        //    DashAttackEvent(1);
+        //anim.SetBool("isDashing", true);
+
+        if (DashAttackEvent != null)
+            DashAttackEvent(dashDamage);
+
+        yield return null;
     }
 
     private void CoolDownDash()
     {
         if (currentDashDelay > 0)
-		{
-			if(currentDashDelay > dashDelay -1)
-			{
-				velocity.x = 0;
-			}
+        {
+            if (currentDashDelay > dashDelay - 1)
+            {
+                velocity.x = 0;
+            }
             currentDashDelay -= Time.deltaTime;
-		}
-			
+        }
+
         else
             currentDashDelay = 0;
     }
@@ -191,6 +252,11 @@ public class InputManager : MonoBehaviour
         {
             velocity.y = 0f;
             currentJumpAmount = maxJumpAmount;
-		}
-	}
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawSphere(GetComponentInChildren<Renderer>().bounds.center + transform.forward / 2, 1);
+    }
 }
