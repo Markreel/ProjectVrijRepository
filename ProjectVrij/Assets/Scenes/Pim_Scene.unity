@@ -130,7 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 334f4a04b2da8584b92b3e4384d686e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 1000000
 --- !u!1 &42243422
 GameObject:
   m_ObjectHideFlags: 0
@@ -5115,7 +5115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeOfEnemy: 0
-  amount: 3
+  amount: 8
   boundaryIndex: 1
   useOffset: 1
   offset: {x: -10, y: 10}
@@ -6205,6 +6205,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3124328982340478839, guid: 3a06cce7e070872498588b40935f97b0,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 3124328982344728561, guid: 3a06cce7e070872498588b40935f97b0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6275,11 +6280,6 @@ PrefabInstance:
       propertyPath: damage
       value: 20
       objectReference: {fileID: 0}
-    - target: {fileID: 3124328982340478839, guid: 3a06cce7e070872498588b40935f97b0,
-        type: 3}
-      propertyPath: m_Layer
-      value: 11
-      objectReference: {fileID: 0}
     - target: {fileID: 3124328982340478837, guid: 3a06cce7e070872498588b40935f97b0,
         type: 3}
       propertyPath: m_Layer
@@ -6311,6 +6311,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3312603708473866106, guid: 8c1714f708163e54caa746397f5eb58e,
         type: 3}
+      propertyPath: dashCurve.m_Curve.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3312603708473866106, guid: 8c1714f708163e54caa746397f5eb58e,
+        type: 3}
       propertyPath: rotationCam
       value: 
       objectReference: {fileID: 1983575781}
@@ -6338,6 +6343,91 @@ PrefabInstance:
         type: 3}
       propertyPath: playerMask.m_Bits
       value: 1024
+      objectReference: {fileID: 0}
+    - target: {fileID: 3312603708473866106, guid: 8c1714f708163e54caa746397f5eb58e,
+        type: 3}
+      propertyPath: dashDamage
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3312603708473866106, guid: 8c1714f708163e54caa746397f5eb58e,
+        type: 3}
+      propertyPath: dashCurve.m_Curve.Array.data[1].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3312603708473866106, guid: 8c1714f708163e54caa746397f5eb58e,
+        type: 3}
+      propertyPath: dashCurve.m_Curve.Array.data[1].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3312603708473866106, guid: 8c1714f708163e54caa746397f5eb58e,
+        type: 3}
+      propertyPath: dashCurve.m_Curve.Array.data[0].inSlope
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3312603708473866106, guid: 8c1714f708163e54caa746397f5eb58e,
+        type: 3}
+      propertyPath: dashCurve.m_Curve.Array.data[0].outSlope
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3312603708473866106, guid: 8c1714f708163e54caa746397f5eb58e,
+        type: 3}
+      propertyPath: dashCurve.m_Curve.Array.data[0].outWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3312603708473866106, guid: 8c1714f708163e54caa746397f5eb58e,
+        type: 3}
+      propertyPath: dashCurve.m_Curve.Array.data[1].inSlope
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3312603708473866106, guid: 8c1714f708163e54caa746397f5eb58e,
+        type: 3}
+      propertyPath: dashCurve.m_Curve.Array.data[1].outSlope
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3312603708473866106, guid: 8c1714f708163e54caa746397f5eb58e,
+        type: 3}
+      propertyPath: dashCurve.m_Curve.Array.data[1].inWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3312603708473866106, guid: 8c1714f708163e54caa746397f5eb58e,
+        type: 3}
+      propertyPath: dashCurve.m_Curve.Array.data[1].outWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3312603708473866106, guid: 8c1714f708163e54caa746397f5eb58e,
+        type: 3}
+      propertyPath: dashCurve.m_Curve.Array.data[2].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3312603708473866106, guid: 8c1714f708163e54caa746397f5eb58e,
+        type: 3}
+      propertyPath: dashCurve.m_Curve.Array.data[2].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3312603708473866106, guid: 8c1714f708163e54caa746397f5eb58e,
+        type: 3}
+      propertyPath: dashCurve.m_Curve.Array.data[0].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 3312603708473866106, guid: 8c1714f708163e54caa746397f5eb58e,
+        type: 3}
+      propertyPath: dashCurve.m_Curve.Array.data[1].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 3312603708473866106, guid: 8c1714f708163e54caa746397f5eb58e,
+        type: 3}
+      propertyPath: dashDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3312603708473866106, guid: 8c1714f708163e54caa746397f5eb58e,
+        type: 3}
+      propertyPath: dashDuration
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 3312603708473866106, guid: 8c1714f708163e54caa746397f5eb58e,
+        type: 3}
+      propertyPath: dashStutterTime
+      value: 0.025
       objectReference: {fileID: 0}
     - target: {fileID: 3312603709050628540, guid: 8c1714f708163e54caa746397f5eb58e,
         type: 3}
