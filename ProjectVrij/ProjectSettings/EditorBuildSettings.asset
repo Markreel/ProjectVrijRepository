@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/StartScene.unity
     guid: 360fc48266c01e942b6fcda88e380fb4
   - enabled: 1
-    path: Assets/Scenes/Main.unity
-    guid: 1fdf82bde6e8c9f4489db3efe2bedfdc
+    path: Assets/Scenes/CheapFix.unity
+    guid: 7612c0fb9bad9ca44ab9e31ced19c9e4
   m_configObjects: {}
