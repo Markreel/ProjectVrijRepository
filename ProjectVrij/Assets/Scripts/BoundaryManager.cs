@@ -10,6 +10,7 @@ public class BoundaryManager : MonoBehaviour
     [SerializeField] private int currentBoundaryIndex;
     [SerializeField] private bool boundaryIsActive;
     [SerializeField] private List<Boundary> boundaries = new List<Boundary>();
+    [SerializeField] private Player player;
 
     public int CurrentBoundaryIndex { get { return currentBoundaryIndex; } }
 
@@ -17,6 +18,8 @@ public class BoundaryManager : MonoBehaviour
     private void Awake()
     {
         Instance = Instance ?? (this);
+
+        player = InputManager.Instance.gameObject.GetComponent<Player>();
 
         PopulateBoundaryList();
     }
@@ -64,6 +67,9 @@ public class BoundaryManager : MonoBehaviour
             boundaries[currentBoundaryIndex].Blockades[0].SetActive(false);
         if (boundaries[currentBoundaryIndex].Blockades[1] != null)
             boundaries[currentBoundaryIndex].Blockades[1].SetActive(false);
+
+        //Gives player half of his max health back
+        player.GainHealth(player.MaxHealth / 2);
     }
 
     public void CheckIfWithinBoundary(float _curDis)
