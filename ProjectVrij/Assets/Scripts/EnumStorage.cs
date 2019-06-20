@@ -5,7 +5,16 @@
 		Idle,
 		Dashing,
 		Moving,
+		Attacking,
 		Dead
+	}
+
+	public enum AttackStates
+	{
+		None,
+		Attack1,
+		Attack2,
+		Attack3
 	}
 
 	public enum BasicEnemyState

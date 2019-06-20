@@ -10,6 +10,7 @@ public class BoundaryManager : MonoBehaviour
     [SerializeField] private int currentBoundaryIndex;
     [SerializeField] private bool boundaryIsActive;
     [SerializeField] private List<Boundary> boundaries = new List<Boundary>();
+    [SerializeField] private Player player;
 
     public int CurrentBoundaryIndex { get { return currentBoundaryIndex; } }
 
@@ -17,6 +18,8 @@ public class BoundaryManager : MonoBehaviour
     private void Awake()
     {
         Instance = Instance ?? (this);
+
+        player = InputManager.Instance.gameObject.GetComponent<Player>();
 
         PopulateBoundaryList();
     }
@@ -30,6 +33,16 @@ public class BoundaryManager : MonoBehaviour
             Boundary _bound = new Boundary();
             _bound.PointA = _child.GetChild(0).GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>();
             _bound.PointB = _child.GetChild(1).GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>();
+
+            _bound.Blockades[0] = _child.GetChild(0).gameObject;
+            _bound.Blockades[1] = _child.GetChild(1).gameObject;
+
+            Debug.Log(_bound.Blockades[0].gameObject.name);
+
+            if (_bound.Blockades[0].gameObject != null)
+                _bound.Blockades[0].gameObject.SetActive(false);
+            if (_bound.Blockades[1].gameObject != null)
+                _bound.Blockades[1].gameObject.SetActive(false);
 
             boundaries.Add(_bound);
         }
@@ -47,6 +60,14 @@ public class BoundaryManager : MonoBehaviour
     {
         boundaryIsActive = false;
         boundaries[currentBoundaryIndex].Completed = true;
+
+        if (boundaries[currentBoundaryIndex].Blockades[0] != null)
+            boundaries[currentBoundaryIndex].Blockades[0].SetActive(false);
+        if (boundaries[currentBoundaryIndex].Blockades[1] != null)
+            boundaries[currentBoundaryIndex].Blockades[1].SetActive(false);
+
+        //Gives player half of his max health back
+        player.GainHealth(player.MaxHealth / 2);
     }
 
     public void CheckIfWithinBoundary(float _curDis)
@@ -56,6 +77,11 @@ public class BoundaryManager : MonoBehaviour
             if (_curDis > _boundary.PointA.m_PathPosition && _curDis < _boundary.PointB.m_PathPosition && !_boundary.Completed)
             {
                 boundaryIsActive = true;
+                if (_boundary.Blockades[0] != null)
+                    _boundary.Blockades[0].SetActive(true);
+                if (_boundary.Blockades[1] != null)
+                    _boundary.Blockades[1].SetActive(true);
+
                 currentBoundaryIndex = boundaries.IndexOf(_boundary);
                 SpawnManager.Instance.CheckEnemyAmount();
             }

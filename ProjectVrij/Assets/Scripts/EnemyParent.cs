@@ -80,7 +80,7 @@ public class EnemyParent : MonoBehaviour
                 LookAtPlayer();
 
 
-            if (Physics.Raycast(playerChecker.transform.position, transform.forward, attackDistance, playerMask) && canAttack)
+            if (Physics.Raycast(playerChecker.transform.position, transform.forward * attackDistance, attackDistance, playerMask) && canAttack)
             {
                 LookAtPlayer();
                 anim.SetTrigger("Attack");
@@ -114,7 +114,7 @@ public class EnemyParent : MonoBehaviour
             //}
         }
 
-        Debug.DrawLine(playerChecker.transform.position, playerChecker.transform.position + transform.forward);
+        Debug.DrawLine(playerChecker.transform.position, playerChecker.transform.position + transform.forward * attackDistance);
 
         CheckDeathState();
     }
