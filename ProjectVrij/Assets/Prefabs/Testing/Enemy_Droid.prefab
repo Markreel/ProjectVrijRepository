@@ -200,7 +200,7 @@ MonoBehaviour:
   maxHealth: 100
   movementSpeed: 2
   damage: 10
-  playerSpottedRange: 10
+  playerSpottedRange: 20
   attackRange: 2
   attackCooldownTimer: 2
   player: {fileID: 0}

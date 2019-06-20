@@ -15,37 +15,47 @@ public class EnemyParent : MonoBehaviour
 
     [SerializeField] private float playerSpottedRange = 10f;
     [SerializeField] private float attackRange = 3f;
+    [SerializeField] private bool canAttack = true;
     [SerializeField] private float attackCooldownTimer = 3f;
+    [SerializeField] private float attackDistance = 2;
+    [SerializeField] private LayerMask playerMask;
+    [SerializeField] private GameObject playerChecker;
 
     [Header("References: ")]
     [SerializeField] private InputManager player;
     [SerializeField] private GameObject movementCamPrefab;
     private GameObject movementCam;
+    private Animator anim;
 
     private float rotationSpeed = 10f;
     private float tempMoveSpeed;
-    private float attackTimer;
-    private bool canAttack;
     private float currentHealth;
 
-    private float distanceBetweenPlayer { get { return Mathf.Abs(player.CurrentPos - movementCam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>().m_PathPosition); }  }
+    public InputManager Player { set { player = value; } }
+    private float distanceBetweenPlayer { get { return Mathf.Abs(player.CurrentPos - movementCam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>().m_PathPosition); } }
     private bool isTurned { get { return player.CurrentPos < movementCam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>().m_PathPosition ? true : false; } }
 
 
     public virtual void Awake()
     {
-        InitializeMovementCam();
         ResetHealth();
+        anim = GetComponentInChildren<Animator>();
     }
 
-    private void InitializeMovementCam()
+    public void InitializeMovementCam(float _pathPosition)
     {
-        movementCam = Instantiate(movementCamPrefab);
+        movementCam = Instantiate(movementCamPrefab, transform);
 
         CinemachineVirtualCamera _vCam = movementCam.GetComponent<CinemachineVirtualCamera>();
 
-        _vCam.Follow = transform;
         _vCam.GetCinemachineComponent<CinemachineTrackedDolly>().m_Path = GameObject.Find("DollyTrack1").GetComponent<CinemachinePathBase>();
+        _vCam.GetCinemachineComponent<CinemachineTrackedDolly>().m_PositionUnits = CinemachinePathBase.PositionUnits.Distance;
+        _vCam.GetCinemachineComponent<CinemachineTrackedDolly>().m_PathPosition = _pathPosition;
+
+        //gameObject.transform.position = _vCam.transform.position;
+        //Debug.Log(_vCam.transform.position);
+
+        _vCam.Follow = transform;
         // movementCam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>().track
     }
 
@@ -56,19 +66,32 @@ public class EnemyParent : MonoBehaviour
 
     public virtual void Update()
     {
-        CinemachineTrackedDolly _dolly = movementCam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>();
-        float _pathLenght = _dolly.m_Path.PathLength;
-        float _step = movementSpeed * Time.deltaTime; // calculate distance to move
+        transform.position = new Vector3(movementCam.transform.position.x, transform.position.y, movementCam.transform.position.z);
 
         if (player != null)
         {
             if (distanceBetweenPlayer <= playerSpottedRange && distanceBetweenPlayer > attackRange)
             {
-                tempMoveSpeed = (isTurned ? -Time.deltaTime : Time.deltaTime) * movementSpeed;
-                _dolly.m_PathPosition = Mathf.Clamp(_dolly.m_PathPosition + tempMoveSpeed, 0, _pathLenght);
-
-                transform.position = new Vector3(movementCam.transform.position.x, transform.position.y, movementCam.transform.position.z);
+                LookAtPlayer();
+                MoveTowardsPlayer();
             }
+
+            if (distanceBetweenPlayer <= attackRange)
+                LookAtPlayer();
+
+
+            if (Physics.Raycast(playerChecker.transform.position, transform.forward * attackDistance, attackDistance, playerMask) && canAttack)
+            {
+                LookAtPlayer();
+                anim.SetTrigger("Attack");
+                canAttack = false;
+            }
+
+            //else
+            //{
+            //    anim.SetBool("isAttacking", false);
+            //    canAttack = true;
+            //}
 
             //if (Vector3.Distance(player.transform.position, transform.position) <= playerSpottedRange && Vector3.Distance(player.transform.position, transform.position) > attackRange)
             //{
@@ -91,12 +114,32 @@ public class EnemyParent : MonoBehaviour
             //}
         }
 
-        DeathState();
+        Debug.DrawLine(playerChecker.transform.position, playerChecker.transform.position + transform.forward * attackDistance);
+
+        CheckDeathState();
+    }
+
+    void MoveTowardsPlayer()
+    {
+        CinemachineTrackedDolly _dolly = movementCam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>();
+        float _pathLenght = _dolly.m_Path.PathLength;
+        float _step = movementSpeed * Time.deltaTime; // calculate distance to move
+
+        tempMoveSpeed = (isTurned ? -Time.deltaTime : Time.deltaTime) * movementSpeed;
+        _dolly.m_PathPosition = Mathf.Clamp(_dolly.m_PathPosition + tempMoveSpeed, 0, _pathLenght);
+    }
+
+    void LookAtPlayer()
+    {
+        Vector3 _normalizedPlayerPos = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(_normalizedPlayerPos - transform.position), rotationSpeed * Time.deltaTime);
     }
 
     public virtual void TakeDamage(float damage)
     {
         currentHealth -= damage;
+        InputManager.DashAttackEvent -= TakeDamage;
+        Debug.Log("DAMAGAETAKEN currenthealth: " + currentHealth);
     }
 
     public virtual void Patrol()
@@ -105,43 +148,41 @@ public class EnemyParent : MonoBehaviour
 
     }
 
+    public virtual void ReactivateAttackState()
+    {
+        canAttack = true;
+    }
+
     public virtual void DoAttack()
     {
-        attackTimer += Time.deltaTime;
+        if (!Physics.Raycast(playerChecker.transform.position, transform.forward, attackDistance, playerMask))
+            return;
 
-        if (attackTimer >= attackCooldownTimer)
+        tempMoveSpeed = 0f;
+
+        if (EnemyDamageEvent != null)
         {
-            canAttack = true;
-            attackTimer = 0;
-        }
-
-        if (canAttack)
-        {
-            canAttack = false;
-
-            if (EnemyDamageEvent != null)
-            {
-                EnemyDamageEvent(damage);
-            }
+            EnemyDamageEvent(damage);
         }
     }
 
-    public virtual void DeathState()
+    public virtual void CheckDeathState()
     {
         if (currentHealth <= 0)
         {
-            Destroy(this.gameObject);
+            SpawnManager.Instance.RemoveEnemy(gameObject);
+            Destroy(gameObject);
         }
     }
 
     private void OnEnable()
     {
-        InputManager.DashAttackEvent += TakeDamage;
+
     }
 
     private void OnDisable()
     {
-        InputManager.DashAttackEvent -= TakeDamage;
+
     }
 
 }
