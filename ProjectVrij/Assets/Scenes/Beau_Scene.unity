@@ -10815,7 +10815,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1250591597}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -373.81262, y: -89.1938, z: -103.625046}
+  m_LocalPosition: {x: -373.81262, y: -89.38, z: -103.625046}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 26398293}
@@ -16095,6 +16095,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: zwaardBLade
       objectReference: {fileID: 0}
+    - target: {fileID: 1810137646394471936, guid: 616354eea6831e444bb31c1416afb8cb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1810137646394471951, guid: 616354eea6831e444bb31c1416afb8cb,
+        type: 3}
+      propertyPath: NoiseModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1810137646394471951, guid: 616354eea6831e444bb31c1416afb8cb,
+        type: 3}
+      propertyPath: NoiseModule.strength.scalar
+      value: 0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 1810137646394471951, guid: 616354eea6831e444bb31c1416afb8cb,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1810137645265462518, guid: 616354eea6831e444bb31c1416afb8cb,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -16149,26 +16169,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1810137646394471951, guid: 616354eea6831e444bb31c1416afb8cb,
-        type: 3}
-      propertyPath: NoiseModule.enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1810137646394471951, guid: 616354eea6831e444bb31c1416afb8cb,
-        type: 3}
-      propertyPath: NoiseModule.strength.scalar
-      value: 0.04
-      objectReference: {fileID: 0}
-    - target: {fileID: 1810137646394471951, guid: 616354eea6831e444bb31c1416afb8cb,
-        type: 3}
-      propertyPath: EmissionModule.rateOverTime.scalar
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1810137646394471936, guid: 616354eea6831e444bb31c1416afb8cb,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 616354eea6831e444bb31c1416afb8cb, type: 3}
@@ -16469,12 +16469,12 @@ PrefabInstance:
     - target: {fileID: 5023121396555177815, guid: 415da550cc19b194c86f1d348f7ad2a7,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.98279816
+      value: 0.9707138
       objectReference: {fileID: 0}
     - target: {fileID: 5023121396555177815, guid: 415da550cc19b194c86f1d348f7ad2a7,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.18468302
+      value: 0.2402388
       objectReference: {fileID: 0}
     - target: {fileID: 5023121396555177815, guid: 415da550cc19b194c86f1d348f7ad2a7,
         type: 3}
