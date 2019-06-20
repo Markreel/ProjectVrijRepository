@@ -89,7 +89,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -5433,7 +5433,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1784648432}
-  m_LocalRotation: {x: 0.17177442, y: 0.014739563, z: -0.0025703767, w: 0.9850227}
+  m_LocalRotation: {x: 0.17177442, y: 0.014739545, z: -0.0025703742, w: 0.9850227}
   m_LocalPosition: {x: -0.4492501, y: 8.766218, z: -15.008001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -5934,7 +5934,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1980925484}
-  m_LocalRotation: {x: 0.17177442, y: 0.014739563, z: -0.0025703767, w: 0.9850227}
+  m_LocalRotation: {x: 0.17177442, y: 0.014739545, z: -0.0025703742, w: 0.9850227}
   m_LocalPosition: {x: -0.4492501, y: 8.766218, z: -15.008001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -6003,7 +6003,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1983575781}
-  m_LocalRotation: {x: 0.17177442, y: 0.014739545, z: -0.0025703742, w: 0.9850227}
+  m_LocalRotation: {x: 0.17177442, y: 0.014739563, z: -0.0025703767, w: 0.9850227}
   m_LocalPosition: {x: -0.4492501, y: 8.766218, z: -15.008001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
