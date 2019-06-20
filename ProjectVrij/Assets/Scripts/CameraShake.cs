@@ -3,6 +3,8 @@ using Cinemachine;
 
 public class CameraShake : MonoBehaviour
 {
+    public static CameraShake Instance;
+
 	public CinemachineVirtualCamera virtualCamera;
 
 	[SerializeField] private float shakeAmplitude = 1.5f;
@@ -12,7 +14,12 @@ public class CameraShake : MonoBehaviour
 	private float shakeElapsedTime = 0f;
 	private CinemachineBasicMultiChannelPerlin virtualCameraNoise;
 
-	private void Start()
+    private void Awake()
+    {
+        Instance = Instance ?? this;
+    }
+
+    private void Start()
     {
         if(virtualCamera != null)
 		{
@@ -40,7 +47,7 @@ public class CameraShake : MonoBehaviour
 		}
     }
 
-    private void ApplyShake(float _duration, float _amplitude, float _frequency)
+    public void ApplyShake(float _duration, float _amplitude, float _frequency)
     {
         shakeElapsedTime = _duration;
         shakeAmplitude = _amplitude;

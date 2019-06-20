@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
 	{
 		currentHealth -= _amount;
         PPManager.Instance.ShiftSaturation(currentHealth - maxHealth);
+        CameraShake.Instance.ApplyShake(0.2f, 10f, 1f);
         CheckDeathState();
 	}
 
