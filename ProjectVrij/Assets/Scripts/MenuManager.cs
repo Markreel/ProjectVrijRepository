@@ -1,25 +1,33 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
+	[SerializeField] Animator anim;
+	[SerializeField] GameObject settingsObject;
 
-
-	private void Awake()
+	private void Start()
 	{
-
+		settingsObject.SetActive(false);
 	}
 
-	// Start is called before the first frame update
-	void Start()
-    {
-        
-    }
+	public void NewGame()
+	{
+		SceneManager.LoadScene(1);	
+		//LoadsceneASync with loadingScreen
+	}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	public void Options()
+	{
+		settingsObject.SetActive(true);
+		anim.SetBool("isSettings", true);
+	}
+
+	public void Quit()
+	{
+		Application.Quit();
+	}
 }
