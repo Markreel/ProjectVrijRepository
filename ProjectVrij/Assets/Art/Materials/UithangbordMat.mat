@@ -7,9 +7,10 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BossClean
+  m_Name: UithangbordMat
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
-  m_ShaderKeywords: _EMISSION _METALLICGLOSSMAP _METALLICSPECGLOSSMAP _NORMALMAP _OCCLUSIONMAP
+  m_ShaderKeywords: _EMISSION _GLOSSYREFLECTIONS_OFF _METALLICGLOSSMAP _METALLICSPECGLOSSMAP
+    _NORMALMAP _SPECULARHIGHLIGHTS_OFF
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -20,23 +21,23 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: c563dd943ec4ddd4cada44ca85e19b5d, type: 3}
+        m_Texture: {fileID: 2800000, guid: 7cb808bc18510f249a597c72a003456a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
-        m_Texture: {fileID: 2800000, guid: 6b1b8431fb89a6b4bbc12edae0f171cb, type: 3}
+        m_Texture: {fileID: 2800000, guid: ea1a9ae80ca431647b5e06f4c4739d91, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: bc7153cd1e1f55d42bd363ed9cf4d728, type: 3}
+        m_Texture: {fileID: 2800000, guid: 1cdb20d3dc657fe4781ae2a8c8f59b94, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: 7d65b39e34133634d801d2b1a687eedd, type: 3}
+        m_Texture: {fileID: 2800000, guid: 981ee59c4a30118499fb9a85bd316d4e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
-        m_Texture: {fileID: 2800000, guid: 64c7c476d0434834ea845547df1a218e, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -51,18 +52,18 @@ Material:
     - _Cutoff: 0.5
     - _DstBlend: 0
     - _GlossMapScale: 1
-    - _Glossiness: 0.5
-    - _GlossyReflections: 1
+    - _Glossiness: 0
+    - _GlossyReflections: 0
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _ReceiveShadows: 1
     - _SmoothnessTextureChannel: 0
-    - _SpecularHighlights: 1
+    - _SpecularHighlights: 0
     - _SrcBlend: 1
     - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-    - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
-    - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 4, g: 4, b: 4, a: 1}
+    - _SpecColor: {r: 0, g: 0, b: 0, a: 1}

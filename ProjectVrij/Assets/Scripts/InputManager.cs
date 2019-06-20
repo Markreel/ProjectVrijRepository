@@ -288,7 +288,7 @@ public class InputManager : MonoBehaviour
 			yield return null;
 		}
 
-		anim.SetBool("isDashing", false);
+        anim.SetBool("isDashing", false);
 
 		//velocity.x = 0;
 

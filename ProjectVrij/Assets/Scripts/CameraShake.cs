@@ -16,7 +16,7 @@ public class CameraShake : MonoBehaviour
     {
         if(virtualCamera != null)
 		{
-			virtualCameraNoise = virtualCamera.GetCinemachineComponent<Cinemachine.CinemachineBasicMultiChannelPerlin>();
+			virtualCameraNoise = virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
 		}
     }
 
@@ -40,18 +40,25 @@ public class CameraShake : MonoBehaviour
 		}
     }
 
-	private void ApplyShake(float duration)
+    private void ApplyShake(float _duration, float _amplitude, float _frequency)
+    {
+        shakeElapsedTime = _duration;
+        shakeAmplitude = _amplitude;
+        shakeFrequence = _frequency;
+    }
+
+	private void ApplyDashShake(float duration)
 	{
-		shakeElapsedTime = duration;
+        ApplyShake(0.1f, 1, 1);
 	}
 
 	private void OnEnable()
 	{
-		InputManager.DashAttackEvent += ApplyShake;
+		InputManager.DashAttackEvent += ApplyDashShake;
 	}
 
 	private void OnDisable()
 	{
-		InputManager.DashAttackEvent += ApplyShake;
+		InputManager.DashAttackEvent += ApplyDashShake;
 	}
 }

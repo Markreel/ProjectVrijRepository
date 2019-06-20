@@ -23,12 +23,6 @@ public class PPManager : MonoBehaviour
         ppVolume.profile.TryGetSettings(out colorGrading);
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Q))
-            ShiftSaturation(Random.Range(-100, 100));
-    }
-
     public void ShiftSaturation(float _value)
     {
         if (shiftSaturationRoutine != null) StopCoroutine(shiftSaturationRoutine);
