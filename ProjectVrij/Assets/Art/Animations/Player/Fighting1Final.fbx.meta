@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e2175dc3bc57741419f39cc8dc54311e
+guid: 39753403ccf9a14409ca603509892d1e
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -173,7 +173,7 @@ ModelImporter:
     400166: top_spine_jnt
     2100000: lambert1
     4300000: ChickieFinal2:pasted__pSphere2
-    7400000: Fighting2
+    7400000: Fighting1
     9500000: //RootNode
     13700000: ChickieFinal2:pasted__pSphere2
   externalObjects: {}
@@ -205,17 +205,17 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Fighting2
+      name: Fighting1
       takeName: Take 001
-      firstFrame: 25
-      lastFrame: 46
+      firstFrame: 1
+      lastFrame: 24
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -227,11 +227,18 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0
+        functionName: ExecuteEvent
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+      additiveReferencePoseFrame: 1
     isReadable: 1
   meshes:
     lODScreenPercentages: []

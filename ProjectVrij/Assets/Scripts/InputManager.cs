@@ -25,8 +25,6 @@ public class InputManager : MonoBehaviour
 
 	public EnumStorage.PlayerState CurrentPlayerState = EnumStorage.PlayerState.Idle;
 
-
-
 	#region Getter/Setter
 	public float DashDistance { get { return dashDistance; } set { dashDistance = value; } }
 	public float MoveSpeed { get { return moveSpeed; } set { moveSpeed = value; } }
@@ -55,6 +53,11 @@ public class InputManager : MonoBehaviour
 	[SerializeField] private float dashDuration = 0.5f;
 	[SerializeField] private AnimationCurve dashCurve;
 
+	[Header("AttackSettings: ")]
+	[SerializeField] private float attackTimer = 0.5f;
+	private bool goToNextAttackState = false;
+	private EnumStorage.AttackStates currentAttackState = EnumStorage.AttackStates.None;
+
 	[Header("References: ")]
 	[SerializeField] private GameObject rotationCam;
 	[SerializeField] private GameObject movementCam;
@@ -63,11 +66,15 @@ public class InputManager : MonoBehaviour
 	private Animator anim;
 	private int currentJumpAmount = 1;
 	private float currentDashDelay;
+	private float currentAttackTimer;
 	private Vector2 velocity;
 	private bool isGrounded = true;
 	private Transform groundChecker;
 	private bool isTurned = false;
 	private float horizontal = 0f;
+
+	private int attackNumber = 0;
+
 
 	private void Start()
 	{
@@ -82,6 +89,7 @@ public class InputManager : MonoBehaviour
 		{
 			HandleMovement();
 			HandleRotation();
+			HandleAttack();
 		}
 	}
 
@@ -100,8 +108,7 @@ public class InputManager : MonoBehaviour
 		isGrounded = Physics.CheckSphere(groundChecker.position, groundDistance, groundLayer, QueryTriggerInteraction.Ignore);
 		anim.SetBool("isGrounded", isGrounded);
 
-		CoolDownDash();
-
+		CoolDownAttacks();
 
 		//Walk
 		if (CurrentPlayerState != EnumStorage.PlayerState.Dashing)
@@ -143,6 +150,43 @@ public class InputManager : MonoBehaviour
 		//transform.position = new Vector3(movementCam.transform.position.x, transform.position.y + velocity.y, movementCam.transform.position.z);// * Time.deltaTime;
 
 		//BoundaryManager.Instance.CheckIfWithinBoundary(_dolly.m_PathPosition);
+	}
+
+	private void HandleAttack()
+	{
+		Debug.Log(" DIT IS DE ATTACK NUMBER: " + attackNumber);
+
+		currentAttackTimer = attackTimer;
+
+		if (Input.GetMouseButtonDown(0))
+		{
+			//currentAttackTimer = attackTimer;
+			//if (currentAttackTimer == 0)
+			//	attackNumber = 0;
+			if(!goToNextAttackState)
+			{
+				currentAttackState = (int)currentAttackState < 3 ? currentAttackState+1 : EnumStorage.AttackStates.None;
+				attackNumber = (int)currentAttackState;
+				goToNextAttackState = true;
+			}
+
+			//if(anim.GetCurrentAnimatorStateInfo(0).IsName("Fighting" + attackNumber))
+			//{
+			//	attackNumber = attackNumber < 3 ? attackNumber + 1 : 0;
+			//}
+			//else if(attackNumber == 0 || attackNumber >= 3)
+			//	attackNumber = attackNumber < 3 ? attackNumber + 1 : 3;
+			//else
+			//	attackNumber = 0;
+
+			CurrentPlayerState = EnumStorage.PlayerState.Attacking;
+
+
+
+			//Debug.Log("AttackNumber: " + attackNumber);
+
+			AttackingState(goToNextAttackState);
+		}
 	}
 
 	private void TransformPosition(float _newPos)
@@ -211,7 +255,7 @@ public class InputManager : MonoBehaviour
 
 		while (_lerpTime < 1)
 		{
-			Debug.Log(dashDuration);
+			//Debug.Log(dashDuration);
 			_lerpTime += Time.deltaTime / dashDuration;
 			float _lerpKey = dashCurve.Evaluate(_lerpTime);
 
@@ -246,7 +290,6 @@ public class InputManager : MonoBehaviour
 
 		anim.SetBool("isDashing", false);
 
-
 		//velocity.x = 0;
 
 		//float _value = dashDistance * Mathf.Log(1f / (Time.deltaTime * drag.x + 1)) / -Time.deltaTime;
@@ -263,8 +306,20 @@ public class InputManager : MonoBehaviour
 		yield return null;
 	}
 
-	private void CoolDownDash()
+	private void CoolDownAttacks()
 	{
+		//if (currentAttackTimer > 0)
+		//{
+		//	currentAttackTimer -= Time.deltaTime;
+		//}
+		//else
+		//{
+		//	Debug.Log("Kijk naar mn lul");
+		//	currentAttackTimer = 0;
+		//	attackNumber = 0;
+		//	AttackingState(attackNumber);
+		//}
+
 		if (currentDashDelay > 0)
 		{
 			if (currentDashDelay > dashDelay - 1)
@@ -288,6 +343,18 @@ public class InputManager : MonoBehaviour
 			velocity.y = 0f;
 			currentJumpAmount = maxJumpAmount;
 		}
+	}
+
+	public void ResetGoToNextAttackState()
+	{
+		goToNextAttackState = false;
+		AttackingState(false);
+	}
+
+	private void AttackingState(bool _value)
+	{
+		//anim.SetInteger("AttackStates", attackNumber);
+		anim.SetBool("GoToNextAttackState", _value);
 	}
 
 	private void OnDrawGizmos()
