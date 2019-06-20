@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
 	[SerializeField] private float maxHealth = 100f;
+    public float MaxHealth { get { return maxHealth; } }
 	private float currentHealth;
 	private Animator anim;
 
@@ -14,13 +15,20 @@ public class Player : MonoBehaviour
 		anim = GetComponentInChildren<Animator>();
 	}
 
-	public void TakeDamage(float damage)
+	public void TakeDamage(float _amount)
 	{
-		currentHealth -= damage;
-		DeathState();
+		currentHealth -= _amount;
+        PPManager.Instance.ShiftSaturation(currentHealth - maxHealth);
+        CheckDeathState();
 	}
 
-	private void DeathState()
+    public void GainHealth(float _amount)
+    {
+        currentHealth = Mathf.Clamp(currentHealth + _amount, 0, maxHealth);
+        PPManager.Instance.ShiftSaturation(currentHealth - maxHealth);
+    }
+
+	private void CheckDeathState()
 	{
 		if(currentHealth <= 0f)
 		{
