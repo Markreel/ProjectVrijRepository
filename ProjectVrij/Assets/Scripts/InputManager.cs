@@ -117,12 +117,13 @@ public class InputManager : MonoBehaviour
 			{
 				CurrentPlayerState = EnumStorage.PlayerState.Moving;
 				isTurned = horizontal > 0 ? false : true;
-				Walk();
+				Walk(horizontal);
 			}
 			else
 			{
 				CurrentPlayerState = EnumStorage.PlayerState.Idle;
 				velocity.x = 0;
+				anim.SetFloat("Movement", 0);
 			}
 		}
 
@@ -156,15 +157,17 @@ public class InputManager : MonoBehaviour
 	{
 		Debug.Log(" DIT IS DE ATTACK NUMBER: " + attackNumber);
 
-		currentAttackTimer = attackTimer;
+		//currentAttackTimer = attackTimer;
 
 		if (Input.GetMouseButtonDown(0))
 		{
+			Debug.Log("mouseClicked");
 			//currentAttackTimer = attackTimer;
 			//if (currentAttackTimer == 0)
 			//	attackNumber = 0;
 			if(!goToNextAttackState)
 			{
+				Debug.Log("if !goToNextAttackState");
 				currentAttackState = (int)currentAttackState < 3 ? currentAttackState+1 : EnumStorage.AttackStates.None;
 				attackNumber = (int)currentAttackState;
 				goToNextAttackState = true;
@@ -180,8 +183,6 @@ public class InputManager : MonoBehaviour
 			//	attackNumber = 0;
 
 			CurrentPlayerState = EnumStorage.PlayerState.Attacking;
-
-
 
 			//Debug.Log("AttackNumber: " + attackNumber);
 
@@ -203,14 +204,13 @@ public class InputManager : MonoBehaviour
 	/// <summary>
 	/// Moves the player across the dolly track according to the given horizontal input
 	/// </summary>
-	private void Walk()
+	private void Walk(float _hor)
 	{
 		//CinemachineTrackedDolly _dolly = movementCam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>();
 		//float _pathLenght = _dolly.m_Path.PathLength;
 		//float _camPos = _dolly.m_PathPosition;
-
 		velocity.x = (isTurned ? -Time.deltaTime : Time.deltaTime) * moveSpeed;
-		anim.SetFloat("Movement", horizontal);
+		anim.SetFloat("Movement", _hor);
 
 		//anim.SetBool("isRunning", true);
 		//_dolly.m_PathPosition = _camPos;
