@@ -5,30 +5,36 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
 	[SerializeField] private float maxHealth = 100f;
+    public float MaxHealth { get { return maxHealth; } }
 	private float currentHealth;
+	private Animator anim;
 
-    // Start is called before the first frame update
     private void Awake()
     {
 		currentHealth = maxHealth;
+		anim = GetComponentInChildren<Animator>();
+	}
+
+	public void TakeDamage(float _amount)
+	{
+		currentHealth -= _amount;
+        PPManager.Instance.ShiftSaturation(currentHealth - maxHealth);
+        CameraShake.Instance.ApplyShake(0.2f, 10f, 1f);
+        CheckDeathState();
+	}
+
+    public void GainHealth(float _amount)
+    {
+        currentHealth = Mathf.Clamp(currentHealth + _amount, 0, maxHealth);
+        PPManager.Instance.ShiftSaturation(currentHealth - maxHealth);
     }
 
-    private void Update()
-    {
-		DeathState();
-	}
-
-	public void TakeDamage(float damage)
-	{
-		currentHealth -= damage;
-		Debug.Log("PlayerHealth: " + currentHealth);
-	}
-
-	private void DeathState()
+	private void CheckDeathState()
 	{
 		if(currentHealth <= 0f)
 		{
-			Destroy(this.gameObject);
+			InputManager.Instance.CurrentPlayerState = EnumStorage.PlayerState.Dead;
+			anim.SetBool("isDeath", true);
 		}
 	}
 

@@ -1,19 +1,39 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
-	[SerializeField] private InputManager inputManager;
+	private InputManager inputManager;
 	[SerializeField] private Image dashImage;
+	[SerializeField] private GameObject uiEscape;
 
-    private void Start()
+	public void Continue()
+	{
+		uiEscape.SetActive(false);
+		Time.timeScale = 1;
+	}
+
+	public void BackToMenu()
+	{
+		SceneManager.LoadScene(0);
+		Time.timeScale = 1;
+
+	}
+
+	private void Start()
     {
-		inputManager = FindObjectOfType<InputManager>();   
+		inputManager = FindObjectOfType<InputManager>();
     }
 
     private void Update()
     {
 		DashCooldownImage();
+		if(Input.GetKeyDown(KeyCode.Escape))
+		{
+			uiEscape.SetActive(true);
+			Time.timeScale = 0;
+		}
 	}
 
 	private void DashCooldownImage()
