@@ -342,6 +342,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: station_railing (29)
       objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.13000488
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
       propertyPath: m_LocalPosition.x
       value: -17.61
@@ -390,10 +394,6 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: be337fe287202bd48a63dcf3aaadfb79, type: 2}
-    - target: {fileID: 400000, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.13000488
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
 --- !u!4 &69396902 stripped
@@ -555,6 +555,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: station_pillar (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: daae3f28fb6960645865f754e4224259, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: daae3f28fb6960645865f754e4224259, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.1163006
@@ -610,10 +614,6 @@ PrefabInstance:
     - target: {fileID: 400002, guid: daae3f28fb6960645865f754e4224259, type: 3}
       propertyPath: m_LocalScale.z
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: daae3f28fb6960645865f754e4224259, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.1
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: daae3f28fb6960645865f754e4224259, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -1978,17 +1978,17 @@ PrefabInstance:
     - target: {fileID: 3359586935928637977, guid: 872dbc537ab5fd94f9d6af9d63721465,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 15.04
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 3359586935928637977, guid: 872dbc537ab5fd94f9d6af9d63721465,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 10.76
+      value: -1.5
       objectReference: {fileID: 0}
     - target: {fileID: 3359586935928637977, guid: 872dbc537ab5fd94f9d6af9d63721465,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 15.88
+      value: 12.5
       objectReference: {fileID: 0}
     - target: {fileID: 3359586935928637977, guid: 872dbc537ab5fd94f9d6af9d63721465,
         type: 3}
@@ -1998,7 +1998,7 @@ PrefabInstance:
     - target: {fileID: 3359586935928637977, guid: 872dbc537ab5fd94f9d6af9d63721465,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3359586935928637977, guid: 872dbc537ab5fd94f9d6af9d63721465,
         type: 3}
@@ -2008,7 +2008,7 @@ PrefabInstance:
     - target: {fileID: 3359586935928637977, guid: 872dbc537ab5fd94f9d6af9d63721465,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3359586935928637977, guid: 872dbc537ab5fd94f9d6af9d63721465,
         type: 3}
@@ -2023,7 +2023,7 @@ PrefabInstance:
     - target: {fileID: 3359586935928637977, guid: 872dbc537ab5fd94f9d6af9d63721465,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -180
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3359586935928637977, guid: 872dbc537ab5fd94f9d6af9d63721465,
         type: 3}
@@ -3288,6 +3288,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: station_railing (39)
       objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.13000488
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
       propertyPath: m_LocalPosition.x
       value: 48.25
@@ -3336,10 +3340,6 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: be337fe287202bd48a63dcf3aaadfb79, type: 2}
-    - target: {fileID: 400000, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.13000488
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
 --- !u!4 &789792310 stripped
@@ -3760,6 +3760,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: station_railing (26)
       objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.13000488
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
       propertyPath: m_LocalPosition.x
       value: -17.61
@@ -3808,10 +3812,6 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: be337fe287202bd48a63dcf3aaadfb79, type: 2}
-    - target: {fileID: 400000, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.13000488
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
 --- !u!4 &841244704 stripped
@@ -7576,6 +7576,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: station_pillar (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: daae3f28fb6960645865f754e4224259, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: daae3f28fb6960645865f754e4224259, type: 3}
       propertyPath: m_LocalPosition.x
       value: 38.610004
@@ -7631,10 +7635,6 @@ PrefabInstance:
     - target: {fileID: 400002, guid: daae3f28fb6960645865f754e4224259, type: 3}
       propertyPath: m_LocalScale.z
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: daae3f28fb6960645865f754e4224259, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.1
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: daae3f28fb6960645865f754e4224259, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -7792,6 +7792,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: station_pillar (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: daae3f28fb6960645865f754e4224259, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: daae3f28fb6960645865f754e4224259, type: 3}
       propertyPath: m_LocalPosition.x
       value: -27.8337
@@ -7847,10 +7851,6 @@ PrefabInstance:
     - target: {fileID: 400002, guid: daae3f28fb6960645865f754e4224259, type: 3}
       propertyPath: m_LocalScale.z
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: daae3f28fb6960645865f754e4224259, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.1
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: daae3f28fb6960645865f754e4224259, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -8187,6 +8187,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: station_railing (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.13000488
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
       propertyPath: m_LocalPosition.x
       value: 15.339999
@@ -8235,10 +8239,6 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: be337fe287202bd48a63dcf3aaadfb79, type: 2}
-    - target: {fileID: 400000, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.13000488
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
 --- !u!4 &1684971300 stripped
@@ -9697,6 +9697,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: station_railing (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.13000488
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
       propertyPath: m_LocalPosition.x
       value: 15.339999
@@ -9745,10 +9749,6 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: be337fe287202bd48a63dcf3aaadfb79, type: 2}
-    - target: {fileID: 400000, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.13000488
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
 --- !u!4 &1969997003 stripped
@@ -10220,6 +10220,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: station_railing (43)
       objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.13000488
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
       propertyPath: m_LocalPosition.x
       value: 48.25
@@ -10268,10 +10272,6 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: be337fe287202bd48a63dcf3aaadfb79, type: 2}
-    - target: {fileID: 400000, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.13000488
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
 --- !u!4 &2070721822 stripped
