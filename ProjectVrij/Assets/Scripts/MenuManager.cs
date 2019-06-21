@@ -9,6 +9,11 @@ public class MenuManager : MonoBehaviour
 	[SerializeField] Animator anim;
 	[SerializeField] GameObject settingsObject;
 
+	private void Awake()
+	{
+		anim.Play("MenuCamAnimation");
+	}
+
 	private void Start()
 	{
 		settingsObject.SetActive(false);
