@@ -202,7 +202,7 @@ Transform:
   m_LocalScale: {x: 2.59567, y: 9.597532, z: 2.735317}
   m_Children: []
   m_Father: {fileID: 516623808}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!65 &58232929
 BoxCollider:
@@ -273,6 +273,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: station_railing (29)
       objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.13000488
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
       propertyPath: m_LocalPosition.x
       value: -17.61
@@ -316,10 +320,6 @@ PrefabInstance:
     - target: {fileID: 400002, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.13000488
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
@@ -429,7 +429,7 @@ Transform:
   m_LocalScale: {x: 0.7, y: 22.616755, z: 0.7}
   m_Children: []
   m_Father: {fileID: 516623808}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!65 &103650367
 BoxCollider:
@@ -506,6 +506,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: station_pillar (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: daae3f28fb6960645865f754e4224259, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: daae3f28fb6960645865f754e4224259, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.1163006
@@ -561,10 +565,6 @@ PrefabInstance:
     - target: {fileID: 400002, guid: daae3f28fb6960645865f754e4224259, type: 3}
       propertyPath: m_LocalScale.z
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: daae3f28fb6960645865f754e4224259, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: daae3f28fb6960645865f754e4224259, type: 3}
@@ -654,6 +654,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: station_railing (39)
       objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.13000488
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
       propertyPath: m_LocalPosition.x
       value: 27.909988
@@ -697,10 +701,6 @@ PrefabInstance:
     - target: {fileID: 400002, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.13000488
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
@@ -1030,6 +1030,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: station_pillar (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: daae3f28fb6960645865f754e4224259, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: daae3f28fb6960645865f754e4224259, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.3200016
@@ -1085,10 +1089,6 @@ PrefabInstance:
     - target: {fileID: 400002, guid: daae3f28fb6960645865f754e4224259, type: 3}
       propertyPath: m_LocalScale.z
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: daae3f28fb6960645865f754e4224259, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: daae3f28fb6960645865f754e4224259, type: 3}
@@ -2080,7 +2080,7 @@ Transform:
   m_LocalScale: {x: 2.59567, y: 9.597532, z: 2.735317}
   m_Children: []
   m_Father: {fileID: 516623808}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!65 &492083601
 BoxCollider:
@@ -2228,7 +2228,6 @@ Transform:
   - {fileID: 1984237230}
   - {fileID: 1042782228}
   - {fileID: 1667105227}
-  - {fileID: 715349293}
   - {fileID: 1431727281}
   - {fileID: 103650366}
   - {fileID: 647167889}
@@ -2351,7 +2350,7 @@ Transform:
   m_LocalScale: {x: 2.59567, y: 9.597532, z: 2.735317}
   m_Children: []
   m_Father: {fileID: 516623808}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!65 &536719924
 BoxCollider:
@@ -2707,6 +2706,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: station_pillar (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: daae3f28fb6960645865f754e4224259, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: daae3f28fb6960645865f754e4224259, type: 3}
       propertyPath: m_LocalPosition.x
       value: -31.63
@@ -2762,10 +2765,6 @@ PrefabInstance:
     - target: {fileID: 400002, guid: daae3f28fb6960645865f754e4224259, type: 3}
       propertyPath: m_LocalScale.z
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: daae3f28fb6960645865f754e4224259, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: daae3f28fb6960645865f754e4224259, type: 3}
@@ -3092,7 +3091,7 @@ Transform:
   m_LocalScale: {x: 0.7, y: 22.616755, z: 0.7}
   m_Children: []
   m_Father: {fileID: 516623808}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!65 &647167890
 BoxCollider:
@@ -3209,97 +3208,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
---- !u!1 &715349292
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 715349293}
-  - component: {fileID: 715349296}
-  - component: {fileID: 715349295}
-  - component: {fileID: 715349294}
-  m_Layer: 0
-  m_Name: Cube (4)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &715349293
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 715349292}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -44.68, y: 8.48, z: -7.84}
-  m_LocalScale: {x: 2.4562685, y: 6.359135, z: 17.334944}
-  m_Children: []
-  m_Father: {fileID: 516623808}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &715349294
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 715349292}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &715349295
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 715349292}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 1e8ca04ae817c7f4c95bdc2818bb7ff0, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!33 &715349296
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 715349292}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &719173128
 GameObject:
   m_ObjectHideFlags: 0
@@ -3763,6 +3671,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: station_railing (26)
       objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.13000488
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
       propertyPath: m_LocalPosition.x
       value: -17.61
@@ -3806,10 +3718,6 @@ PrefabInstance:
     - target: {fileID: 400002, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.13000488
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
@@ -4102,6 +4010,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: station_railing (24)
       objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.13000488
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
       propertyPath: m_LocalPosition.x
       value: 11.5437
@@ -4145,10 +4057,6 @@ PrefabInstance:
     - target: {fileID: 400002, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.13000488
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
@@ -4459,7 +4367,7 @@ Transform:
   m_LocalScale: {x: 2.59567, y: 9.597532, z: 2.735317}
   m_Children: []
   m_Father: {fileID: 516623808}
-  m_RootOrder: 15
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!65 &1035878507
 BoxCollider:
@@ -4647,7 +4555,7 @@ Transform:
   m_LocalScale: {x: 2.59567, y: 9.597532, z: 2.735317}
   m_Children: []
   m_Father: {fileID: 516623808}
-  m_RootOrder: 16
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!65 &1049774869
 BoxCollider:
@@ -5453,7 +5361,7 @@ Transform:
   m_LocalScale: {x: 2.4562685, y: 6.359135, z: 17.334944}
   m_Children: []
   m_Father: {fileID: 516623808}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1160943810
 BoxCollider:
@@ -5857,7 +5765,7 @@ Transform:
   m_LocalScale: {x: 2.59567, y: 9.597532, z: 2.735317}
   m_Children: []
   m_Father: {fileID: 516623808}
-  m_RootOrder: 19
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!65 &1332643927
 BoxCollider:
@@ -6011,7 +5919,7 @@ Transform:
   m_LocalScale: {x: 2.59567, y: 9.597532, z: 2.735317}
   m_Children: []
   m_Father: {fileID: 516623808}
-  m_RootOrder: 20
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!65 &1359655599
 BoxCollider:
@@ -6559,7 +6467,7 @@ Transform:
   m_LocalScale: {x: 2.4562685, y: 40.947636, z: 84.492584}
   m_Children: []
   m_Father: {fileID: 516623808}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!65 &1431727282
 BoxCollider:
@@ -6630,6 +6538,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: station_railing (33)
       objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.13000488
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
       propertyPath: m_LocalPosition.x
       value: -21.4063
@@ -6673,10 +6585,6 @@ PrefabInstance:
     - target: {fileID: 400002, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.13000488
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
@@ -7083,7 +6991,7 @@ Transform:
   m_LocalScale: {x: 2.4562685, y: 20.781696, z: 17.334944}
   m_Children: []
   m_Father: {fileID: 516623808}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1548327470
 BoxCollider:
@@ -7174,7 +7082,7 @@ Transform:
   m_LocalScale: {x: 0.7, y: 22.616755, z: 0.7}
   m_Children: []
   m_Father: {fileID: 516623808}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!65 &1554185705
 BoxCollider:
@@ -7454,7 +7362,7 @@ Transform:
   m_LocalScale: {x: 2.59567, y: 9.597532, z: 2.735317}
   m_Children: []
   m_Father: {fileID: 516623808}
-  m_RootOrder: 17
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!65 &1611087048
 BoxCollider:
@@ -7810,6 +7718,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: station_pillar (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: daae3f28fb6960645865f754e4224259, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: daae3f28fb6960645865f754e4224259, type: 3}
       propertyPath: m_LocalPosition.x
       value: -27.8337
@@ -7865,10 +7777,6 @@ PrefabInstance:
     - target: {fileID: 400002, guid: daae3f28fb6960645865f754e4224259, type: 3}
       propertyPath: m_LocalScale.z
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: daae3f28fb6960645865f754e4224259, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: daae3f28fb6960645865f754e4224259, type: 3}
@@ -8094,6 +8002,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: station_railing (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.13000488
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
       propertyPath: m_LocalPosition.x
       value: 15.339999
@@ -8137,10 +8049,6 @@ PrefabInstance:
     - target: {fileID: 400002, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.13000488
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
@@ -9534,6 +9442,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: station_railing (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.13000488
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
       propertyPath: m_LocalPosition.x
       value: 15.339999
@@ -9577,10 +9489,6 @@ PrefabInstance:
     - target: {fileID: 400002, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.13000488
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49f37ff1dae1ef14da7bd84c7054c877, type: 3}
@@ -9787,7 +9695,7 @@ Transform:
   m_LocalScale: {x: 2.4562685, y: 6.359135, z: 17.334944}
   m_Children: []
   m_Father: {fileID: 516623808}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!65 &2009864638
 BoxCollider:
@@ -10330,7 +10238,7 @@ Transform:
   m_LocalScale: {x: 2.59567, y: 9.597532, z: 2.735317}
   m_Children: []
   m_Father: {fileID: 516623808}
-  m_RootOrder: 18
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!65 &2136098002
 BoxCollider:
