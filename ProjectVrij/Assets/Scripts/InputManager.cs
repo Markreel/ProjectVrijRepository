@@ -61,7 +61,6 @@ public class InputManager : MonoBehaviour
 	[Header("References: ")]
 	[SerializeField] private GameObject rotationCam;
 	[SerializeField] private GameObject movementCam;
-	[SerializeField] private MovementTrack currentMovementTrack;
 
 	private Animator anim;
 	private int currentJumpAmount = 1;
