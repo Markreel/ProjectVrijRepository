@@ -139,7 +139,7 @@ public class EnemyParent : MonoBehaviour
     {
         currentHealth -= damage;
         InputManager.DashAttackEvent -= TakeDamage;
-        Debug.Log("DAMAGAETAKEN currenthealth: " + currentHealth);
+        Debug.Log("DROID - DAMAGETAKEN - currenthealth: " + currentHealth);
     }
 
     public virtual void Patrol()

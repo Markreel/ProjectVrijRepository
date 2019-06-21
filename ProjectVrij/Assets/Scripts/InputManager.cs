@@ -54,9 +54,11 @@ public class InputManager : MonoBehaviour
 	[SerializeField] private AnimationCurve dashCurve;
 
 	[Header("AttackSettings: ")]
+	[SerializeField] private float attackDamage = 20;
 	[SerializeField] private float attackTimer = 0.5f;
 	private bool goToNextAttackState = false;
 	private EnumStorage.AttackStates currentAttackState = EnumStorage.AttackStates.None;
+	[SerializeField] private GameObject swordObject;
 
 	[Header("References: ")]
 	[SerializeField] private GameObject rotationCam;
@@ -154,19 +156,15 @@ public class InputManager : MonoBehaviour
 
 	private void HandleAttack()
 	{
-		Debug.Log(" DIT IS DE ATTACK NUMBER: " + attackNumber);
-
 		//currentAttackTimer = attackTimer;
 
 		if (Input.GetMouseButtonDown(0))
 		{
-			Debug.Log("mouseClicked");
 			//currentAttackTimer = attackTimer;
 			//if (currentAttackTimer == 0)
 			//	attackNumber = 0;
 			if(!goToNextAttackState)
 			{
-				Debug.Log("if !goToNextAttackState");
 				currentAttackState = (int)currentAttackState < 3 ? currentAttackState+1 : EnumStorage.AttackStates.None;
 				attackNumber = (int)currentAttackState;
 				goToNextAttackState = true;
@@ -184,6 +182,39 @@ public class InputManager : MonoBehaviour
 			CurrentPlayerState = EnumStorage.PlayerState.Attacking;
 
 			//Debug.Log("AttackNumber: " + attackNumber);
+
+			/*
+			RaycastHit _hit;
+
+			if (Physics.SphereCast(GetComponentInChildren<Renderer>().bounds.center + transform.forward / 2, 1, transform.forward, out _hit, 1, attackMask))
+			{
+				Debug.Log("ATTACKING THIS FUCKER: " + _hit.transform.gameObject.name);
+				EnemyParent _enemy = _hit.transform.GetComponentInParent<EnemyParent>();
+
+				if (_enemy != null)
+				{
+					_enemy.TakeDamage(attackDamage);
+				}
+			}
+			*/
+			List<EnemyParent> _enemyHitList = new List<EnemyParent>();
+
+			RaycastHit[] _hits = Physics.SphereCastAll(GetComponentInChildren<Renderer>().bounds.center + transform.forward / 2, 1, transform.forward, 1, attackMask);
+
+			if (_hits != null)
+			{
+				foreach (var _hit in _hits)
+				{
+					Debug.Log(_hit.transform.gameObject.name);
+					EnemyParent _enemy = _hit.transform.GetComponentInParent<EnemyParent>();
+
+					if (_enemy != null && !_enemyHitList.Contains(_enemy))
+					{
+						_enemyHitList.Add(_enemy);
+						_enemy.TakeDamage(attackDamage);
+					}
+				}
+			}
 
 			AttackingState(goToNextAttackState);
 		}
@@ -358,6 +389,7 @@ public class InputManager : MonoBehaviour
 
 	private void OnDrawGizmos()
 	{
-		Gizmos.DrawSphere(GetComponentInChildren<Renderer>().bounds.center + transform.forward / 2, 1);
+		Gizmos.DrawWireSphere(GetComponentInChildren<Renderer>().bounds.center + transform.forward / 2, 2);
+		//Gizmos.DrawSphere(GetComponentInChildren<Renderer>().bounds.center + transform.forward / 2, 1);
 	}
 }
