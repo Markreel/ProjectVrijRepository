@@ -54,6 +54,7 @@ public class InputManager : MonoBehaviour
 	[SerializeField] private AnimationCurve dashCurve;
 
 	[Header("AttackSettings: ")]
+	[SerializeField] private float attackDamage = 20;
 	[SerializeField] private float attackTimer = 0.5f;
 	private bool goToNextAttackState = false;
 	private EnumStorage.AttackStates currentAttackState = EnumStorage.AttackStates.None;
@@ -61,6 +62,10 @@ public class InputManager : MonoBehaviour
 	[Header("References: ")]
 	[SerializeField] private GameObject rotationCam;
 	[SerializeField] private GameObject movementCam;
+
+	[SerializeField] private GameObject jumpParticlePrefab;
+	[SerializeField] private GameObject dashEndParticlePrefab;
+	[SerializeField] private GameObject dashStartParticlePrefab;
 
 	private Animator anim;
 	private int currentJumpAmount = 1;
@@ -77,6 +82,8 @@ public class InputManager : MonoBehaviour
 
 	private void Start()
 	{
+		dashStartParticlePrefab.SetActive(false);
+
 		anim = GetComponentInChildren<Animator>();
 		groundChecker = transform.GetChild(0);
 		currentDashDelay = 0;
@@ -96,6 +103,16 @@ public class InputManager : MonoBehaviour
 	{
 		float _turnRot = isTurned ? -90 : 90;
 		transform.eulerAngles = new Vector3(0, rotationCam.transform.eulerAngles.y + _turnRot, 0);
+	}
+
+	public void JumpLandParticle()
+	{
+		ParticleInstantiator.Instance.SpawnParticle(jumpParticlePrefab, new Vector3(gameObject.transform.position.x, 1f, gameObject.transform.position.z), new Vector3(0, 0, 0));
+	}
+
+	public void DashEndParticle()
+	{
+		ParticleInstantiator.Instance.SpawnParticle(dashEndParticlePrefab, new Vector3(gameObject.transform.position.x, 4f, gameObject.transform.position.z), new Vector3(0, 0, 0));
 	}
 
 	private void HandleMovement()
@@ -154,37 +171,35 @@ public class InputManager : MonoBehaviour
 
 	private void HandleAttack()
 	{
-		Debug.Log(" DIT IS DE ATTACK NUMBER: " + attackNumber);
-
-		//currentAttackTimer = attackTimer;
-
 		if (Input.GetMouseButtonDown(0))
 		{
-			Debug.Log("mouseClicked");
-			//currentAttackTimer = attackTimer;
-			//if (currentAttackTimer == 0)
-			//	attackNumber = 0;
 			if(!goToNextAttackState)
 			{
-				Debug.Log("if !goToNextAttackState");
 				currentAttackState = (int)currentAttackState < 3 ? currentAttackState+1 : EnumStorage.AttackStates.None;
 				attackNumber = (int)currentAttackState;
 				goToNextAttackState = true;
 			}
 
-			//if(anim.GetCurrentAnimatorStateInfo(0).IsName("Fighting" + attackNumber))
-			//{
-			//	attackNumber = attackNumber < 3 ? attackNumber + 1 : 0;
-			//}
-			//else if(attackNumber == 0 || attackNumber >= 3)
-			//	attackNumber = attackNumber < 3 ? attackNumber + 1 : 3;
-			//else
-			//	attackNumber = 0;
-
 			CurrentPlayerState = EnumStorage.PlayerState.Attacking;
+			
+			List<EnemyParent> _enemyHitList = new List<EnemyParent>();
 
-			//Debug.Log("AttackNumber: " + attackNumber);
+			RaycastHit[] _hits = Physics.SphereCastAll(GetComponentInChildren<Renderer>().bounds.center + transform.forward / 2, 1, transform.forward, 1, attackMask);
 
+			if (_hits != null)
+			{
+				foreach (var _hit in _hits)
+				{
+					Debug.Log(_hit.transform.gameObject.name);
+					EnemyParent _enemy = _hit.transform.GetComponentInParent<EnemyParent>();
+
+					if (_enemy != null && !_enemyHitList.Contains(_enemy))
+					{
+						_enemyHitList.Add(_enemy);
+						_enemy.TakeDamage(attackDamage);
+					}
+				}
+			}
 			AttackingState(goToNextAttackState);
 		}
 	}
@@ -236,7 +251,9 @@ public class InputManager : MonoBehaviour
 	private void Dash()
 	{
 		CurrentPlayerState = EnumStorage.PlayerState.Dashing;
+		dashStartParticlePrefab.SetActive(true);
 		anim.SetBool("isDashing", true);
+
 		if (dashRoutine != null) StopCoroutine(dashRoutine);
 		dashRoutine = StartCoroutine(IDash());
 	}
@@ -330,6 +347,7 @@ public class InputManager : MonoBehaviour
 
 		else
 			currentDashDelay = 0;
+
 	}
 
 	/// <summary>
@@ -352,12 +370,12 @@ public class InputManager : MonoBehaviour
 
 	private void AttackingState(bool _value)
 	{
-		//anim.SetInteger("AttackStates", attackNumber);
 		anim.SetBool("GoToNextAttackState", _value);
 	}
 
 	private void OnDrawGizmos()
 	{
-		Gizmos.DrawSphere(GetComponentInChildren<Renderer>().bounds.center + transform.forward / 2, 1);
+		Gizmos.DrawWireSphere(GetComponentInChildren<Renderer>().bounds.center + transform.forward / 2, 2);
+		//Gizmos.DrawSphere(GetComponentInChildren<Renderer>().bounds.center + transform.forward / 2, 1);
 	}
 }
