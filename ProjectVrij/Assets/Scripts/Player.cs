@@ -46,4 +46,9 @@ public class Player : MonoBehaviour
 	{
 		EnemyParent.EnemyDamageEvent -= TakeDamage;
 	}
+
+    public void StepAudio()
+    {
+        Debug.Log("voetstap");
+    }
 }
