@@ -59,7 +59,8 @@ public class InputManager : MonoBehaviour
 	private bool goToNextAttackState = false;
 	private EnumStorage.AttackStates currentAttackState = EnumStorage.AttackStates.None;
 
-	[Header("References: ")]
+    [Header("References: ")]
+    [SerializeField] private CinemachineVirtualCamera actualCamera;
 	[SerializeField] private GameObject rotationCam;
 	[SerializeField] private GameObject movementCam;
 
@@ -99,7 +100,14 @@ public class InputManager : MonoBehaviour
 		}
 	}
 
-	private void HandleRotation()
+    public void SwitchToBossCamera()
+    {
+        actualCamera.GetCinemachineComponent<CinemachineTrackedDolly>().m_PathOffset = new Vector3(25, 12, 0);
+    }
+
+    //25 x //12 y
+
+    private void HandleRotation()
 	{
 		float _turnRot = isTurned ? -90 : 90;
 		transform.eulerAngles = new Vector3(0, rotationCam.transform.eulerAngles.y + _turnRot, 0);
@@ -107,7 +115,7 @@ public class InputManager : MonoBehaviour
 
 	public void JumpLandParticle()
 	{
-		ParticleInstantiator.Instance.SpawnParticle(jumpParticlePrefab, new Vector3(gameObject.transform.position.x, 1f, gameObject.transform.position.z), new Vector3(0, 0, 0));
+		ParticleInstantiator.Instance.SpawnParticle(jumpParticlePrefab, new Vector3(movementCam.transform.position.x, 1f, movementCam.transform.position.z), Vector3.zero);
 	}
 
 	public void DashEndParticle()

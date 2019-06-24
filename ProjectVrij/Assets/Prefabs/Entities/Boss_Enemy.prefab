@@ -74,6 +74,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7f324a4b3219cc4eab01883b5b20020, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isBoss: 1
   maxHealth: 1000
   movementSpeed: 3
   damage: 10
@@ -89,6 +90,7 @@ MonoBehaviour:
   player: {fileID: 0}
   movementCamPrefab: {fileID: 8912183261921021121, guid: b2428478ad87a4248aa54beacf42a52a,
     type: 3}
+  movementCam: {fileID: 0}
 --- !u!1 &4041305990293416093
 GameObject:
   m_ObjectHideFlags: 0
@@ -99,6 +101,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7666576895600418587}
   - component: {fileID: 8855576399320259380}
+  - component: {fileID: 5816520218727721295}
   m_Layer: 0
   m_Name: Boss_Enemy_Visual
   m_TagString: Untagged
@@ -146,6 +149,34 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &5816520218727721295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4041305990293416093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6d6ba308e37c3a4f9426298dbb59b66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnEvent:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1001 &3359586935763537764
 PrefabInstance:
   m_ObjectHideFlags: 0

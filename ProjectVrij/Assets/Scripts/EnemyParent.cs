@@ -9,6 +9,8 @@ public class EnemyParent : MonoBehaviour
     public static Action<float> EnemyDamageEvent;
 
     [Header("Settings: ")]
+    [SerializeField] private bool isBoss = false; 
+
     [SerializeField] private float maxHealth = 100f;
     [SerializeField] private float movementSpeed = 4f;
     [SerializeField] private float damage = 5f;
@@ -24,7 +26,7 @@ public class EnemyParent : MonoBehaviour
     [Header("References: ")]
     [SerializeField] private InputManager player;
     [SerializeField] private GameObject movementCamPrefab;
-    private GameObject movementCam;
+    [HideInInspector] public GameObject movementCam;
     private Animator anim;
 
     private float rotationSpeed = 10f;
@@ -51,6 +53,9 @@ public class EnemyParent : MonoBehaviour
         _vCam.GetCinemachineComponent<CinemachineTrackedDolly>().m_Path = GameObject.Find("DollyTrack1").GetComponent<CinemachinePathBase>();
         _vCam.GetCinemachineComponent<CinemachineTrackedDolly>().m_PositionUnits = CinemachinePathBase.PositionUnits.Distance;
         _vCam.GetCinemachineComponent<CinemachineTrackedDolly>().m_PathPosition = _pathPosition;
+
+        if (isBoss)
+            _vCam.GetCinemachineComponent<CinemachineTrackedDolly>().m_PathOffset = new Vector3(-25, 0, 0);
 
         //gameObject.transform.position = _vCam.transform.position;
         //Debug.Log(_vCam.transform.position);
@@ -140,12 +145,6 @@ public class EnemyParent : MonoBehaviour
         currentHealth -= damage;
         InputManager.DashAttackEvent -= TakeDamage;
         Debug.Log("DROID - DAMAGETAKEN - currenthealth: " + currentHealth);
-    }
-
-    public virtual void Patrol()
-    {
-
-
     }
 
     public virtual void ReactivateAttackState()

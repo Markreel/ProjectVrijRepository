@@ -19,8 +19,6 @@ public class ParticleInstantiator : MonoBehaviour
 	}
 	#endregion
 
-	[SerializeField] private List<ParticleSystem> particles = new List<ParticleSystem>();
-
     public void SpawnParticle(GameObject prefab, Vector3 position, Vector3 rotation, Transform parent = null)
 	{
 		Instantiate(prefab, position, Quaternion.Euler(rotation), parent);
