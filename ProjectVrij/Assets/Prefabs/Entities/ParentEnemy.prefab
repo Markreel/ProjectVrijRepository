@@ -121,6 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdbd3180d00cc7f409c6245994aa3b9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isBoss: 0
   maxHealth: 100
   movementSpeed: 2
   damage: 20
@@ -136,6 +137,7 @@ MonoBehaviour:
   player: {fileID: 0}
   movementCamPrefab: {fileID: 8912183261921021121, guid: b2428478ad87a4248aa54beacf42a52a,
     type: 3}
+  movementCam: {fileID: 0}
 --- !u!1 &4504983306886437336
 GameObject:
   m_ObjectHideFlags: 0
@@ -301,7 +303,7 @@ PrefabInstance:
     - target: {fileID: 2300000, guid: dd49fc1702bb64a468e00ca5c26c9a0c, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 54a2778932db3c047a125299b62dff42, type: 2}
+      objectReference: {fileID: 2100000, guid: 0739d696d19a64647913a15fe0200727, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd49fc1702bb64a468e00ca5c26c9a0c, type: 3}
 --- !u!1 &3124328982340478839 stripped

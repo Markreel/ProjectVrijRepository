@@ -23,7 +23,7 @@ public class SpawnManager : MonoBehaviour
 
         foreach (var _spawnPoint in spawnPoints)
         {
-            //if (!_spawnPoint.IsBoss)
+            if (!_spawnPoint.IsBoss)
                 InstantiateEnemies(_spawnPoint);
         }
     }

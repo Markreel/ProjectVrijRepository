@@ -102,7 +102,7 @@ public class InputManager : MonoBehaviour
 
     public void SwitchToBossCamera()
     {
-        actualCamera.GetCinemachineComponent<CinemachineTrackedDolly>().m_PathOffset = new Vector3(25, 12, 0);
+        actualCamera.GetCinemachineComponent<CinemachineTrackedDolly>().m_PathOffset = new Vector3(35, 12, 0);
     }
 
     //25 x //12 y

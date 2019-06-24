@@ -8,6 +8,18 @@ public class Enemy_Boss : EnemyParent
 {
     EnumStorage.BossEnemyState CurrentState = EnumStorage.BossEnemyState.Idle;
 
+    Coroutine attackBehaviourRoutine;
+
+    Animator anim;
+    CinemachineTrackedDolly _dolly;
+
+    public override void Awake()
+    {
+        base.Awake();
+        anim = GetComponent<Animator>();
+        _dolly = movementCam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>();
+    }
+
     public override void Update()
     {
         switch (CurrentState)
@@ -41,9 +53,24 @@ public class Enemy_Boss : EnemyParent
 		base.CheckDeathState();
 	}
 
-    IEnumerator IAttackRanged()
+    public void StartAttackingBehaviour()
     {
-        yield return new WaitForSeconds(1);
-        
+        attackBehaviourRoutine = StartCoroutine(IAttackBehaviour());
+    }
+
+    IEnumerator IAttackBehaviour()
+    {
+        _dolly.m_PathOffset.x = 25;
+
+        yield return new WaitForSeconds(5);
+
+        anim.SetTrigger("AttackLeftArm");
+        yield return new WaitForSeconds(10);
+
+        anim.SetTrigger("AttackRightArm");
+        yield return new WaitForSeconds(10);
+
+        _dolly.m_PathOffset.x = 0;
+        CurrentState = EnumStorage.BossEnemyState.AttackingMelee;
     }
 }
