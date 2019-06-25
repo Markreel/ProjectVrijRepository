@@ -19,7 +19,9 @@ public class SpawnManager : MonoBehaviour
 
     private void Awake()
     {
-        Instance = Instance ?? (this);
+        if (Instance != null)
+            Destroy(Instance);
+        Instance = this;
 
         PopulateSpawnPointList();
 

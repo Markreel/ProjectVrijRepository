@@ -17,10 +17,14 @@ public class BoundaryManager : MonoBehaviour
 
     private void Awake()
     {
-        Instance = Instance ?? (this);
+        if (Instance != null)
+            Destroy(Instance);
+        Instance = this;
+    }
 
+    private void Start()
+    {
         player = InputManager.Instance.gameObject.GetComponent<Player>();
-
         PopulateBoundaryList();
     }
 

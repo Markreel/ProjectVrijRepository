@@ -6,20 +6,7 @@ using Cinemachine;
 
 public class InputManager : MonoBehaviour
 {
-	public static InputManager Instance { get { return GetInstance(); } }
-
-	#region Singleton
-
-	private static InputManager instance;
-	private static InputManager GetInstance()
-	{
-		if (instance == null)
-		{
-			instance = FindObjectOfType<InputManager>();
-		}
-		return instance;
-	}
-	#endregion
+    public static InputManager Instance;
 
 	public static Action<float> DashAttackEvent;
 
@@ -88,7 +75,14 @@ public class InputManager : MonoBehaviour
 		currentDashDelay = 0;
 	}
 
-	private void Update()
+    private void Awake()
+    {
+        if (Instance != null)
+            Destroy(Instance);
+        Instance = this;
+    }
+
+    private void Update()
 	{
 		if (CurrentPlayerState != EnumStorage.PlayerState.Dead)
 		{

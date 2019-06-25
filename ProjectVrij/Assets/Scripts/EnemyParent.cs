@@ -152,6 +152,7 @@ public class EnemyParent : MonoBehaviour
     {
 		ParticleInstantiator.Instance.SpawnParticle(hitParticle, gameObject.transform.position, Vector3.zero);
         currentHealth -= damage;
+        Debug.Log("Current health: " + currentHealth);
         InputManager.DashAttackEvent -= TakeDamage;
     }
 

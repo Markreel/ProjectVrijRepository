@@ -18,7 +18,9 @@ public class PPManager : MonoBehaviour
 
     private void Awake()
     {
-        Instance = Instance ?? this;
+        if (Instance != null)
+            Destroy(Instance);
+        Instance = this;
 
         ppVolume = GetComponent<PostProcessVolume>();
         ppVolume.profile.TryGetSettings(out colorGrading);
