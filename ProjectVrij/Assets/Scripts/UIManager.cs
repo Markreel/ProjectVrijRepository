@@ -7,6 +7,15 @@ public class UIManager : MonoBehaviour
 	private InputManager inputManager;
 	[SerializeField] private Image dashImage;
 	[SerializeField] private GameObject uiEscape;
+	[SerializeField] private GameObject loseScreen;
+
+	private void Awake()
+	{
+		Time.timeScale = 1;
+
+		uiEscape.SetActive(false);
+		loseScreen.SetActive(false);
+	}
 
 	public void Continue()
 	{
@@ -14,11 +23,21 @@ public class UIManager : MonoBehaviour
 		Time.timeScale = 1;
 	}
 
+	public void GameOverScreen()
+	{
+		Time.timeScale = 0;
+		loseScreen.SetActive(true);
+	}
+
+	public void Restart()
+	{
+		SceneManager.LoadScene(1);
+	}
+
 	public void BackToMenu()
 	{
 		SceneManager.LoadScene(0);
 		Time.timeScale = 1;
-
 	}
 
 	private void Start()

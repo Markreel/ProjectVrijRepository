@@ -167,21 +167,23 @@ public class EnemyParent : MonoBehaviour
 
     public virtual void CheckDeathState()
     {
-        if (currentHealth <= 0)
+		if (currentHealth <= 0 && !isBoss)
+		{
+			movementSpeed = 0;
+			rotationSpeed = 90;
+			anim.SetBool("isDeath", true);
+			SpawnManager.Instance.RemoveEnemy(gameObject);
+		}
+
+		if (currentHealth <= 0 && isBoss)
         {
             SpawnManager.Instance.RemoveEnemy(gameObject);
             Destroy(gameObject);
         }
-    }
-
-    private void OnEnable()
-    {
-
-    }
-
-    private void OnDisable()
-    {
-
-    }
-
+	}
+	
+	public virtual void DestroyGameObject()
+	{
+		Destroy(gameObject);
+	}
 }
