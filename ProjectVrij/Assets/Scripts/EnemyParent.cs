@@ -147,7 +147,6 @@ public class EnemyParent : MonoBehaviour
     {
         currentHealth -= damage;
         InputManager.DashAttackEvent -= TakeDamage;
-		AudioManager.Instance.PlayClip(AudioManager.Instance.swordHitClip);
     }
 
     public virtual void ReactivateAttackState()

@@ -203,7 +203,8 @@ public class InputManager : MonoBehaviour
 					{
 						_enemyHitList.Add(_enemy);
 						_enemy.TakeDamage(attackDamage);
-					}
+                        AudioManager.Instance.PlayClip(AudioManager.Instance.swordHitClip);
+                    }
 				}
 			}
 			AttackingState(goToNextAttackState);
@@ -304,7 +305,8 @@ public class InputManager : MonoBehaviour
 					{
 						_enemyHitList.Add(_enemy);
 						DashAttackEvent += _enemy.TakeDamage;
-						yield return new WaitForSeconds(dashStutterTime);
+                        AudioManager.Instance.PlayClip(AudioManager.Instance.swordHitClip);
+                        yield return new WaitForSeconds(dashStutterTime);
 					}
 				}
 			}
