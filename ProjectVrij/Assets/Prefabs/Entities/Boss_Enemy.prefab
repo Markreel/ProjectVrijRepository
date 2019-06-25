@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3359586935753425648}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: PlayerChecker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3359586935928637977}
   - component: {fileID: 3359586935928637976}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Boss_Enemy
   m_TagString: Boss
   m_Icon: {fileID: 0}
@@ -77,12 +77,12 @@ MonoBehaviour:
   isBoss: 1
   maxHealth: 1000
   movementSpeed: 3
-  damage: 10
-  playerSpottedRange: 10
-  attackRange: 3
+  damage: 25
+  playerSpottedRange: 100
+  attackRange: 30
   canAttack: 1
-  attackCooldownTimer: 3
-  attackDistance: 2
+  attackCooldownTimer: 6
+  attackDistance: 20
   playerMask:
     serializedVersion: 2
     m_Bits: 1024
@@ -91,6 +91,10 @@ MonoBehaviour:
   movementCamPrefab: {fileID: 8912183261921021121, guid: b2428478ad87a4248aa54beacf42a52a,
     type: 3}
   movementCam: {fileID: 0}
+  anim: {fileID: 0}
+  tempMoveSpeed: 0
+  leftArm: {fileID: 7163970957979634580}
+  rightArm: {fileID: 3359586937188076422}
 --- !u!1 &4041305990293416093
 GameObject:
   m_ObjectHideFlags: 0
@@ -102,7 +106,8 @@ GameObject:
   - component: {fileID: 7666576895600418587}
   - component: {fileID: 8855576399320259380}
   - component: {fileID: 5816520218727721295}
-  m_Layer: 0
+  - component: {fileID: 6663200111849276706}
+  m_Layer: 11
   m_Name: Boss_Enemy_Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,7 +121,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4041305990293416093}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -129,7 +134,7 @@ Transform:
   - {fileID: 142772565979613357}
   m_Father: {fileID: 3359586935928637977}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &8855576399320259380
 Animator:
   serializedVersion: 3
@@ -164,12 +169,27 @@ MonoBehaviour:
   OnEvent:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 3359586935928637976}
+        m_MethodName: DoRangedAttack
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3359586935928637976}
+        m_MethodName: DoRangedAttack
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -177,6 +197,34 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3359586935928637976}
+        m_MethodName: DoAttack
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+--- !u!135 &6663200111849276706
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4041305990293416093}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 2.3
+  m_Center: {x: 0, y: 3, z: -0.58}
 --- !u!1001 &3359586935763537764
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -187,6 +235,18 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 94ff67004ec9ea54d961dc54ddf11ebb, type: 3}
       propertyPath: m_Name
       value: boss_torso
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 94ff67004ec9ea54d961dc54ddf11ebb, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 94ff67004ec9ea54d961dc54ddf11ebb, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: 94ff67004ec9ea54d961dc54ddf11ebb, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 94ff67004ec9ea54d961dc54ddf11ebb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -259,6 +319,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: boss_arm (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 71ea57d5f0b66ab4299ce8148cf756af, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 71ea57d5f0b66ab4299ce8148cf756af, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 71ea57d5f0b66ab4299ce8148cf756af, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.9200001
@@ -309,6 +377,12 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 7d3a131299caee941a4165c249096bd1, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71ea57d5f0b66ab4299ce8148cf756af, type: 3}
+--- !u!1 &3359586937188076422 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 71ea57d5f0b66ab4299ce8148cf756af,
+    type: 3}
+  m_PrefabInstance: {fileID: 3359586937188044070}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3359586937188177830 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 71ea57d5f0b66ab4299ce8148cf756af,
@@ -326,6 +400,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: droneParticle
+      objectReference: {fileID: 0}
+    - target: {fileID: 2680691167208093109, guid: ffb7d8de3e3ff3c4f8741a9de5023089,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 6820525028674235215, guid: ffb7d8de3e3ff3c4f8741a9de5023089,
         type: 3}
@@ -427,6 +506,11 @@ PrefabInstance:
       propertyPath: prewarm
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7747970593617157193, guid: ffb7d8de3e3ff3c4f8741a9de5023089,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 6059734051037903067, guid: ffb7d8de3e3ff3c4f8741a9de5023089,
         type: 3}
       propertyPath: ColorModule.gradient.maxGradient.key0.a
@@ -476,6 +560,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: droneParticle (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2680691167208093109, guid: ffb7d8de3e3ff3c4f8741a9de5023089,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 6820525028674235215, guid: ffb7d8de3e3ff3c4f8741a9de5023089,
         type: 3}
@@ -577,6 +666,11 @@ PrefabInstance:
       propertyPath: prewarm
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7747970593617157193, guid: ffb7d8de3e3ff3c4f8741a9de5023089,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 6059734051037903067, guid: ffb7d8de3e3ff3c4f8741a9de5023089,
         type: 3}
       propertyPath: InitialModule.startSize.scalar
@@ -620,6 +714,14 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 71ea57d5f0b66ab4299ce8148cf756af, type: 3}
       propertyPath: m_Name
       value: boss_arm (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 71ea57d5f0b66ab4299ce8148cf756af, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 71ea57d5f0b66ab4299ce8148cf756af, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 71ea57d5f0b66ab4299ce8148cf756af, type: 3}
       propertyPath: m_LocalPosition.x
@@ -671,6 +773,12 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 7d3a131299caee941a4165c249096bd1, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71ea57d5f0b66ab4299ce8148cf756af, type: 3}
+--- !u!1 &7163970957979634580 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 71ea57d5f0b66ab4299ce8148cf756af,
+    type: 3}
+  m_PrefabInstance: {fileID: 7163970957979602228}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7163970957979211700 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 71ea57d5f0b66ab4299ce8148cf756af,
@@ -687,6 +795,18 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 50f64e9b87a99334897802367d89a6e4, type: 3}
       propertyPath: m_Name
       value: boss_head
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 50f64e9b87a99334897802367d89a6e4, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 50f64e9b87a99334897802367d89a6e4, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: 50f64e9b87a99334897802367d89a6e4, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 50f64e9b87a99334897802367d89a6e4, type: 3}
       propertyPath: m_LocalPosition.x
