@@ -8,6 +8,8 @@ public class EnemyParent : MonoBehaviour
 {
     public static Action<float> EnemyDamageEvent;
 
+	[SerializeField] private UIManager uIManager;
+
     [Header("Settings: ")]
     [SerializeField] private bool isBoss = false; 
 
@@ -44,7 +46,8 @@ public class EnemyParent : MonoBehaviour
     {
         ResetHealth();
         anim = GetComponentInChildren<Animator>();
-    }
+		uIManager = FindObjectOfType<UIManager>();
+	}
 
     public void InitializeMovementCam(float _pathPosition)
     {
@@ -184,7 +187,10 @@ public class EnemyParent : MonoBehaviour
         {
             SpawnManager.Instance.RemoveEnemy(gameObject);
             Destroy(gameObject);
-        }
+			uIManager.WinScreen();
+
+
+		}
     }
 
     public virtual void DestroyGameObject()

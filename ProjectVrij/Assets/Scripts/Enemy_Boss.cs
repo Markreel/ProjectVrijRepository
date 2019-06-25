@@ -105,6 +105,7 @@ public class Enemy_Boss : EnemyParent
 	public override void CheckDeathState()
 	{
 		base.CheckDeathState();
+
 	}
 
     public void StartAttackingBehaviour()

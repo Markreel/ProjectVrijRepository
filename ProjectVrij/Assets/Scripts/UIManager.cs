@@ -8,6 +8,8 @@ public class UIManager : MonoBehaviour
 	[SerializeField] private Image dashImage;
 	[SerializeField] private GameObject uiEscape;
 	[SerializeField] private GameObject loseScreen;
+	[SerializeField] private GameObject winScreen;
+
 
 	private void Awake()
 	{
@@ -15,6 +17,12 @@ public class UIManager : MonoBehaviour
 
 		uiEscape.SetActive(false);
 		loseScreen.SetActive(false);
+	}
+
+	public void WinScreen()
+	{
+		Time.timeScale = 0;
+		winScreen.SetActive(true);
 	}
 
 	public void Continue()
