@@ -16,7 +16,10 @@ public class AudioManager : MonoBehaviour
     [Header("Ambience: ")]
     public AudioClip DefaultAmbienceClip;
 
-    [Header("Music: ")]
+	[Header("Player: ")]
+	public AudioClip footstepsPlayer;
+
+	[Header("Music: ")]
     public AudioClip DefaultMusicClip;
     public AudioClip MainMenuMusicClip;
     public AudioClip BossMusicClip;

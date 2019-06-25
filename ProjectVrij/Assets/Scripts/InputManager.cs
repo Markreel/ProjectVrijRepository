@@ -77,6 +77,7 @@ public class InputManager : MonoBehaviour
 	private Transform groundChecker;
 	private bool isTurned = false;
 	private float horizontal = 0f;
+	[SerializeField] AudioClip footStepsClip;
 
 	private int attackNumber = 0;
 
@@ -355,7 +356,6 @@ public class InputManager : MonoBehaviour
 
 		else
 			currentDashDelay = 0;
-
 	}
 
 	/// <summary>
@@ -379,6 +379,11 @@ public class InputManager : MonoBehaviour
 	private void AttackingState(bool _value)
 	{
 		anim.SetBool("GoToNextAttackState", _value);
+	}
+
+	public void FootstespAudio()
+	{
+		AudioManager.Instance.PlayClip(AudioManager.Instance.footstepsPlayer);
 	}
 
 	private void OnDrawGizmos()
