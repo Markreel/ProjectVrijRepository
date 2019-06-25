@@ -33,7 +33,9 @@ public class EnemyParent : MonoBehaviour
     [HideInInspector] public float tempMoveSpeed;
     private float currentHealth;
 
-    public InputManager Player { set { player = value; } }
+	[SerializeField] private GameObject hitParticle;
+
+	public InputManager Player { set { player = value; } }
     [HideInInspector] public float distanceBetweenPlayer { get { return Mathf.Abs(player.CurrentPos - movementCam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>().m_PathPosition); } }
     [HideInInspector] public bool isTurned { get { return player.CurrentPos < movementCam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>().m_PathPosition ? true : false; } }
 
@@ -145,6 +147,7 @@ public class EnemyParent : MonoBehaviour
 
     public virtual void TakeDamage(float damage)
     {
+		ParticleInstantiator.Instance.SpawnParticle(hitParticle, gameObject.transform.position, Vector3.zero);
         currentHealth -= damage;
         InputManager.DashAttackEvent -= TakeDamage;
     }

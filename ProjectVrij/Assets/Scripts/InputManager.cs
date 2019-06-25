@@ -118,7 +118,7 @@ public class InputManager : MonoBehaviour
 
 	public void DashEndParticle()
 	{
-		ParticleInstantiator.Instance.SpawnParticle(dashEndParticlePrefab, new Vector3(gameObject.transform.position.x, 4f, gameObject.transform.position.z), new Vector3(0, 0, 0));
+		ParticleInstantiator.Instance.SpawnParticle(dashEndParticlePrefab, new Vector3(gameObject.transform.position.x, 4f, gameObject.transform.position.z), Vector3.zero);
 	}
 
 	private void HandleMovement()

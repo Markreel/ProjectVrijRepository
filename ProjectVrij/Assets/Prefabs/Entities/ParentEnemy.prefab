@@ -153,6 +153,10 @@ MonoBehaviour:
   movementCamPrefab: {fileID: 8912183261921021121, guid: b2428478ad87a4248aa54beacf42a52a,
     type: 3}
   movementCam: {fileID: 0}
+  anim: {fileID: 0}
+  tempMoveSpeed: 0
+  hitParticle: {fileID: 5173453253859838431, guid: 2dfb37f98ddbe3249a0ae23ab4ea048b,
+    type: 3}
 --- !u!1 &4504983306886437336
 GameObject:
   m_ObjectHideFlags: 0
