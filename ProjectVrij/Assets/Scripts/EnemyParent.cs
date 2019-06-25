@@ -9,31 +9,35 @@ public class EnemyParent : MonoBehaviour
     public static Action<float> EnemyDamageEvent;
 
     [Header("Settings: ")]
+    [SerializeField] private bool isBoss = false; 
+
     [SerializeField] private float maxHealth = 100f;
     [SerializeField] private float movementSpeed = 4f;
-    [SerializeField] private float damage = 5f;
+    [SerializeField] public float damage = 5f;
 
-    [SerializeField] private float playerSpottedRange = 10f;
-    [SerializeField] private float attackRange = 3f;
-    [SerializeField] private bool canAttack = true;
+    [SerializeField] public float playerSpottedRange = 10f;
+    [SerializeField] public float attackRange = 3f;
+    [SerializeField] public bool canAttack = true;
     [SerializeField] private float attackCooldownTimer = 3f;
-    [SerializeField] private float attackDistance = 2;
-    [SerializeField] private LayerMask playerMask;
-    [SerializeField] private GameObject playerChecker;
+    [SerializeField] public float attackDistance = 2;
+    [SerializeField] public LayerMask playerMask;
+    [SerializeField] public GameObject playerChecker;
 
     [Header("References: ")]
-    [SerializeField] private InputManager player;
+    [SerializeField] public InputManager player;
     [SerializeField] private GameObject movementCamPrefab;
-    private GameObject movementCam;
-    private Animator anim;
+    [HideInInspector] public GameObject movementCam;
+    [HideInInspector] public Animator anim;
 
     private float rotationSpeed = 10f;
-    private float tempMoveSpeed;
+    [HideInInspector] public float tempMoveSpeed;
     private float currentHealth;
 
-    public InputManager Player { set { player = value; } }
-    private float distanceBetweenPlayer { get { return Mathf.Abs(player.CurrentPos - movementCam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>().m_PathPosition); } }
-    private bool isTurned { get { return player.CurrentPos < movementCam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>().m_PathPosition ? true : false; } }
+	[SerializeField] private GameObject hitParticle;
+
+	public InputManager Player { set { player = value; } }
+    [HideInInspector] public float distanceBetweenPlayer { get { return Mathf.Abs(player.CurrentPos - movementCam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>().m_PathPosition); } }
+    [HideInInspector] public bool isTurned { get { return player.CurrentPos < movementCam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>().m_PathPosition ? true : false; } }
 
 
     public virtual void Awake()
@@ -51,6 +55,12 @@ public class EnemyParent : MonoBehaviour
         _vCam.GetCinemachineComponent<CinemachineTrackedDolly>().m_Path = GameObject.Find("DollyTrack1").GetComponent<CinemachinePathBase>();
         _vCam.GetCinemachineComponent<CinemachineTrackedDolly>().m_PositionUnits = CinemachinePathBase.PositionUnits.Distance;
         _vCam.GetCinemachineComponent<CinemachineTrackedDolly>().m_PathPosition = _pathPosition;
+
+        if (isBoss)
+        {
+            _vCam.GetCinemachineComponent<CinemachineTrackedDolly>().m_PathOffset = new Vector3(-25, 0, 0);
+            transform.eulerAngles += Vector3.up * 180;
+        }
 
         //gameObject.transform.position = _vCam.transform.position;
         //Debug.Log(_vCam.transform.position);
@@ -119,7 +129,7 @@ public class EnemyParent : MonoBehaviour
         CheckDeathState();
     }
 
-    void MoveTowardsPlayer()
+    public void MoveTowardsPlayer()
     {
         CinemachineTrackedDolly _dolly = movementCam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>();
         float _pathLenght = _dolly.m_Path.PathLength;
@@ -129,7 +139,7 @@ public class EnemyParent : MonoBehaviour
         _dolly.m_PathPosition = Mathf.Clamp(_dolly.m_PathPosition + tempMoveSpeed, 0, _pathLenght);
     }
 
-    void LookAtPlayer()
+    public void LookAtPlayer()
     {
         Vector3 _normalizedPlayerPos = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(_normalizedPlayerPos - transform.position), rotationSpeed * Time.deltaTime);
@@ -137,15 +147,9 @@ public class EnemyParent : MonoBehaviour
 
     public virtual void TakeDamage(float damage)
     {
+		ParticleInstantiator.Instance.SpawnParticle(hitParticle, gameObject.transform.position, Vector3.zero);
         currentHealth -= damage;
         InputManager.DashAttackEvent -= TakeDamage;
-        Debug.Log("DAMAGAETAKEN currenthealth: " + currentHealth);
-    }
-
-    public virtual void Patrol()
-    {
-
-
     }
 
     public virtual void ReactivateAttackState()
@@ -168,21 +172,23 @@ public class EnemyParent : MonoBehaviour
 
     public virtual void CheckDeathState()
     {
-        if (currentHealth <= 0)
+        if (currentHealth <= 0 && !isBoss)
+        {
+            movementSpeed = 0;
+            rotationSpeed = 90;
+            anim.SetBool("isDeath", true);
+            SpawnManager.Instance.RemoveEnemy(gameObject);
+        }
+
+        if (currentHealth <= 0 && isBoss)
         {
             SpawnManager.Instance.RemoveEnemy(gameObject);
             Destroy(gameObject);
         }
     }
 
-    private void OnEnable()
+    public virtual void DestroyGameObject()
     {
-
+        Destroy(gameObject);
     }
-
-    private void OnDisable()
-    {
-
-    }
-
 }

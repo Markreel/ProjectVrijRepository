@@ -76,6 +76,21 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3124328982344728560}
+        m_MethodName: DestroyGameObject
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1 &3124328982344728562
 GameObject:
   m_ObjectHideFlags: 0
@@ -88,7 +103,7 @@ GameObject:
   - component: {fileID: 3124328982344728560}
   m_Layer: 11
   m_Name: ParentEnemy
-  m_TagString: Untagged
+  m_TagString: Drone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -121,6 +136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdbd3180d00cc7f409c6245994aa3b9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isBoss: 0
   maxHealth: 100
   movementSpeed: 2
   damage: 20
@@ -135,6 +151,11 @@ MonoBehaviour:
   playerChecker: {fileID: 4504983306886437336}
   player: {fileID: 0}
   movementCamPrefab: {fileID: 8912183261921021121, guid: b2428478ad87a4248aa54beacf42a52a,
+    type: 3}
+  movementCam: {fileID: 0}
+  anim: {fileID: 0}
+  tempMoveSpeed: 0
+  hitParticle: {fileID: 5173453253859838431, guid: 2dfb37f98ddbe3249a0ae23ab4ea048b,
     type: 3}
 --- !u!1 &4504983306886437336
 GameObject:
@@ -242,18 +263,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3124328982344728561}
     m_Modifications:
-    - target: {fileID: 100000, guid: dd49fc1702bb64a468e00ca5c26c9a0c, type: 3}
-      propertyPath: m_Name
-      value: drone(Enemy)
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: dd49fc1702bb64a468e00ca5c26c9a0c, type: 3}
-      propertyPath: m_Layer
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 100002, guid: dd49fc1702bb64a468e00ca5c26c9a0c, type: 3}
-      propertyPath: m_Layer
-      value: 11
-      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: dd49fc1702bb64a468e00ca5c26c9a0c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -298,6 +307,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: dd49fc1702bb64a468e00ca5c26c9a0c, type: 3}
+      propertyPath: m_Name
+      value: drone(Enemy)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: dd49fc1702bb64a468e00ca5c26c9a0c, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: dd49fc1702bb64a468e00ca5c26c9a0c, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: dd49fc1702bb64a468e00ca5c26c9a0c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a3457f17a30654243baa6c4ddd506600, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd49fc1702bb64a468e00ca5c26c9a0c, type: 3}
 --- !u!1 &3124328982340478839 stripped

@@ -28,8 +28,8 @@
 	public enum BossEnemyState
 	{
 		Idle,
-		AttackingType1,
-		AttackingType2,
+		AttackingMelee,
+		AttackingRanged,
 		Moving,
 		Dead
 	}

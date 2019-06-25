@@ -54,14 +54,19 @@ public class InputManager : MonoBehaviour
 	[SerializeField] private AnimationCurve dashCurve;
 
 	[Header("AttackSettings: ")]
+	[SerializeField] private float attackDamage = 20;
 	[SerializeField] private float attackTimer = 0.5f;
 	private bool goToNextAttackState = false;
 	private EnumStorage.AttackStates currentAttackState = EnumStorage.AttackStates.None;
 
-	[Header("References: ")]
+    [Header("References: ")]
+    [SerializeField] private CinemachineVirtualCamera actualCamera;
 	[SerializeField] private GameObject rotationCam;
 	[SerializeField] private GameObject movementCam;
-	[SerializeField] private MovementTrack currentMovementTrack;
+
+	[SerializeField] private GameObject jumpParticlePrefab;
+	[SerializeField] private GameObject dashEndParticlePrefab;
+	[SerializeField] private GameObject dashStartParticlePrefab;
 
 	private Animator anim;
 	private int currentJumpAmount = 1;
@@ -72,12 +77,12 @@ public class InputManager : MonoBehaviour
 	private Transform groundChecker;
 	private bool isTurned = false;
 	private float horizontal = 0f;
-
 	private int attackNumber = 0;
-
 
 	private void Start()
 	{
+		dashStartParticlePrefab.SetActive(false);
+
 		anim = GetComponentInChildren<Animator>();
 		groundChecker = transform.GetChild(0);
 		currentDashDelay = 0;
@@ -93,10 +98,27 @@ public class InputManager : MonoBehaviour
 		}
 	}
 
-	private void HandleRotation()
+    public void SwitchToBossCamera()
+    {
+        actualCamera.GetCinemachineComponent<CinemachineTrackedDolly>().m_PathOffset = new Vector3(35, 12, 0);
+    }
+
+    //25 x //12 y
+
+    private void HandleRotation()
 	{
 		float _turnRot = isTurned ? -90 : 90;
 		transform.eulerAngles = new Vector3(0, rotationCam.transform.eulerAngles.y + _turnRot, 0);
+	}
+
+	public void JumpLandParticle()
+	{
+		ParticleInstantiator.Instance.SpawnParticle(jumpParticlePrefab, new Vector3(movementCam.transform.position.x, 1f, movementCam.transform.position.z), Vector3.zero);
+	}
+
+	public void DashEndParticle()
+	{
+		ParticleInstantiator.Instance.SpawnParticle(dashEndParticlePrefab, new Vector3(gameObject.transform.position.x, 4f, gameObject.transform.position.z), Vector3.zero);
 	}
 
 	private void HandleMovement()
@@ -117,12 +139,13 @@ public class InputManager : MonoBehaviour
 			{
 				CurrentPlayerState = EnumStorage.PlayerState.Moving;
 				isTurned = horizontal > 0 ? false : true;
-				Walk();
+				Walk(horizontal);
 			}
 			else
 			{
 				CurrentPlayerState = EnumStorage.PlayerState.Idle;
 				velocity.x = 0;
+				anim.SetFloat("Movement", 0);
 			}
 		}
 
@@ -154,15 +177,8 @@ public class InputManager : MonoBehaviour
 
 	private void HandleAttack()
 	{
-		Debug.Log(" DIT IS DE ATTACK NUMBER: " + attackNumber);
-
-		currentAttackTimer = attackTimer;
-
 		if (Input.GetMouseButtonDown(0))
 		{
-			//currentAttackTimer = attackTimer;
-			//if (currentAttackTimer == 0)
-			//	attackNumber = 0;
 			if(!goToNextAttackState)
 			{
 				currentAttackState = (int)currentAttackState < 3 ? currentAttackState+1 : EnumStorage.AttackStates.None;
@@ -170,21 +186,27 @@ public class InputManager : MonoBehaviour
 				goToNextAttackState = true;
 			}
 
-			//if(anim.GetCurrentAnimatorStateInfo(0).IsName("Fighting" + attackNumber))
-			//{
-			//	attackNumber = attackNumber < 3 ? attackNumber + 1 : 0;
-			//}
-			//else if(attackNumber == 0 || attackNumber >= 3)
-			//	attackNumber = attackNumber < 3 ? attackNumber + 1 : 3;
-			//else
-			//	attackNumber = 0;
-
 			CurrentPlayerState = EnumStorage.PlayerState.Attacking;
+			
+			List<EnemyParent> _enemyHitList = new List<EnemyParent>();
 
+			RaycastHit[] _hits = Physics.SphereCastAll(GetComponentInChildren<Renderer>().bounds.center + transform.forward / 2, 1, transform.forward, 1, attackMask);
 
+			if (_hits != null)
+			{
+				foreach (var _hit in _hits)
+				{
+					Debug.Log(_hit.transform.gameObject.name);
+					EnemyParent _enemy = _hit.transform.GetComponentInParent<EnemyParent>();
 
-			//Debug.Log("AttackNumber: " + attackNumber);
-
+					if (_enemy != null && !_enemyHitList.Contains(_enemy))
+					{
+						_enemyHitList.Add(_enemy);
+						_enemy.TakeDamage(attackDamage);
+                        AudioManager.Instance.PlayClip(AudioManager.Instance.swordHitClip);
+                    }
+				}
+			}
 			AttackingState(goToNextAttackState);
 		}
 	}
@@ -203,14 +225,13 @@ public class InputManager : MonoBehaviour
 	/// <summary>
 	/// Moves the player across the dolly track according to the given horizontal input
 	/// </summary>
-	private void Walk()
+	private void Walk(float _hor)
 	{
 		//CinemachineTrackedDolly _dolly = movementCam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>();
 		//float _pathLenght = _dolly.m_Path.PathLength;
 		//float _camPos = _dolly.m_PathPosition;
-
 		velocity.x = (isTurned ? -Time.deltaTime : Time.deltaTime) * moveSpeed;
-		anim.SetFloat("Movement", horizontal);
+		anim.SetFloat("Movement", _hor);
 
 		//anim.SetBool("isRunning", true);
 		//_dolly.m_PathPosition = _camPos;
@@ -237,7 +258,11 @@ public class InputManager : MonoBehaviour
 	private void Dash()
 	{
 		CurrentPlayerState = EnumStorage.PlayerState.Dashing;
+		dashStartParticlePrefab.SetActive(true);
 		anim.SetBool("isDashing", true);
+
+		AudioManager.Instance.PlayClip(AudioManager.Instance.dashClip);
+
 		if (dashRoutine != null) StopCoroutine(dashRoutine);
 		dashRoutine = StartCoroutine(IDash());
 	}
@@ -280,7 +305,8 @@ public class InputManager : MonoBehaviour
 					{
 						_enemyHitList.Add(_enemy);
 						DashAttackEvent += _enemy.TakeDamage;
-						yield return new WaitForSeconds(dashStutterTime);
+                        AudioManager.Instance.PlayClip(AudioManager.Instance.swordHitClip);
+                        yield return new WaitForSeconds(dashStutterTime);
 					}
 				}
 			}
@@ -288,7 +314,7 @@ public class InputManager : MonoBehaviour
 			yield return null;
 		}
 
-		anim.SetBool("isDashing", false);
+        anim.SetBool("isDashing", false);
 
 		//velocity.x = 0;
 
@@ -353,12 +379,17 @@ public class InputManager : MonoBehaviour
 
 	private void AttackingState(bool _value)
 	{
-		//anim.SetInteger("AttackStates", attackNumber);
 		anim.SetBool("GoToNextAttackState", _value);
+	}
+
+	public void FootstespAudio()
+	{
+		AudioManager.Instance.PlayClip(AudioManager.Instance.footstepsClip);
 	}
 
 	private void OnDrawGizmos()
 	{
-		Gizmos.DrawSphere(GetComponentInChildren<Renderer>().bounds.center + transform.forward / 2, 1);
+		Gizmos.DrawWireSphere(GetComponentInChildren<Renderer>().bounds.center + transform.forward / 2, 2);
+		//Gizmos.DrawSphere(GetComponentInChildren<Renderer>().bounds.center + transform.forward / 2, 1);
 	}
 }

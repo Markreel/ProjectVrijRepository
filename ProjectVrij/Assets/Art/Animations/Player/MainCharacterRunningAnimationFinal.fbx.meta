@@ -232,19 +232,19 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.12664513
+      - time: 0.14492753
         functionName: ExecuteEvent
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
-        intParameter: 0
+        intParameter: 4
         messageOptions: 0
-      - time: 0.64904755
+      - time: 0.5995544
         functionName: ExecuteEvent
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
-        intParameter: 0
+        intParameter: 4
         messageOptions: 0
       transformMask: []
       maskType: 3

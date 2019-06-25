@@ -23,4 +23,8 @@
 	{
 		base.CheckDeathState();
 	}
+	public override void DestroyGameObject()
+	{
+		base.DestroyGameObject();
+	}
 }

@@ -61,8 +61,6 @@ public class BoundaryManager : MonoBehaviour
         boundaryIsActive = false;
         boundaries[currentBoundaryIndex].Completed = true;
 
-        Debug.Log("A: " + boundaries[currentBoundaryIndex].PointA.gameObject.name + " | B: " + boundaries[currentBoundaryIndex].PointB.gameObject.name);
-
         if (boundaries[currentBoundaryIndex].Blockades[0] != null)
             boundaries[currentBoundaryIndex].Blockades[0].SetActive(false);
         if (boundaries[currentBoundaryIndex].Blockades[1] != null)

@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     public float MaxHealth { get { return maxHealth; } }
 	private float currentHealth;
 	private Animator anim;
+	[SerializeField] private UIManager uiManager;
 
     private void Awake()
     {
@@ -19,6 +20,7 @@ public class Player : MonoBehaviour
 	{
 		currentHealth -= _amount;
         PPManager.Instance.ShiftSaturation(currentHealth - maxHealth);
+        CameraShake.Instance.ApplyShake(0.2f, 10f, 1f);
         CheckDeathState();
 	}
 
@@ -35,6 +37,11 @@ public class Player : MonoBehaviour
 			InputManager.Instance.CurrentPlayerState = EnumStorage.PlayerState.Dead;
 			anim.SetBool("isDeath", true);
 		}
+	}
+
+	public void StartLoseScreen()
+	{
+		uiManager.GameOverScreen();
 	}
 
 	private void OnEnable()

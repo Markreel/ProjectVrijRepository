@@ -12,6 +12,10 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private List<SpawnPoint> spawnPoints = new List<SpawnPoint>();
     [SerializeField] private GameObject[] enemyPrefabs;
 
+    [SerializeField] private GameObject rainObject;
+
+    bool bossIsSpawned = false;
+
 
     private void Awake()
     {
@@ -21,7 +25,8 @@ public class SpawnManager : MonoBehaviour
 
         foreach (var _spawnPoint in spawnPoints)
         {
-            InstantiateEnemies(_spawnPoint);
+            if (!_spawnPoint.IsBoss)
+                InstantiateEnemies(_spawnPoint);
         }
     }
 
@@ -82,9 +87,29 @@ public class SpawnManager : MonoBehaviour
 
     public void CheckEnemyAmount()
     {
-        if(ActiveEnemiesInCurrentBoundary() == 0)
+        //SPAWN DE BOSS EN VERANDER CAMERA EN ANDERE DINGEN
+        foreach (var _spawnPoint in spawnPoints)
+        {
+            if (_spawnPoint.BoundaryIndex == BoundaryManager.Instance.CurrentBoundaryIndex && _spawnPoint.IsBoss && !bossIsSpawned)
+            {
+                InstantiateEnemies(_spawnPoint);
+                SpawnBossEffects();
+                bossIsSpawned = true;
+            }
+        }
+
+        if (ActiveEnemiesInCurrentBoundary() == 0)
         {
             BoundaryManager.Instance.LiftBoundary();
         }
+    }
+
+    void SpawnBossEffects()
+    {
+        InputManager.Instance.SwitchToBossCamera();
+        AudioManager.Instance.PlayMusic(AudioManager.Instance.BossMusicClip);
+        AudioManager.Instance.StopAmbience();
+        rainObject.SetActive(false);
+        CameraShake.Instance.ApplyShake(5, 10, 3);
     }
 }

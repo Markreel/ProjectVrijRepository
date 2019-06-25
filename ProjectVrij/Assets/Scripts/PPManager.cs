@@ -9,6 +9,7 @@ public class PPManager : MonoBehaviour
 
     private PostProcessVolume ppVolume;
     private ColorGrading colorGrading;
+    private Vignette vignette;
 
     [SerializeField] private AnimationCurve shiftSaturationCurve;
     [SerializeField] private float shiftSaturationDuration;
@@ -21,12 +22,7 @@ public class PPManager : MonoBehaviour
 
         ppVolume = GetComponent<PostProcessVolume>();
         ppVolume.profile.TryGetSettings(out colorGrading);
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Q))
-            ShiftSaturation(Random.Range(-100, 100));
+        ppVolume.profile.TryGetSettings(out vignette);
     }
 
     public void ShiftSaturation(float _value)
@@ -38,6 +34,7 @@ public class PPManager : MonoBehaviour
     IEnumerator IShiftSaturation(float _endValue)
     {
         float _startingValue = colorGrading.saturation.value;
+        float _startVignette = vignette.roundness.value;
 
         float _lerpTime = 0f;
         while (_lerpTime < 1f)
@@ -46,6 +43,9 @@ public class PPManager : MonoBehaviour
             float _lerpKey = shiftSaturationCurve.Evaluate(_lerpTime);
 
             colorGrading.saturation.value = Mathf.Lerp(_startingValue, Mathf.Clamp(_endValue,-100,100), _lerpKey);
+
+            //SMERIGE VIGNETTE FIX, VERWIJDER ALS KAPOT IS
+            vignette.roundness.value = Mathf.Lerp(_startVignette, -Mathf.Clamp((_endValue + 100) / 100, 0, 1) + 1, _lerpKey);
 
             yield return null;
         }
