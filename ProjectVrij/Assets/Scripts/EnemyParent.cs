@@ -144,7 +144,7 @@ public class EnemyParent : MonoBehaviour
     {
         currentHealth -= damage;
         InputManager.DashAttackEvent -= TakeDamage;
-        Debug.Log("DROID - DAMAGETAKEN - currenthealth: " + currentHealth);
+		AudioManager.Instance.PlayClip(AudioManager.Instance.swordHitClip);
     }
 
     public virtual void ReactivateAttackState()

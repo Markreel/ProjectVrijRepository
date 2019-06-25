@@ -17,7 +17,15 @@ public class AudioManager : MonoBehaviour
     public AudioClip DefaultAmbienceClip;
 
 	[Header("Player: ")]
-	public AudioClip footstepsPlayer;
+	public AudioClip footstepsClip;
+	public AudioClip dashClip;
+	public AudioClip swordHitClip;
+	public AudioClip swordHitClip1;
+	public AudioClip swordSwingClip;
+	public AudioClip swordSwingClip1;
+
+	[Header("Drone: ")]
+	public AudioClip damageTaken;
 
 	[Header("Music: ")]
     public AudioClip DefaultMusicClip;

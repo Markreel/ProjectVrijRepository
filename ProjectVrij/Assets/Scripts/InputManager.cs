@@ -77,10 +77,7 @@ public class InputManager : MonoBehaviour
 	private Transform groundChecker;
 	private bool isTurned = false;
 	private float horizontal = 0f;
-	[SerializeField] AudioClip footStepsClip;
-
 	private int attackNumber = 0;
-
 
 	private void Start()
 	{
@@ -263,6 +260,8 @@ public class InputManager : MonoBehaviour
 		dashStartParticlePrefab.SetActive(true);
 		anim.SetBool("isDashing", true);
 
+		AudioManager.Instance.PlayClip(AudioManager.Instance.dashClip);
+
 		if (dashRoutine != null) StopCoroutine(dashRoutine);
 		dashRoutine = StartCoroutine(IDash());
 	}
@@ -383,7 +382,7 @@ public class InputManager : MonoBehaviour
 
 	public void FootstespAudio()
 	{
-		AudioManager.Instance.PlayClip(AudioManager.Instance.footstepsPlayer);
+		AudioManager.Instance.PlayClip(AudioManager.Instance.footstepsClip);
 	}
 
 	private void OnDrawGizmos()
